@@ -1,46 +1,16 @@
 'use client'
 
-import { useCallback, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Section, FadeIn } from './section'
 import { ArrowRight, Sparkles } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { useConsultation } from './consultation-provider'
-
-function SpotlightButton({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  const ref = useRef<HTMLButtonElement>(null)
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    const el = ref.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
-    el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
-  }, [])
-
-  return (
-    <button
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      {...props}
-    >
-      <span
-        className="pointer-events-none absolute inset-0 rounded-xl"
-        style={{
-          background: 'radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), oklch(0.627 0.194 149.21 / 15%), transparent 60%)',
-        }}
-        aria-hidden="true"
-      />
-      <span className="relative z-10 flex items-center">{children}</span>
-    </button>
-  )
-}
 
 export function FinalCtaSection() {
   const { openConsultation } = useConsultation()
 
   return (
-    <Section id="consultation" background="navy" className="relative overflow-hidden">
+    <Section id="consultation" background="navy" className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
         {/* Background image with dark overlay */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <Image
@@ -72,36 +42,6 @@ export function FinalCtaSection() {
           style={{ filter: 'blur(80px)' }}
         />
 
-        {/* Floating gradient orbs */}
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-[20%] left-[8%] h-24 w-24 rounded-full bg-velora-emerald opacity-[0.12]"
-          style={{ filter: 'blur(40px)' }}
-          animate={{ y: [0, -18, 0], x: [0, 8, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-[15%] right-[12%] h-20 w-20 rounded-full bg-velora-sky opacity-[0.10]"
-          style={{ filter: 'blur(36px)' }}
-          animate={{ y: [0, 14, 0], x: [0, -10, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-        />
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-[20%] left-[15%] h-16 w-16 rounded-full bg-velora-violet opacity-[0.10]"
-          style={{ filter: 'blur(32px)' }}
-          animate={{ y: [0, -12, 0], x: [0, 12, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-        />
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-[25%] right-[8%] h-20 w-20 rounded-full bg-velora-emerald opacity-[0.08]"
-          style={{ filter: 'blur(36px)' }}
-          animate={{ y: [0, 16, 0], x: [0, -6, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        />
-
         {/* Vignette overlay — darker edges, lighter center */}
         <div
           aria-hidden="true"
@@ -127,25 +67,20 @@ export function FinalCtaSection() {
 
           <FadeIn delay={0.2}>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <SpotlightButton
+              <button
+                type="button"
                 onClick={openConsultation}
-                className="relative overflow-hidden h-12 px-8 rounded-xl bg-velora-emerald hover:bg-velora-emerald-dark text-white text-base font-medium shadow-lg shadow-velora-emerald/20 transition-all duration-300 hover:shadow-xl hover:shadow-velora-emerald/30 hover:-translate-y-0.5 active:scale-[0.98]"
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-velora-emerald px-8 text-base font-medium text-white shadow-lg shadow-velora-emerald/20 transition-[background-color,box-shadow,transform] duration-150 hover:bg-velora-emerald-dark hover:shadow-xl hover:shadow-velora-emerald/30 active:scale-[0.97]"
               >
-                Request a Free Consultation
+                Request a Consultation
                 <ArrowRight className="ml-2 w-4 h-4" />
-              </SpotlightButton>
-              <a
-                href="#demo"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document
-                    .getElementById('demo')
-                    ?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="h-12 px-8 rounded-xl border border-white/20 text-white/80 text-base font-medium hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300 inline-flex items-center justify-center"
+              </button>
+              <Link
+                href="/resources/demo"
+                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/20 px-8 text-base font-medium text-white/80 transition-[background-color,border-color,color,transform] duration-150 hover:border-white/30 hover:bg-white/10 hover:text-white active:scale-[0.97]"
               >
                 Try the Guided Demo
-              </a>
+              </Link>
             </div>
           </FadeIn>
 

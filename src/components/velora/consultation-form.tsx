@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { CheckCircle2, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -34,6 +34,7 @@ type SubmitState =
   | { status: 'success'; message: string; reference: string }
 
 export function ConsultationForm({ source = 'website-consultation' }: { source?: string }) {
+  const idPrefix = useId()
   const [state, setState] = useState<SubmitState>({ status: 'idle', message: '' })
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -115,34 +116,34 @@ export function ConsultationForm({ source = 'website-consultation' }: { source?:
     <form onSubmit={handleSubmit} className="mt-5 space-y-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="firstName">First name</Label>
-          <Input id="firstName" name="firstName" autoComplete="given-name" required maxLength={80} />
+          <Label htmlFor={`${idPrefix}-firstName`}>First name</Label>
+          <Input id={`${idPrefix}-firstName`} name="firstName" autoComplete="given-name" required maxLength={80} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="lastName">Last name</Label>
-          <Input id="lastName" name="lastName" autoComplete="family-name" required maxLength={80} />
+          <Label htmlFor={`${idPrefix}-lastName`}>Last name</Label>
+          <Input id={`${idPrefix}-lastName`} name="lastName" autoComplete="family-name" required maxLength={80} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="email">Work email</Label>
-        <Input id="email" name="email" type="email" autoComplete="email" required maxLength={254} />
+        <Label htmlFor={`${idPrefix}-email`}>Work email</Label>
+        <Input id={`${idPrefix}-email`} name="email" type="email" autoComplete="email" required maxLength={254} />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="phone">Phone <span className="text-muted-foreground">(optional)</span></Label>
-        <Input id="phone" name="phone" type="tel" autoComplete="tel" maxLength={30} />
+        <Label htmlFor={`${idPrefix}-phone`}>Phone <span className="text-muted-foreground">(optional)</span></Label>
+        <Input id={`${idPrefix}-phone`} name="phone" type="tel" autoComplete="tel" maxLength={30} />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="company">Company</Label>
-        <Input id="company" name="company" autoComplete="organization" required maxLength={120} />
+        <Label htmlFor={`${idPrefix}-company`}>Company</Label>
+        <Input id={`${idPrefix}-company`} name="company" autoComplete="organization" required maxLength={120} />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="industry">Industry</Label>
+        <Label htmlFor={`${idPrefix}-industry`}>Industry</Label>
         <select
-          id="industry"
+          id={`${idPrefix}-industry`}
           name="industry"
           required
           defaultValue=""
@@ -154,9 +155,9 @@ export function ConsultationForm({ source = 'website-consultation' }: { source?:
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="budget">Implementation budget <span className="text-muted-foreground">(optional)</span></Label>
+        <Label htmlFor={`${idPrefix}-budget`}>Implementation budget <span className="text-muted-foreground">(optional)</span></Label>
         <select
-          id="budget"
+          id={`${idPrefix}-budget`}
           name="budget"
           defaultValue=""
           className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -167,13 +168,13 @@ export function ConsultationForm({ source = 'website-consultation' }: { source?:
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="notes">What workflow would you like to improve?</Label>
-        <Textarea id="notes" name="notes" rows={4} maxLength={2000} />
+        <Label htmlFor={`${idPrefix}-notes`}>What workflow would you like to improve?</Label>
+        <Textarea id={`${idPrefix}-notes`} name="notes" rows={4} maxLength={2000} />
       </div>
 
       <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-        <Label htmlFor="website">Website</Label>
-        <Input id="website" name="website" tabIndex={-1} autoComplete="off" />
+        <Label htmlFor={`${idPrefix}-website`}>Website</Label>
+        <Input id={`${idPrefix}-website`} name="website" tabIndex={-1} autoComplete="off" />
       </div>
 
       <label className="flex items-start gap-3 rounded-lg border border-border/60 bg-muted/20 p-3 text-xs leading-relaxed text-muted-foreground">
@@ -202,7 +203,7 @@ export function ConsultationForm({ source = 'website-consultation' }: { source?:
         className="h-11 w-full rounded-xl bg-velora-emerald text-white hover:bg-velora-emerald-dark"
         disabled={pending}
       >
-        {pending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving request...</> : 'Request a Free Consultation'}
+        {pending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving request...</> : 'Request a Consultation'}
       </Button>
       <p className="text-center text-xs text-muted-foreground">
         No purchase required. Submitting this form does not subscribe you to marketing email.

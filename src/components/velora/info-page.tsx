@@ -13,12 +13,6 @@ export function InfoPage({
 }) {
   return (
     <main id="main-content" className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
-          <Link href="/" className="font-semibold tracking-tight">Velora Innovations</Link>
-          <Link href="/contact" className="text-sm font-medium text-velora-emerald hover:underline">Contact</Link>
-        </div>
-      </header>
       <article className="mx-auto max-w-3xl px-5 py-14 sm:py-20">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-velora-emerald">{eyebrow}</p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>

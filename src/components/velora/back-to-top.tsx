@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { ArrowUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import {
   Tooltip,
   TooltipTrigger,
@@ -12,6 +12,7 @@ import {
 
 export function BackToTop() {
   const [isVisible, setIsVisible] = useState(false)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,7 +23,7 @@ export function BackToTop() {
   }, [])
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
   }
 
   return (
@@ -31,18 +32,18 @@ export function BackToTop() {
         <Tooltip>
           <TooltipTrigger asChild>
             <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               onClick={scrollToTop}
               className={cn(
-                'fixed bottom-20 right-6 z-45 w-10 h-10 rounded-full lg:bottom-6',
+                'fixed bottom-20 right-5 z-45 h-11 w-11 rounded-full sm:right-6 lg:bottom-6',
                 'bg-card border border-velora-border/60 shadow-lg shadow-black/[0.08]',
                 'flex items-center justify-center',
                 'text-velora-emerald/60 hover:text-velora-emerald hover:border-velora-emerald/30',
-                'transition-colors duration-200',
-                'active:scale-95'
+                'transition-[border-color,color,transform] duration-150',
+                'active:scale-[0.97]'
               )}
               aria-label="Scroll back to top"
             >

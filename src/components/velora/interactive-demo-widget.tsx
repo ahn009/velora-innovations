@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView, useReducedMotion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
 interface ChatMessage {
@@ -130,6 +130,7 @@ interface InteractiveDemoWidgetProps {
 }
 
 export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetProps) {
+  const reduceMotion = useReducedMotion()
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, margin: '-80px' })
   const [visibleMessages, setVisibleMessages] = useState<number>(0)
@@ -137,6 +138,9 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
   const [showConfirmed, setShowConfirmed] = useState(false)
   const hasStartedRef = useRef(false)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const displayedMessageCount = reduceMotion ? MESSAGES.length : visibleMessages
+  const displayedTyping = reduceMotion ? false : showTyping
+  const displayedConfirmation = reduceMotion ? true : showConfirmed
 
   const scrollToBottom = useCallback(() => {
     if (scrollRef.current) {
@@ -148,6 +152,9 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
     if (!isInView || hasStartedRef.current) return
     hasStartedRef.current = true
 
+    if (reduceMotion) {
+      return
+    }
 
     const timeoutIds: ReturnType<typeof setTimeout>[] = []
 
@@ -184,13 +191,13 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
     return () => {
       timeoutIds.forEach(clearTimeout)
     }
-  }, [isInView])
+  }, [isInView, reduceMotion])
 
   // Auto-scroll to bottom when new content appears
   useEffect(() => {
     const timer = setTimeout(scrollToBottom, 50)
     return () => clearTimeout(timer)
-  }, [visibleMessages, showTyping, showConfirmed, scrollToBottom])
+  }, [displayedMessageCount, displayedTyping, displayedConfirmation, scrollToBottom])
 
   return (
     <div ref={containerRef} className="relative">
@@ -198,7 +205,7 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
       <div className="flex items-center gap-2 mb-4">
         <span className="inline-flex items-center gap-2 rounded-full bg-velora-emerald/10 border border-velora-emerald/20 px-3 py-1.5 text-xs font-semibold text-velora-emerald">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-velora-emerald opacity-75" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-velora-emerald opacity-75 motion-reduce:hidden" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-velora-emerald" />
           </span>
           Guided Sample
@@ -249,24 +256,24 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
 
           {/* Chat messages */}
           <AnimatePresence mode="popLayout">
-            {MESSAGES.slice(0, visibleMessages).map((msg, i) => (
+            {MESSAGES.slice(0, displayedMessageCount).map((msg, i) => (
               <ChatBubble key={i} message={msg} />
             ))}
           </AnimatePresence>
 
           {/* Typing indicator */}
-          <AnimatePresence>{showTyping && <TypingIndicator />}</AnimatePresence>
+          <AnimatePresence>{displayedTyping && <TypingIndicator />}</AnimatePresence>
 
           {/* Confirmation banner */}
           <AnimatePresence>
-            {showConfirmed && <ConfirmedBanner />}
+            {displayedConfirmation && <ConfirmedBanner />}
           </AnimatePresence>
         </div>
       </div>
 
       {/* See Full Demo button */}
       <AnimatePresence>
-        {showConfirmed && (
+        {displayedConfirmation && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -276,10 +283,10 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
             <button
               type="button"
               onClick={onSeeFullDemo}
-              className="inline-flex items-center gap-2 text-sm font-medium text-velora-emerald hover:text-velora-emerald-dark transition-colors duration-200 group/btn"
+              className="group/btn inline-flex min-h-10 items-center gap-2 text-sm font-medium text-velora-emerald transition-[color,transform] duration-150 hover:text-velora-emerald-dark active:scale-[0.97]"
             >
               Discuss This Workflow
-              <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" />
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-150 ease-out group-hover/btn:translate-x-0.5" />
             </button>
           </motion.div>
         )}

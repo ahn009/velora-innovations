@@ -36,12 +36,13 @@ function SliderInput({ label, value, onChange, min, max, step, prefix = '', suff
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-foreground/80">{label}</label>
+        <span className="text-sm font-medium text-foreground/80">{label}</span>
         <span className="text-sm font-semibold text-velora-emerald tabular-nums bg-velora-emerald/8 px-2.5 py-0.5 rounded-md">
           {displayValue}
         </span>
       </div>
       <Slider
+        aria-label={label}
         value={[value]}
         onValueChange={([v]) => onChange(v)}
         min={min}
@@ -109,14 +110,15 @@ export function RoiCalculator() {
         <FadeIn>
           <SectionHeading
             label="Opportunity Model"
-            title="Model the Size of a Missed-Enquiry Problem"
+            title="Adjust the Assumptions"
+            description="Change the inputs below to understand the arithmetic behind the scenario. Treat the result as a planning prompt, not a forecast."
           />
         </FadeIn>
 
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Inputs panel — glass card */}
-            <div className="rounded-2xl border border-velora-border/60 bg-white/60 backdrop-blur-xl shadow-[0_2px_24px_rgba(0,0,0,0.04)] p-6 sm:p-8 space-y-7">
+            <div className="space-y-7 rounded-2xl border border-velora-border/60 bg-white/60 p-6 shadow-[0_2px_24px_rgba(0,0,0,0.04)] backdrop-blur-xl sm:p-8 dark:border-border/60 dark:bg-card/80 dark:shadow-[0_2px_24px_rgba(0,0,0,0.2)]">
               <div>
                 <h3 className="text-base font-semibold text-foreground mb-1">Your Business Inputs</h3>
                 <p className="text-sm text-muted-foreground">Use your own inputs. This is a scenario model, not a result forecast.</p>

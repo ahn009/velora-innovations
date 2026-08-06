@@ -1,7 +1,6 @@
 'use client'
 
 import { Search, PenTool, Hammer, TestTube, Rocket, TrendingUp } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { Section, SectionHeading, StaggerContainer, StaggerItem } from './section'
 
 const steps = [
@@ -48,85 +47,6 @@ const steps = [
       'Review performance and improve prompts, routing, knowledge and workflows.',
   },
 ] as const
-
-/** SVG connector definitions for the 3x2 desktop grid.
- *  ViewBox maps to the grid area with preserveAspectRatio="none"
- *  so coordinates stretch proportionally to the actual grid size. */
-const connectors = [
-  // 1→2 horizontal (top row)
-  {
-    path: 'M 312 94 L 348 94',
-    arrow: '348 94, 336 88, 336 100',
-  },
-  // 2→3 horizontal (top row)
-  {
-    path: 'M 652 94 L 688 94',
-    arrow: '688 94, 676 88, 676 100',
-  },
-  // 3→4 curved (row 1 right → row 2 left)
-  {
-    path: 'M 840 182 C 500 182, 160 195, 160 218',
-    arrow: '160 218, 154 206, 166 206',
-  },
-  // 4→5 horizontal (bottom row)
-  {
-    path: 'M 312 306 L 348 306',
-    arrow: '348 306, 336 300, 336 312',
-  },
-  // 5→6 horizontal (bottom row)
-  {
-    path: 'M 652 306 L 688 306',
-    arrow: '688 306, 676 300, 676 312',
-  },
-] as const
-
-function StepConnectors() {
-  return (
-    <svg
-      viewBox="0 0 1000 400"
-      preserveAspectRatio="none"
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      aria-hidden="true"
-    >
-      {connectors.map((conn, i) => (
-        <g key={i}>
-          {/* Connector line */}
-          <motion.path
-            d={conn.path}
-            fill="none"
-            stroke="var(--velora-emerald)"
-            strokeWidth={2}
-            strokeLinecap="round"
-            opacity={0.3}
-            initial={{ pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{
-              duration: 0.6,
-              delay: 0.8 + i * 0.12,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          />
-          {/* Arrow head */}
-          <motion.polygon
-            points={conn.arrow}
-            fill="var(--velora-emerald)"
-            opacity={0.3}
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 0.3, scale: 1 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{
-              duration: 0.3,
-              delay: 0.8 + i * 0.12 + 0.4,
-              ease: 'easeOut',
-            }}
-            style={{ transformOrigin: conn.arrow.split(',')[0].trim() + ' ' + conn.arrow.split(',')[1].trim() }}
-          />
-        </g>
-      ))}
-    </svg>
-  )
-}
 
 export function HowItWorksSection() {
   return (
@@ -179,24 +99,19 @@ export function HowItWorksSection() {
         })}
       </StaggerContainer>
 
-      {/* Desktop: 3x2 grid with animated connectors */}
+      {/* Desktop: numbered 3x2 process grid */}
       <div className="hidden lg:block relative">
-        {/* Decorative vertical timeline line on the left */}
-        <div
-          className="absolute left-[38px] top-8 bottom-8 w-px bg-velora-emerald/20 hidden md:block"
-          aria-hidden="true"
-        />
         <StaggerContainer className="grid grid-cols-3 gap-6">
           {steps.map((step) => {
             const Icon = step.icon
             return (
               <StaggerItem key={step.title}>
-                <div className="relative bg-white dark:bg-card rounded-xl border border-velora-border dark:border-border p-6 h-full group hover:border-velora-emerald/25 hover:shadow-lg hover:shadow-velora-emerald/5 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
+                <div className="relative h-full overflow-hidden rounded-xl border border-velora-border bg-white p-6 shadow-sm dark:border-border dark:bg-card">
                   <span className="text-6xl font-bold text-velora-emerald/20 leading-none select-none absolute top-4 left-6">
                     {step.number}
                   </span>
                   <div className="relative z-10 pt-10">
-                    <div className="w-10 h-10 rounded-lg bg-velora-emerald/10 text-velora-emerald flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-velora-emerald/10 text-velora-emerald">
                       <Icon className="w-5 h-5" />
                     </div>
                     <h3 className="text-base font-semibold mt-3">{step.title}</h3>
@@ -209,7 +124,6 @@ export function HowItWorksSection() {
             )
           })}
         </StaggerContainer>
-        <StepConnectors />
       </div>
     </Section>
   )

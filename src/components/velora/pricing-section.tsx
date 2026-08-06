@@ -1,10 +1,9 @@
 'use client'
 
 import { Section, SectionHeading, FadeIn, StaggerContainer, StaggerItem } from './section'
-import { Check, Minus } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { TiltCard } from './tilt-card'
 import { useConsultation } from './consultation-provider'
 
 interface PricingTier {
@@ -30,7 +29,7 @@ const tiers: PricingTier[] = [
       { text: 'Limited integrations', included: true },
       { text: 'Standard reporting', included: true },
       { text: 'Initial testing', included: true },
-      { text: 'Monthly monitoring', included: true },
+      { text: 'Launch monitoring period', included: true },
       { text: 'Multi-agent architecture', included: false },
       { text: 'Custom reporting', included: false },
       { text: 'Dedicated support', included: false },
@@ -50,7 +49,7 @@ const tiers: PricingTier[] = [
       { text: 'Follow-up sequences', included: true },
       { text: 'Human handoff', included: true },
       { text: 'Enhanced reporting', included: true },
-      { text: 'Ongoing optimization', included: true },
+      { text: 'Initial optimization review', included: true },
       { text: 'Multi-agent architecture', included: false },
       { text: 'Dedicated support', included: false },
     ],
@@ -103,7 +102,6 @@ export function PricingSection() {
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {tiers.map((tier) => (
             <StaggerItem key={tier.name}>
-              <TiltCard>
               <div
                 className={cn(
                   'relative rounded-2xl border p-6 lg:p-7 flex flex-col h-full',
@@ -137,22 +135,13 @@ export function PricingSection() {
                 </div>
 
                 <ul className="mt-6 space-y-3 flex-1" role="list">
-                  {tier.features.map((feature) => (
+                  {tier.features.filter((feature) => feature.included).map((feature) => (
                     <li
                       key={feature.text}
                       className="flex items-start gap-2.5"
                     >
-                      {feature.included ? (
-                        <Check className="w-4 h-4 text-velora-emerald shrink-0 mt-0.5" />
-                      ) : (
-                        <Minus className="w-4 h-4 text-muted-foreground/40 shrink-0 mt-0.5" />
-                      )}
-                      <span
-                        className={cn(
-                          'text-sm leading-relaxed',
-                          feature.included ? 'text-foreground' : 'text-muted-foreground/50'
-                        )}
-                      >
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-velora-emerald" />
+                      <span className="text-sm leading-relaxed text-foreground">
                         {feature.text}
                       </span>
                     </li>
@@ -162,7 +151,7 @@ export function PricingSection() {
                 <Button
                   onClick={openConsultation}
                   className={cn(
-                    'w-full mt-8 h-11 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.98]',
+                    'mt-8 h-11 w-full rounded-xl text-sm font-medium transition-[background-color,box-shadow,transform] duration-150 active:scale-[0.97]',
                     tier.highlight
                       ? 'bg-velora-emerald hover:bg-velora-emerald-dark text-white shadow-lg shadow-velora-emerald/20'
                       : 'bg-velora-navy hover:bg-velora-navy-light text-white shadow-sm'
@@ -172,7 +161,6 @@ export function PricingSection() {
                   {tier.cta}
                 </Button>
               </div>
-              </TiltCard>
             </StaggerItem>
           ))}
         </StaggerContainer>

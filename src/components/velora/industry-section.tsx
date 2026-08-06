@@ -5,49 +5,43 @@ import Image from 'next/image'
 
 const industries = [
   {
+    id: 'home-services',
     title: 'Home Services',
     badge: 'Home Services',
     description:
-      'Capture after-hours calls, qualify service requests and schedule jobs automatically — so you never miss a lead.',
+      'Structure after-hours enquiries, qualify service requests and coordinate suitable booking options.',
     image: '/images/industry-home-services.png',
     gradient: 'from-velora-amber/70 via-velora-amber/40 to-transparent',
-    accentBg: 'bg-velora-amber',
     accentLine: 'bg-gradient-to-r from-velora-amber to-velora-amber/30',
     badgeBg: 'bg-velora-amber/20',
     badgeText: 'text-velora-amber',
     badgeBorder: 'border-velora-amber/30',
-    hoverBorder: 'hover:border-velora-amber/25',
-    hoverShadow: 'hover:shadow-[0_8px_30px_rgba(217,158,46,0.12)]',
   },
   {
+    id: 'property-management',
     title: 'Property Management',
     badge: 'Property',
     description:
       'Collect tenant and prospect enquiries, categorize requests, schedule viewings and route urgent issues to a person.',
     image: '/images/industry-realestate.png',
     gradient: 'from-velora-teal/70 via-velora-teal/40 to-transparent',
-    accentBg: 'bg-velora-teal',
     accentLine: 'bg-gradient-to-r from-velora-teal to-velora-teal/30',
     badgeBg: 'bg-velora-teal/20',
     badgeText: 'text-velora-teal',
     badgeBorder: 'border-velora-teal/30',
-    hoverBorder: 'hover:border-velora-teal/25',
-    hoverShadow: 'hover:shadow-[0_8px_30px_rgba(20,184,140,0.12)]',
   },
   {
+    id: 'real-estate',
     title: 'Real Estate',
     badge: 'Real Estate',
     description:
-      'Qualify buyer leads, schedule viewings, answer property questions and nurture prospects through the funnel.',
+      'Collect approved buyer details, coordinate viewing requests, answer sourced property questions and route prospects.',
     image: '/images/industry-realestate.png',
     gradient: 'from-velora-sky/70 via-velora-sky/40 to-transparent',
-    accentBg: 'bg-velora-sky',
     accentLine: 'bg-gradient-to-r from-velora-sky to-velora-sky/30',
     badgeBg: 'bg-velora-sky/20',
     badgeText: 'text-velora-sky',
     badgeBorder: 'border-velora-sky/30',
-    hoverBorder: 'hover:border-velora-sky/25',
-    hoverShadow: 'hover:shadow-[0_8px_30px_rgba(14,165,233,0.12)]',
   },
 ] as const
 
@@ -93,12 +87,9 @@ export function IndustrySection() {
             return (
               <SlideComponent key={industry.title}>
                 <div
+                  id={industry.id}
                   className={`
-                    group relative bg-white dark:bg-card rounded-xl border border-velora-border dark:border-border overflow-hidden cursor-pointer h-full
-                    transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-                    hover:-translate-y-0.5 hover:shadow-lg dark:hover:shadow-lg dark:hover:shadow-black/[0.2] shadow-sm
-                    hover:border-velora-emerald/30
-                    ${industry.hoverBorder} ${industry.hoverShadow}
+                    relative h-full scroll-mt-24 overflow-hidden rounded-xl border border-velora-border bg-white shadow-sm dark:border-border dark:bg-card
                   `}
                 >
                   {/* Image container — ~60% of card */}
@@ -109,7 +100,7 @@ export function IndustrySection() {
                       alt={industry.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 rounded-t-xl"
+                      className="rounded-t-xl object-cover"
                     />
                     {/* Colored gradient overlay */}
                     <div

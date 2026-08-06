@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import {
   Section,
   SectionHeading,
@@ -19,46 +18,47 @@ import {
   RefreshCw,
   type LucideIcon,
 } from 'lucide-react'
+import { SecurityControlVisual } from './workflow-visuals'
 
 const features: { title: string; description: string; icon: LucideIcon }[] = [
   {
     title: 'Approved Knowledge',
-    description: 'Agents use only approved information sources.',
+    description: 'Approved information sources are documented for the workflow.',
     icon: Shield,
   },
   {
     title: 'Restricted Topics',
-    description: 'Clear boundaries prevent unauthorized responses.',
+    description: 'Boundaries limit unsupported or unauthorized responses.',
     icon: AlertTriangle,
   },
   {
     title: 'Human Escalation',
-    description: 'Seamless transfer to team members when needed.',
+    description: 'An agreed transfer path routes exceptions to a person.',
     icon: UserCog,
   },
   {
     title: 'Access Controls',
-    description: 'Role-based permissions for every user.',
+    description: 'Available roles and permissions are mapped to the workflow.',
     icon: Key,
   },
   {
     title: 'Conversation Logs',
-    description: 'Full audit trail of every interaction.',
+    description: 'Logging scope depends on the selected channels and vendors.',
     icon: FileText,
   },
   {
     title: 'Monitoring',
-    description: 'Real-time oversight of agent performance.',
+    description: 'Operational review signals are agreed before launch.',
     icon: Eye,
   },
   {
     title: 'Data Retention',
-    description: 'Configurable retention and deletion policies.',
+    description: 'Retention and deletion settings are documented where supported.',
     icon: Server,
   },
   {
     title: 'Continuous Updates',
-    description: 'Regular prompt and knowledge improvements.',
+    description: 'Prompt and knowledge changes follow an agreed review process.',
     icon: RefreshCw,
   },
 ]
@@ -80,9 +80,9 @@ export function SecuritySection() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               {features.map(({ title, description, icon: Icon }) => (
               <StaggerItem key={title}>
-                <div className="flex items-start gap-3 p-4 rounded-lg group hover:bg-white/[0.07] transition-colors duration-300 cursor-default">
+                <div className="flex items-start gap-3 rounded-lg p-4">
                   <div
-                    className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10"
                   >
                     <Icon className="w-4 h-4 text-velora-emerald-light" />
                   </div>
@@ -110,15 +110,7 @@ export function SecuritySection() {
                   filter: 'blur(40px)',
                 }}
               />
-              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/30 backdrop-blur-sm">
-                <Image
-                  src="/images/security-visual.png"
-                  alt="Illustrative security-control checklist for access, logging, retention, and monitoring"
-                  width={1024}
-                  height={1024}
-                  className="w-full h-auto"
-                />
-              </div>
+              <SecurityControlVisual />
             </div>
           </FadeIn>
         </div>

@@ -2,7 +2,6 @@
 
 import { PhoneMissed, Clock, Repeat, UserX, Unplug, Users } from 'lucide-react'
 import { Section, SectionHeading, StaggerContainer, StaggerItem } from './section'
-import { CardShine } from './card-shine'
 import { MeshGradient } from './mesh-gradient'
 
 const problems = [
@@ -16,7 +15,7 @@ const problems = [
     icon: Clock,
     title: 'Slow Lead Response',
     description:
-      'Qualified leads lose interest or contact a competitor before receiving a response. Speed of response directly affects conversion.',
+      'Qualified leads may lose interest or contact a competitor before receiving a response. Slow responses can reduce conversion opportunities.',
   },
   {
     icon: Repeat,
@@ -40,7 +39,7 @@ const problems = [
     icon: Users,
     title: 'Limited Team Capacity',
     description:
-      'The team spends valuable time on routine coordination rather than high-value work. Growth should not require proportional hiring.',
+      'The team spends valuable time on routine coordination rather than higher-value work, which can make growth harder to support.',
   },
 ] as const
 
@@ -61,9 +60,8 @@ export function ProblemSection() {
           const Icon = problem.icon
           return (
             <StaggerItem key={problem.title}>
-              <div className="relative flex flex-col h-full bg-white dark:bg-card rounded-2xl border border-velora-border/50 dark:border-border/50 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:shadow-lg hover:shadow-black/[0.06] hover:border-red-200/60 dark:hover:border-red-800/40 hover:-translate-y-0.5 transition-all duration-300 group overflow-hidden">
-                <CardShine />
-                <div className="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-950/50 text-red-500 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+              <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-velora-border/50 bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:border-border/50 dark:bg-card dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-500 dark:bg-red-950/50">
                   <Icon className="w-5 h-5" />
                 </div>
                 <h3 className="text-base font-semibold mt-4">

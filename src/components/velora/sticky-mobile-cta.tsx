@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useConsultation } from './consultation-provider'
 
 export function StickyMobileCta() {
   const { openConsultation } = useConsultation()
+  const reduceMotion = useReducedMotion()
   const [visible, setVisible] = useState(false)
   const heroRef = useRef<HTMLElement | null>(null)
 
@@ -31,10 +32,10 @@ export function StickyMobileCta() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 56 }}
+          initial={reduceMotion ? false : { y: 56 }}
           animate={{ y: 0 }}
           exit={{ y: 56 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+          transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 30 }}
           className="fixed bottom-0 left-0 right-0 z-40 lg:hidden"
           role="complementary"
           aria-label="Quick action bar"
@@ -45,7 +46,7 @@ export function StickyMobileCta() {
             </span>
             <button
               onClick={openConsultation}
-              className="inline-flex items-center justify-center h-9 px-5 rounded-lg bg-velora-emerald text-white text-sm font-medium hover:bg-velora-emerald/90 active:scale-[0.97] transition-all duration-150"
+              className="inline-flex h-10 items-center justify-center rounded-lg bg-velora-emerald px-5 text-sm font-medium text-white transition-[background-color,transform] duration-150 hover:bg-velora-emerald-dark active:scale-[0.97]"
             >
               Request a Consultation
             </button>

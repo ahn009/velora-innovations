@@ -93,14 +93,14 @@ export function FaqSection() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search questions..."
-            className="w-full h-11 pl-10 pr-10 rounded-xl border border-velora-border/50 dark:border-border/50 bg-white dark:bg-card text-sm text-foreground placeholder:text-muted-foreground/50 shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] focus:outline-none focus:ring-2 focus:ring-velora-emerald/20 focus:border-velora-emerald/30 transition-all duration-200"
+            className="h-11 w-full rounded-xl border border-velora-border/50 bg-white pl-10 pr-12 text-sm text-foreground shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-[border-color,box-shadow] duration-150 placeholder:text-muted-foreground/50 focus:border-velora-emerald/30 focus:outline-none focus:ring-2 focus:ring-velora-emerald/20 dark:border-border/50 dark:bg-card dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)]"
             aria-label="Search frequently asked questions"
           />
           {search && (
             <button
               type="button"
               onClick={() => setSearch('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-muted/80 hover:bg-muted flex items-center justify-center text-muted-foreground/60 hover:text-foreground transition-colors duration-150"
+              className="absolute right-1.5 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg bg-muted/70 text-muted-foreground transition-[background-color,color,transform] duration-150 hover:bg-muted hover:text-foreground active:scale-[0.97]"
               aria-label="Clear search"
             >
               <X className="w-3 h-3" />
@@ -117,7 +117,7 @@ export function FaqSection() {
               <AccordionItem
                 key={faq.question}
                 value={itemValue}
-                className="bg-white dark:bg-card rounded-xl border border-velora-border/50 dark:border-border/50 shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] data-[state=open]:border-velora-emerald/20 data-[state=open]:shadow-[0_2px_12px_rgba(0,0,0,0.04)] dark:data-[state=open]:shadow-[0_2px_12px_rgba(0,0,0,0.2)] data-[state=open]:bg-white dark:data-[state=open]:bg-card transition-all duration-300 overflow-hidden"
+                className="overflow-hidden rounded-xl border border-velora-border/50 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-[border-color,box-shadow] duration-200 data-[state=open]:border-velora-emerald/20 data-[state=open]:bg-white data-[state=open]:shadow-[0_2px_12px_rgba(0,0,0,0.04)] dark:border-border/50 dark:bg-card dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] dark:data-[state=open]:bg-card dark:data-[state=open]:shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
               >
                 <AccordionTrigger className="text-left text-[15px] font-medium text-foreground/80 hover:text-foreground hover:no-underline py-5 px-6 transition-colors duration-200 [&>svg]:text-foreground/60 [&>svg]:transition-transform [&>svg]:duration-300 data-[state=open]:[&>svg]:rotate-180 data-[state=open]:text-foreground">
                   {faq.question}

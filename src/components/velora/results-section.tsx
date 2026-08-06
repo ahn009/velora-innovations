@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { ArrowRight, CalendarCheck2, Headphones, Home } from 'lucide-react'
 import {
   Section,
   SectionHeading,
@@ -12,60 +12,54 @@ const projects = [
     title: 'AI Receptionist for Home Services',
     description:
       'Illustrative workflow: a home-service company routes after-hours enquiries through structured intake, service-area checks, and scheduling.',
-    image: '/images/result-home-services.png',
-    accent: 'velora-amber',
+    icon: Headphones,
+    flow: ['Enquiry', 'Service check', 'Team handoff'],
     gradientFrom: 'from-velora-amber/80',
     gradientVia: 'via-velora-amber/40',
     dotColor: 'bg-velora-amber',
     badgeBg: 'bg-velora-amber/10',
     badgeText: 'text-velora-amber',
-    borderColor: 'hover:border-velora-amber/30',
-    shadowColor: 'hover:shadow-[0_8px_30px_rgba(234,179,8,0.12)]',
     statHighlight: 'After-hours intake',
     metrics: [
-      'After-hours calls captured instantly',
-      'Service area qualification automated',
-      'Jobs scheduled directly into system',
+      'After-hours enquiries enter one defined intake path',
+      'Service-area rules can be checked before routing',
+      'Exceptions are handed to a responsible person',
     ],
   },
   {
     title: 'Lead Qualification for Real Estate',
     description:
       'Illustrative workflow: a real-estate team consolidates enquiries, collects approved qualification details, and routes prospects to an available person.',
-    image: '/images/result-realestate.png',
-    accent: 'velora-sky',
+    icon: Home,
+    flow: ['New lead', 'Approved questions', 'Agent routing'],
     gradientFrom: 'from-velora-sky/80',
     gradientVia: 'via-velora-sky/40',
     dotColor: 'bg-velora-sky',
     badgeBg: 'bg-velora-sky/10',
     badgeText: 'text-velora-sky',
-    borderColor: 'hover:border-velora-sky/30',
-    shadowColor: 'hover:shadow-[0_8px_30px_rgba(14,165,233,0.12)]',
     statHighlight: 'Lead routing',
     metrics: [
-      'Enquiry sources consolidated in one workflow',
-      'Buyer intent scored and prioritized',
-      'Qualified leads routed to agents',
+      'Enquiry sources can enter one structured workflow',
+      'Approved qualification details are collected consistently',
+      'Qualified leads are routed using agreed rules',
     ],
   },
   {
     title: 'Appointment Workflow for Service Teams',
     description:
       'Illustrative workflow: an appointment-based business answers approved routine questions, checks availability, and offers a human escalation path.',
-    image: '/images/solution-visual.png',
-    accent: 'velora-teal',
+    icon: CalendarCheck2,
+    flow: ['Request', 'Availability check', 'Confirmation'],
     gradientFrom: 'from-velora-teal/80',
     gradientVia: 'via-velora-teal/40',
     dotColor: 'bg-velora-teal',
     badgeBg: 'bg-velora-teal/10',
     badgeText: 'text-velora-teal',
-    borderColor: 'hover:border-velora-teal/30',
-    shadowColor: 'hover:shadow-[0_8px_30px_rgba(20,184,166,0.12)]',
     statHighlight: 'Scheduling workflow',
     metrics: [
-      'Approved routine questions answered consistently',
-      'Availability checked and appointments scheduled',
-      'Follow-up sent for unbooked enquiries',
+      'Approved routine questions follow one answer source',
+      'Suitable availability can be checked when access allows',
+      'Unbooked requests follow the agreed escalation path',
     ],
   },
 ] as const
@@ -94,28 +88,41 @@ export function ResultsSection() {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 relative z-10">
-        {projects.map((project, i) => (
+        {projects.map((project, i) => {
+          const Icon = project.icon
+          return (
           <ScaleIn key={project.title} delay={i * 0.08}>
             <div
               className={`
-                group flex flex-col h-full bg-white dark:bg-card rounded-xl border border-velora-border dark:border-border overflow-hidden
-                transition-all duration-300 ease-out
-                ${project.borderColor} ${project.shadowColor}
-                hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg
+                flex h-full flex-col overflow-hidden rounded-xl border border-velora-border bg-white shadow-sm dark:border-border dark:bg-card
               `}
             >
               {/* Colored gradient bar at top of card */}
               <div className={`h-1 bg-gradient-to-r ${project.gradientFrom} ${project.gradientVia} to-transparent`} />
 
-              {/* Dashboard image with dark navy background */}
-              <div className="relative bg-velora-navy">
-                <Image
-                  src={project.image}
-                  alt={`Illustrative ${project.title} workflow dashboard`}
-                  width={1024}
-                  height={1024}
-                  className="w-full aspect-[4/3] object-cover rounded-t-none"
-                />
+              {/* Code-native workflow preview */}
+              <div className="bg-velora-navy p-5 text-white">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-velora-emerald-light">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-semibold">Illustrative workflow</p>
+                    <p className="mt-0.5 text-[10px] text-white/55">Exact actions depend on system access</p>
+                  </div>
+                </div>
+                <div className="mt-5 flex items-center gap-2">
+                  {project.flow.map((step, stepIndex) => (
+                    <div key={step} className="contents">
+                      <span className="flex-1 rounded-lg bg-white/[0.07] px-2 py-2.5 text-center text-[10px] font-medium text-white/75">
+                        {step}
+                      </span>
+                      {stepIndex < project.flow.length - 1 ? (
+                        <ArrowRight className="h-3 w-3 shrink-0 text-white/35" aria-hidden="true" />
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Colored gradient line separator between image and text */}
@@ -153,7 +160,8 @@ export function ResultsSection() {
               </div>
             </div>
           </ScaleIn>
-        ))}
+          )
+        })}
       </div>
 
     </Section>

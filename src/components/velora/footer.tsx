@@ -1,34 +1,27 @@
 import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import { NewsletterSignup } from './newsletter-signup'
+import { primaryNavigation, resourceNavigation } from '@/lib/site-navigation'
 
 const footerLinks = {
   Solutions: [
-    { label: 'AI Receptionist', href: '/#solutions' },
-    { label: 'Lead Qualification', href: '/#solutions' },
-    { label: 'Appointment Booking', href: '/#solutions' },
-    { label: 'Customer Support', href: '/#solutions' },
-    { label: 'Follow-Up Automation', href: '/#solutions' },
-    { label: 'Workflow Automation', href: '/#solutions' },
+    { label: 'Solutions Overview', href: '/solutions' },
+    { label: 'AI Receptionist', href: '/solutions#ai-receptionist' },
+    { label: 'Lead Qualification', href: '/solutions#lead-qualification' },
+    { label: 'Appointment Booking', href: '/solutions#appointment-booking' },
+    { label: 'Workflow Automation', href: '/solutions#workflow-automation' },
   ],
   Industries: [
-    { label: 'Home Services', href: '/#industries' },
-    { label: 'Property Management', href: '/#industries' },
-    { label: 'Real Estate', href: '/#industries' },
-    { label: 'Automotive Businesses', href: '/#industries' },
-    { label: 'Accounting Firms', href: '/#industries' },
+    { label: 'Industries Overview', href: '/industries' },
+    { label: 'Home Services', href: '/industries#home-services' },
+    { label: 'Property Management', href: '/industries#property-management' },
+    { label: 'Real Estate', href: '/industries#real-estate' },
   ],
   Company: [
-    { label: 'About', href: '/about' },
-    { label: 'Example Workflows', href: '/#results' },
-    { label: 'Pricing', href: '/#pricing' },
-    { label: 'Security', href: '/#security' },
+    ...primaryNavigation.filter((item) => ['How It Works', 'Pricing', 'About'].includes(item.label)),
     { label: 'Contact', href: '/contact' },
   ],
-  Resources: [
-    { label: 'Guided Demo', href: '/#demo' },
-    { label: 'FAQ', href: '/#faq' },
-  ],
+  Resources: resourceNavigation.map(({ label, href }) => ({ label, href })),
 } as const
 
 const legalLinks = [
@@ -46,9 +39,9 @@ export function Footer() {
 
   return (
     <footer className="border-t border-velora-border bg-velora-surface" role="contentinfo">
-      {/* Animated gradient top border */}
+      {/* Brand gradient divider */}
       <div
-        className="h-[2px] w-full bg-[length:200%_auto] animate-[shimmer_4s_linear_infinite] dark:opacity-80"
+        className="h-[2px] w-full dark:opacity-80"
         style={{
           background: 'linear-gradient(90deg, var(--velora-emerald), var(--velora-amber), var(--velora-violet), var(--velora-sky), var(--velora-emerald))',
         }}
@@ -61,7 +54,7 @@ export function Footer() {
             {/* Brand column */}
             <div className="col-span-2 md:col-span-4 lg:col-span-1 mb-8 lg:mb-0">
               <Link href="/" className="inline-flex items-center gap-2.5 group" aria-label="Velora Innovations home">
-                <div className="w-8 h-8 rounded-lg bg-velora-navy flex items-center justify-center group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-velora-navy/20 transition-all duration-300">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-velora-navy transition-[box-shadow,transform] duration-150 group-hover:shadow-lg group-hover:shadow-velora-navy/20 group-active:scale-[0.97]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white" aria-hidden="true">
                     <path
                       d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
@@ -69,7 +62,7 @@ export function Footer() {
                     />
                   </svg>
                 </div>
-                <span className="text-lg font-semibold tracking-tight group-hover:text-velora-emerald transition-colors duration-300">Velora</span>
+                <span className="text-lg font-semibold tracking-tight transition-colors duration-150 group-hover:text-velora-emerald">Velora</span>
               </Link>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground max-w-xs">
                 AI agents designed around your business, your customers and your existing workflow.
@@ -79,7 +72,7 @@ export function Footer() {
                   href={linkedInUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-velora-emerald hover:bg-velora-emerald/10 transition-all duration-300"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-[background-color,color,transform] duration-150 hover:bg-velora-emerald/10 hover:text-velora-emerald active:scale-[0.97]"
                   aria-label="LinkedIn"
                 >
                   <svg className="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -102,7 +95,7 @@ export function Footer() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground hover:translate-x-0.5 inline-block transition-all duration-300 leading-relaxed nav-link-hover"
+                        className="nav-link-hover inline-block text-sm leading-relaxed text-muted-foreground transition-[color,transform] duration-150 hover:translate-x-0.5 hover:text-foreground"
                       >
                         {link.label}
                       </Link>
@@ -126,7 +119,7 @@ export function Footer() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300"
+                className="text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground"
               >
                 {link.label}
               </Link>

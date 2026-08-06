@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import {
   Section,
   SectionHeading,
@@ -23,6 +22,7 @@ import {
   Lock,
   type LucideIcon,
 } from 'lucide-react'
+import { IntegrationWorkflowVisual } from './workflow-visuals'
 
 const integrations: { label: string; icon: LucideIcon }[] = [
   { label: 'Phone', icon: Phone },
@@ -41,7 +41,7 @@ const integrations: { label: string; icon: LucideIcon }[] = [
 
 export function IntegrationSection() {
   return (
-    <Section id="integrations" className="relative">
+    <Section id="integrations" className="relative overflow-hidden">
       {/* Subtle diagonal stripe texture */}
       <div
         aria-hidden="true"
@@ -69,11 +69,11 @@ export function IntegrationSection() {
           <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {integrations.map(({ label, icon: Icon }) => (
               <StaggerItem key={label}>
-                <div className="group relative flex flex-col items-center gap-3 p-5 sm:p-6 rounded-xl bg-white dark:bg-card border border-velora-border/40 dark:border-border/40 shadow-[0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.2)] hover:border-velora-emerald/30 hover:shadow-lg hover:shadow-velora-emerald/5 hover:-translate-y-1 transition-all duration-300">
-                  <div className="w-11 h-11 rounded-xl bg-muted/80 flex items-center justify-center text-muted-foreground group-hover:bg-velora-emerald/10 group-hover:text-velora-emerald transition-all duration-300">
+                <div className="relative flex flex-col items-center gap-3 rounded-xl border border-velora-border/40 bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] sm:p-6 dark:border-border/40 dark:bg-card dark:shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-velora-emerald/10 text-velora-emerald">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                  <span className="text-center text-xs font-medium text-muted-foreground">
                     {label}
                   </span>
                 </div>
@@ -86,13 +86,7 @@ export function IntegrationSection() {
         <div className="hidden lg:block lg:col-span-2">
           <FadeIn delay={0.3}>
             <div className="relative rounded-2xl overflow-hidden border border-velora-border/30 dark:border-border/30 shadow-lg shadow-black/[0.06] dark:shadow-black/[0.25] bg-white/60 dark:bg-card/60 backdrop-blur-sm">
-              <Image
-                src="/images/integration-visual.png"
-                alt="Integration ecosystem visualization — showing how AI agents connect across phone, chat, email, CRM and other business systems"
-                width={1344}
-                height={768}
-                className="w-full h-auto"
-              />
+              <IntegrationWorkflowVisual />
             </div>
           </FadeIn>
         </div>
@@ -102,13 +96,7 @@ export function IntegrationSection() {
       <div className="lg:hidden mt-10 relative z-10">
         <FadeIn delay={0.15}>
           <div className="relative rounded-2xl overflow-hidden border border-velora-border/30 dark:border-border/30 shadow-lg shadow-black/[0.06] dark:shadow-black/[0.25] bg-white/60 dark:bg-card/60 backdrop-blur-sm">
-            <Image
-              src="/images/integration-visual.png"
-              alt="Integration ecosystem visualization — showing how AI agents connect across phone, chat, email, CRM and other business systems"
-              width={1344}
-              height={768}
-              className="w-full h-auto"
-            />
+            <IntegrationWorkflowVisual />
           </div>
         </FadeIn>
       </div>

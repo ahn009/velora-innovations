@@ -1,6 +1,3 @@
-'use client'
-
-import { motion, type Variants } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 interface SectionProps {
@@ -90,14 +87,10 @@ export function SectionHeading({
       {description && (
         <p
           className={cn(
-            'mt-5 text-base sm:text-lg text-foreground/60 leading-[1.7] flex items-center gap-2',
+            'mt-5 text-base sm:text-lg text-foreground/60 leading-[1.7]',
             light ? 'text-white/70' : 'text-muted-foreground'
           )}
         >
-          <span
-            className="w-1.5 h-1.5 rounded-full bg-velora-emerald shrink-0 mt-0.5"
-            aria-hidden="true"
-          />
           {description}
         </p>
       )}
@@ -107,32 +100,15 @@ export function SectionHeading({
 
 /* ---------- fade-in on scroll ---------- */
 
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
-}
-
 export function FadeIn({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode
   className?: string
   delay?: number
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={fadeInUp}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 export function StaggerContainer({
@@ -142,20 +118,7 @@ export function StaggerContainer({
   children: React.ReactNode
   className?: string
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.08 } },
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 export function StaggerItem({
@@ -165,161 +128,72 @@ export function StaggerItem({
   children: React.ReactNode
   className?: string
 }) {
-  return (
-    <motion.div variants={fadeInUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className={className}>
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 /* ---------- slide-in from left ---------- */
 
-const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -30 },
-  visible: { opacity: 1, x: 0 },
-}
-
 export function SlideInLeft({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode
   className?: string
   delay?: number
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={slideInLeft}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 /* ---------- slide-in from right ---------- */
 
-const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 30 },
-  visible: { opacity: 1, x: 0 },
-}
-
 export function SlideInRight({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode
   className?: string
   delay?: number
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={slideInRight}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 /* ---------- scale-in with fade ---------- */
 
-const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1 },
-}
-
 export function ScaleIn({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode
   className?: string
   delay?: number
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={scaleIn}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 /* ---------- blur-in on scroll ---------- */
 
-const blurIn: Variants = {
-  hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-}
-
 export function BlurIn({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode
   className?: string
   delay?: number
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={blurIn}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 /* ---------- reveal-up (clip-path wipe) ---------- */
 
-const revealUp: Variants = {
-  hidden: { clipPath: 'inset(100% 0 0 0)', opacity: 0 },
-  visible: { clipPath: 'inset(0 0 0 0)', opacity: 1 },
-}
-
 export function RevealUp({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode
   className?: string
   delay?: number
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={revealUp}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 /* ---------- animated horizontal line ---------- */
@@ -332,11 +206,8 @@ export function AnimatedLine({
   className?: string
 }) {
   return (
-    <motion.div
-      initial={{ width: 0 }}
-      whileInView={{ width: maxWidth }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    <div
+      style={{ width: maxWidth }}
       className={cn('h-[2px] bg-velora-emerald/30', className)}
     />
   )

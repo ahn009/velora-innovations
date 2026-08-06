@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
-import { ColorThemeProvider } from "@/components/theme-color-provider"
+import { Header } from "@/components/velora/header"
+import { Footer } from "@/components/velora/footer"
+import { ConsultationProvider } from "@/components/velora/consultation-provider"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -174,16 +176,20 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange={false}
         >
-          <ColorThemeProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:shadow-lg"
-            >
-              Skip to main content
-            </a>
-            {children}
-            <Toaster />
-          </ColorThemeProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:shadow-lg"
+          >
+            Skip to main content
+          </a>
+          <ConsultationProvider>
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <div className="flex-1">{children}</div>
+              <Footer />
+            </div>
+          </ConsultationProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
