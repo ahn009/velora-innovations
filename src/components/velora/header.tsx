@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
 import { Menu, ChevronDown, X } from 'lucide-react'
 import { ThemeSwitcher } from '@/components/velora/theme-switcher'
 import { cn } from '@/lib/utils'
+import { useConsultation } from './consultation-provider'
 
 interface NavItem {
   label: string
@@ -17,7 +19,7 @@ const navItems: NavItem[] = [
   { label: 'Solutions', href: '#solutions' },
   { label: 'Industries', href: '#industries' },
   { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Case Studies', href: '#results' },
+  { label: 'Example Workflows', href: '#results' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'Resources', href: '#faq' },
 ]
@@ -25,6 +27,7 @@ const navItems: NavItem[] = [
 const sectionIds = navItems.map((item) => item.href.replace('#', ''))
 
 export function Header() {
+  const { openConsultation } = useConsultation()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<string | null>(null)
@@ -35,7 +38,7 @@ export function Header() {
 
   // IntersectionObserver for active section tracking
   useEffect(() => {
-    const HEADER_OFFSET = 112 // header (72px) + announcement bar (~40px)
+    const HEADER_OFFSET = 80
     const visibleSections = new Set<string>()
 
     const observer = new IntersectionObserver(
@@ -114,12 +117,8 @@ export function Header() {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault()
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-          }}
+        <Link
+          href="/"
           className="flex items-center gap-2.5 group"
           aria-label="Velora Innovations — Home"
         >
@@ -144,16 +143,16 @@ export function Header() {
           <span className="text-[17px] font-semibold tracking-[-0.01em] text-foreground">
             Velora
           </span>
-        </a>
+        </Link>
 
-        {/* Clients Served Badge — desktop only */}
+        {/* Service area badge — desktop only */}
         <motion.span
           className="hidden sm:flex items-center text-[10px] font-medium tracking-wide uppercase bg-velora-emerald/10 text-velora-emerald rounded-full px-2.5 py-0.5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          500+ Businesses Served
+          Serving U.S. & Canadian teams
         </motion.span>
 
         {/* Desktop Navigation */}
@@ -192,16 +191,13 @@ export function Header() {
         {/* Desktop: Theme Toggle + CTA */}
         <div className="hidden lg:flex items-center gap-2">
           <ThemeSwitcher className="inline-flex items-center" />
-          <a
-            href="#consultation"
-            onClick={(e) => {
-              e.preventDefault()
-              handleNavClick('#consultation')
-            }}
+          <button
+            type="button"
+            onClick={openConsultation}
             className="inline-flex items-center justify-center h-9 px-5 text-[13px] font-medium rounded-lg bg-velora-emerald text-white hover:bg-velora-emerald-dark transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-velora-emerald/20 active:scale-[0.97]"
           >
-            Book a Consultation
-          </a>
+            Request a Consultation
+          </button>
         </div>
 
         {/* Mobile Menu */}
@@ -229,7 +225,7 @@ export function Header() {
                 </div>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg text-foreground/40 hover:text-foreground hover:bg-muted/50 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg text-foreground/65 hover:text-foreground hover:bg-muted/50 transition-colors"
                   aria-label="Close navigation menu"
                 >
                   <X className="w-4 h-4" />
@@ -264,7 +260,7 @@ export function Header() {
                           )}
                           {item.label}
                         </span>
-                        <ChevronDown className="w-4 h-4 text-foreground/25 rotate-[-90deg]" />
+                        <ChevronDown className="w-4 h-4 text-foreground/60 rotate-[-90deg]" />
                       </a>
                     )
                   })}
@@ -276,16 +272,16 @@ export function Header() {
                 <ThemeSwitcher className="inline-flex items-center" />
               </div>
               <div className="px-5 pb-5">
-                <a
-                  href="#consultation"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    handleNavClick('#consultation')
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false)
+                    openConsultation()
                   }}
                   className="flex items-center justify-center w-full h-12 px-5 text-[15px] font-medium rounded-xl bg-velora-emerald text-white hover:bg-velora-emerald-dark transition-colors shadow-lg shadow-velora-emerald/15"
                 >
-                  Book a Consultation
-                </a>
+                  Request a Consultation
+                </button>
               </div>
             </div>
           </SheetContent>

@@ -1,107 +1,55 @@
 'use client'
 
-import { useState } from 'react'
-import { Phone, MessageCircle, ArrowRight } from 'lucide-react'
+import { CheckCircle2, MessageCircle, ShieldCheck } from 'lucide-react'
 import { Section, SectionHeading, FadeIn } from './section'
-import { CardShine } from './card-shine'
 import { InteractiveDemoWidget } from './interactive-demo-widget'
-import { ConsultationModal } from './consultation-modal'
+import { useConsultation } from './consultation-provider'
 
-const demos = [
-  {
-    icon: Phone,
-    title: 'Call the AI Receptionist',
-    description:
-      'Hear how the AI answers a routine business call, collects information and schedules an appointment.',
-    button: 'Call Now',
-    gradient: 'from-velora-emerald/5 via-velora-emerald/[0.02] to-transparent',
-    iconBg: 'bg-velora-emerald',
-    iconHoverBg: 'group-hover:shadow-velora-emerald/30',
-  },
-  {
-    icon: MessageCircle,
-    title: 'Test the Website Agent',
-    description:
-      'Type a message and see how the AI responds, qualifies and routes your enquiry in real time.',
-    button: 'Start Chat',
-    gradient: 'from-velora-sky/5 via-velora-sky/[0.02] to-transparent',
-    iconBg: 'bg-velora-sky',
-    iconHoverBg: 'group-hover:shadow-velora-sky/30',
-  },
-] as const
+const demoNotes = [
+  'Uses a fixed demonstration scenario—not a live customer system.',
+  'Shows intake, qualification, approved responses, and escalation.',
+  'Does not collect or store the messages entered in this demo.',
+]
 
 export function DemoSection() {
-  const [modalOpen, setModalOpen] = useState(false)
+  const { openConsultation } = useConsultation()
 
   return (
-    <>
-      <Section id="demo" className="relative">
-        {/* Subtle decorative blobs */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-20 -left-20 h-[400px] w-[400px] rounded-full bg-velora-emerald blur-[130px] opacity-[0.04]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-20 -right-20 h-[350px] w-[350px] rounded-full bg-velora-violet blur-[120px] opacity-[0.04]"
-        />
+    <Section id="demo" className="relative">
+      <SectionHeading
+        label="Guided Workflow Demo"
+        title="See the Conversation Flow Before We Discuss a Build"
+        description="Try a transparent, scripted workflow that demonstrates how a service enquiry can be collected, qualified, and handed to a person. It is not presented as a live production AI agent."
+      />
 
-        <FadeIn>
-          <SectionHeading
-            label="Live Demos"
-            title="Experience the System Before You Buy It"
-            description="Test an AI agent directly or watch a real workflow in action. Each demo clearly identifies itself as an AI system."
-          />
-        </FadeIn>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
-          {demos.map((demo, index) => {
-            const Icon = demo.icon
-            return (
-              <FadeIn key={demo.title} delay={0.1 + index * 0.1}>
-                <div className="relative rounded-2xl border border-velora-border/60 dark:border-border/60 p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white dark:bg-card h-full flex flex-col items-center overflow-hidden">
-                  <CardShine />
-                  {/* Subtle gradient background */}
-                  <div className={`absolute inset-0 bg-gradient-to-b ${demo.gradient} pointer-events-none`} />
-
-                  <div className={`relative w-14 h-14 rounded-2xl ${demo.iconBg} text-white mx-auto flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 ${demo.iconHoverBg}`}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="relative text-lg font-semibold mt-5">{demo.title}</h3>
-                  <p className="relative text-sm text-muted-foreground mt-3 leading-relaxed max-w-xs mx-auto">
-                    {demo.description}
-                  </p>
-                  <div className="relative mt-auto pt-6">
-                    <button
-                      type="button"
-                      className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-velora-navy text-white text-sm font-medium hover:bg-velora-navy-light transition-all duration-300 hover:shadow-lg hover:shadow-velora-navy/20 group/btn"
-                    >
-                      {demo.button}
-                      <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" />
-                    </button>
-                  </div>
-                </div>
-              </FadeIn>
-            )
-          })}
-
-          {/* Interactive Demo Widget — replaces the 3rd demo card */}
-          <FadeIn delay={0.3}>
-            <div className="relative rounded-2xl border border-velora-border/60 dark:border-border/60 p-6 bg-white dark:bg-card h-full flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <InteractiveDemoWidget onSeeFullDemo={() => setModalOpen(true)} />
+      <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <FadeIn delay={0.1}>
+          <div className="h-full rounded-2xl border border-border bg-card p-7">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-velora-sky/10 text-velora-sky">
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />
             </div>
-          </FadeIn>
-        </div>
-
-        <FadeIn delay={0.4}>
-          <p className="text-sm text-muted-foreground text-center mt-8">
-            All demonstrations clearly identify themselves as AI systems. You
-            will never be led to believe you are speaking with a human.
-          </p>
+            <h3 className="mt-5 text-xl font-semibold">What this demo proves</h3>
+            <ul className="mt-5 space-y-4">
+              {demoNotes.map((note) => (
+                <li key={note} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-velora-emerald" aria-hidden="true" />
+                  {note}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex gap-3 rounded-xl bg-muted/50 p-4 text-sm leading-relaxed text-muted-foreground">
+              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-velora-emerald" aria-hidden="true" />
+              A production deployment is configured around approved knowledge, explicit permissions, and a client-specific human escalation path.
+            </div>
+          </div>
         </FadeIn>
-      </Section>
 
-      <ConsultationModal open={modalOpen} onOpenChange={setModalOpen} />
-    </>
+        <FadeIn delay={0.2}>
+          <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <InteractiveDemoWidget onSeeFullDemo={openConsultation} />
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
   )
 }

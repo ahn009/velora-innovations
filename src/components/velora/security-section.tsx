@@ -19,7 +19,6 @@ import {
   RefreshCw,
   type LucideIcon,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
 
 const features: { title: string; description: string; icon: LucideIcon }[] = [
   {
@@ -69,8 +68,8 @@ export function SecuritySection() {
     <Section id="security" background="navy">
       <SectionHeading
         label="Security & Control"
-        title="Automation With Clear Boundaries and Human Control"
-        description="Every system is designed with defined permissions, monitoring and escalation rules. You decide what the AI can and cannot do."
+        title="Controls Defined for Each Deployment"
+        description="The proposal documents approved knowledge, permissions, monitoring, retention and escalation before a production system is launched."
         light
         className="mb-8"
       />
@@ -79,25 +78,17 @@ export function SecuritySection() {
         {/* Left — feature grid */}
         <div className="lg:col-span-3">
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-            {features.map(({ title, description, icon: Icon }, index) => (
+              {features.map(({ title, description, icon: Icon }) => (
               <StaggerItem key={title}>
                 <div className="flex items-start gap-3 p-4 rounded-lg group hover:bg-white/[0.07] transition-colors duration-300 cursor-default">
-                  <motion.div
+                  <div
                     className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: 'reverse',
-                      ease: 'easeInOut',
-                      delay: index * 0.5,
-                    }}
                   >
                     <Icon className="w-4 h-4 text-velora-emerald-light" />
-                  </motion.div>
+                  </div>
                   <div>
                     <p className="text-sm font-medium text-white">{title}</p>
-                    <p className="text-xs text-white/50 mt-0.5 leading-relaxed">
+                    <p className="text-xs text-white/75 mt-0.5 leading-relaxed">
                       {description}
                     </p>
                   </div>
@@ -122,7 +113,7 @@ export function SecuritySection() {
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/30 backdrop-blur-sm">
                 <Image
                   src="/images/security-visual.png"
-                  alt="Security and compliance visualization — illustrating data protection, access controls, and monitoring capabilities"
+                  alt="Illustrative security-control checklist for access, logging, retention, and monitoring"
                   width={1024}
                   height={1024}
                   className="w-full h-auto"

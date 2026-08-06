@@ -2,8 +2,10 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useConsultation } from './consultation-provider'
 
 export function StickyMobileCta() {
+  const { openConsultation } = useConsultation()
   const [visible, setVisible] = useState(false)
   const heroRef = useRef<HTMLElement | null>(null)
 
@@ -25,13 +27,6 @@ export function StickyMobileCta() {
     return () => observer.disconnect()
   }, [])
 
-  const handleClick = () => {
-    const el = document.getElementById('consultation')
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
   return (
     <AnimatePresence>
       {visible && (
@@ -49,10 +44,10 @@ export function StickyMobileCta() {
               Velora
             </span>
             <button
-              onClick={handleClick}
+              onClick={openConsultation}
               className="inline-flex items-center justify-center h-9 px-5 rounded-lg bg-velora-emerald text-white text-sm font-medium hover:bg-velora-emerald/90 active:scale-[0.97] transition-all duration-150"
             >
-              Book a Consultation
+              Request a Consultation
             </button>
           </div>
         </motion.div>

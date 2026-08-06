@@ -6,23 +6,23 @@ import { FadeIn } from './section'
 const differentiators = [
   {
     icon: Zap,
-    title: 'Instant Response',
-    desc: 'AI agents respond in under 2 seconds, 24/7',
+    title: 'Responsive by Design',
+    desc: 'Availability and response targets are defined for each deployment',
   },
   {
     icon: Shield,
-    title: 'Enterprise Security',
-    desc: 'SOC 2 compliant with end-to-end encryption',
+    title: 'Scoped Security Controls',
+    desc: 'Permissions, logging, retention and escalation are documented before launch',
   },
   {
     icon: Puzzle,
-    title: 'Seamless Integration',
-    desc: 'Connects with your existing CRM, calendar and tools',
+    title: 'Integration Review',
+    desc: 'CRM, calendar and channel support is confirmed against real API access',
   },
   {
     icon: TrendingUp,
-    title: 'Proven ROI',
-    desc: 'Average 3x return within the first 90 days',
+    title: 'Measured Outcomes',
+    desc: 'Baseline, success criteria and reporting are agreed before implementation',
   },
 ] as const
 

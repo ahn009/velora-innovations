@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 import Image from 'next/image'
 import { Section, FadeIn } from './section'
-import { ConsultationModal } from './consultation-modal'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useConsultation } from './consultation-provider'
 
 function SpotlightButton({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const ref = useRef<HTMLButtonElement>(null)
@@ -37,11 +37,10 @@ function SpotlightButton({ children, ...props }: React.ButtonHTMLAttributes<HTML
 }
 
 export function FinalCtaSection() {
-  const [modalOpen, setModalOpen] = useState(false)
+  const { openConsultation } = useConsultation()
 
   return (
-    <>
-      <Section id="consultation" background="navy" className="relative overflow-hidden">
+    <Section id="consultation" background="navy" className="relative overflow-hidden">
         {/* Background image with dark overlay */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <Image
@@ -129,37 +128,34 @@ export function FinalCtaSection() {
           <FadeIn delay={0.2}>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <SpotlightButton
-                onClick={() => setModalOpen(true)}
+                onClick={openConsultation}
                 className="relative overflow-hidden h-12 px-8 rounded-xl bg-velora-emerald hover:bg-velora-emerald-dark text-white text-base font-medium shadow-lg shadow-velora-emerald/20 transition-all duration-300 hover:shadow-xl hover:shadow-velora-emerald/30 hover:-translate-y-0.5 active:scale-[0.98]"
               >
-                Book Your Free Consultation
+                Request a Free Consultation
                 <ArrowRight className="ml-2 w-4 h-4" />
               </SpotlightButton>
               <a
-                href="#assessment"
+                href="#demo"
                 onClick={(e) => {
                   e.preventDefault()
                   document
-                    .getElementById('assessment')
+                    .getElementById('demo')
                     ?.scrollIntoView({ behavior: 'smooth' })
                 }}
                 className="h-12 px-8 rounded-xl border border-white/20 text-white/80 text-base font-medium hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300 inline-flex items-center justify-center"
               >
-                Take the Assessment
+                Try the Guided Demo
               </a>
             </div>
           </FadeIn>
 
           <FadeIn delay={0.3}>
-            <p className="mt-6 text-sm text-white/35">
+            <p className="mt-6 text-sm text-white/70">
               30-minute consultation &middot; Practical recommendations &middot; No
               purchase required
             </p>
           </FadeIn>
         </div>
-      </Section>
-
-      <ConsultationModal open={modalOpen} onOpenChange={setModalOpen} />
-    </>
+    </Section>
   )
 }

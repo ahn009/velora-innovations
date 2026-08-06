@@ -1,12 +1,11 @@
 'use client'
 
-import { useState } from 'react'
 import { Section, SectionHeading, FadeIn, StaggerContainer, StaggerItem } from './section'
 import { Check, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { ConsultationModal } from './consultation-modal'
 import { cn } from '@/lib/utils'
 import { TiltCard } from './tilt-card'
+import { useConsultation } from './consultation-provider'
 
 interface PricingTier {
   name: string
@@ -23,7 +22,7 @@ const tiers: PricingTier[] = [
     name: 'Foundation',
     description: 'For a single, limited workflow.',
     price: 'From $2,500',
-    priceNote: 'One-time implementation',
+    priceNote: 'USD · one-time implementation',
     features: [
       { text: 'One communication channel', included: true },
       { text: 'One core use case', included: true },
@@ -36,13 +35,13 @@ const tiers: PricingTier[] = [
       { text: 'Custom reporting', included: false },
       { text: 'Dedicated support', included: false },
     ],
-    cta: 'Get Started',
+    cta: 'Discuss Foundation',
   },
   {
     name: 'Growth',
     description: 'For multiple customer-facing tasks.',
     price: 'From $5,000',
-    priceNote: 'One-time implementation',
+    priceNote: 'USD · one-time implementation',
     features: [
       { text: 'Multiple workflows', included: true },
       { text: 'CRM or calendar integration', included: true },
@@ -56,7 +55,7 @@ const tiers: PricingTier[] = [
       { text: 'Dedicated support', included: false },
     ],
     highlight: true,
-    cta: 'Most Popular',
+    cta: 'Discuss Growth',
   },
   {
     name: 'Custom',
@@ -91,56 +90,15 @@ const comparisonFeatures = [
 ]
 
 export function PricingSection() {
-  const [modalOpen, setModalOpen] = useState(false)
-  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly')
+  const { openConsultation } = useConsultation()
 
   return (
-    <>
-      <Section id="pricing">
+    <Section id="pricing">
         <SectionHeading
           label="Pricing"
-          title="Transparent Investment, Measurable Returns"
-          description="Projects typically begin with a one-time implementation fee and continue with monthly management. Final pricing is based on workflows, channels, integrations, usage and security requirements."
+          title="Clear Implementation Starting Points"
+          description="The amounts below are one-time implementation starting prices in USD. Monthly management, telephony, model usage, and third-party software are quoted separately after the workflow review."
         />
-
-        {/* Billing toggle */}
-        <FadeIn delay={0.05}>
-          <div className="flex items-center justify-center gap-3 mt-8 mb-2">
-            <div className="relative inline-flex items-center rounded-full bg-muted/80 p-1 border border-velora-border/40 dark:border-border/40">
-              <button
-                type="button"
-                onClick={() => setBilling('monthly')}
-                className={cn(
-                  'relative z-10 rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200',
-                  billing === 'monthly' ? 'text-white' : 'text-muted-foreground hover:text-foreground'
-                )}
-              >
-                Monthly
-              </button>
-              <button
-                type="button"
-                onClick={() => setBilling('annual')}
-                className={cn(
-                  'relative z-10 rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200',
-                  billing === 'annual' ? 'text-white' : 'text-muted-foreground hover:text-foreground'
-                )}
-              >
-                Annual
-              </button>
-              <div
-                className={cn(
-                  'absolute top-1 bottom-1 rounded-full bg-velora-emerald shadow-sm shadow-velora-emerald/20 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
-                  billing === 'monthly' ? 'left-1 w-[calc(50%-4px)]' : 'left-[calc(50%)] w-[calc(50%-4px)]'
-                )}
-              />
-            </div>
-            {billing === 'annual' && (
-              <span className="inline-flex items-center rounded-full bg-velora-emerald/10 text-velora-emerald text-xs font-semibold px-2.5 py-1 animate-in fade-in slide-in-from-right-2 duration-300">
-                Save 20%
-              </span>
-            )}
-          </div>
-        </FadeIn>
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {tiers.map((tier) => (
@@ -173,7 +131,7 @@ export function PricingSection() {
                   <span className="text-[1.75rem] font-bold tracking-tight">
                     {tier.price}
                   </span>
-                  <p className="text-xs text-foreground/40 mt-1.5">
+                  <p className="text-xs text-foreground/65 mt-1.5">
                     {tier.priceNote}
                   </p>
                 </div>
@@ -202,7 +160,7 @@ export function PricingSection() {
                 </ul>
 
                 <Button
-                  onClick={() => setModalOpen(true)}
+                  onClick={openConsultation}
                   className={cn(
                     'w-full mt-8 h-11 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.98]',
                     tier.highlight
@@ -273,12 +231,9 @@ export function PricingSection() {
 
         <FadeIn delay={0.3}>
           <p className="text-sm text-muted-foreground text-center mt-10 max-w-xl mx-auto">
-            All packages include a consultation, implementation, testing, launch support and ongoing monitoring. Usage-based charges may apply for high-volume systems.
+            Each proposal defines the exact workflow, integrations, usage assumptions, testing, support, data handling, and recurring charges before work begins.
           </p>
         </FadeIn>
-      </Section>
-
-      <ConsultationModal open={modalOpen} onOpenChange={setModalOpen} />
-    </>
+    </Section>
   )
 }

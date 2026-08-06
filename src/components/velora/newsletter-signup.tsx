@@ -1,127 +1,90 @@
 'use client'
 
-import { useState, useSyncExternalStore } from 'react'
-import { motion } from 'framer-motion'
-import { Send, Check } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+import { Check, Loader2, Send } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
-const STORAGE_KEY = 'velora-newsletter'
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-// Module-level subscriber list for same-tab localStorage updates
-let listeners: Array<() => void> = []
-
-function emitChange() {
-  for (const listener of listeners) {
-    listener()
-  }
-}
-
-function subscribe(callback: () => void) {
-  listeners = [...listeners, callback]
-  window.addEventListener('storage', callback)
-  return () => {
-    listeners = listeners.filter((l) => l !== callback)
-    window.removeEventListener('storage', callback)
-  }
-}
-
-function getSnapshot(): boolean {
-  return Boolean(localStorage.getItem(STORAGE_KEY))
-}
-
-function getServerSnapshot(): boolean {
-  return false // Not subscribed on server to match initial client render
-}
+type State = 'idle' | 'submitting' | 'success' | 'error'
 
 export function NewsletterSignup() {
-  const alreadySubscribed = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-  const [error, setError] = useState('')
+  const [state, setState] = useState<State>('idle')
+  const [message, setMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    setState('submitting')
+    setMessage('')
 
-    if (!emailRegex.test(email)) {
-      setError('Please enter a valid email')
-      return
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.get('newsletterEmail'),
+          consent: formData.get('newsletterConsent') === 'on',
+          website: formData.get('newsletterWebsite'),
+          source: 'footer-newsletter',
+        }),
+      })
+      const result = (await response.json()) as { message?: string }
+      if (!response.ok) throw new Error(result.message || 'Subscription failed. Please try again.')
+
+      form.reset()
+      setState('success')
+    } catch (error) {
+      setState('error')
+      setMessage(error instanceof Error ? error.message : 'Subscription failed. Please try again.')
     }
-
-    localStorage.setItem(STORAGE_KEY, email)
-    emitChange()
-    setSubscribed(true)
   }
 
-  if (alreadySubscribed) {
+  if (state === 'success') {
     return (
-      <motion.p
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-5 text-sm text-velora-emerald flex items-center gap-1.5"
-      >
-        <Check className="w-3.5 h-3.5" aria-hidden="true" />
-        You&apos;re subscribed
-      </motion.p>
-    )
-  }
-
-  if (subscribed) {
-    return (
-      <motion.p
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-5 text-sm text-velora-emerald flex items-center gap-1.5"
-      >
-        <Check className="w-3.5 h-3.5" aria-hidden="true" />
-        Thanks for subscribing!
-      </motion.p>
+      <p className="mt-5 flex items-center gap-1.5 text-sm text-velora-emerald" role="status">
+        <Check className="h-3.5 w-3.5" aria-hidden="true" />
+        Your subscription was saved. You can <Link href="/unsubscribe" className="underline underline-offset-2">unsubscribe here</Link> at any time.
+      </p>
     )
   }
 
   return (
-    <motion.form
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-      onSubmit={handleSubmit}
-      className="mt-5 flex flex-col sm:flex-row gap-2"
-      aria-label="Newsletter signup"
-    >
-      <div className="relative flex-1">
+    <form onSubmit={handleSubmit} className="mt-5 space-y-2" aria-label="Newsletter signup">
+      <div className="flex flex-col gap-2 sm:flex-row">
         <Input
+          name="newsletterEmail"
           type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value)
-            if (error) setError('')
-          }}
+          placeholder="Work email"
+          required
+          maxLength={254}
+          autoComplete="email"
           aria-label="Email address for newsletter"
-          aria-invalid={error ? 'true' : undefined}
-          aria-describedby={error ? 'newsletter-error' : undefined}
-          className="h-9 text-sm bg-muted/50 border-velora-border/60 focus-visible:ring-velora-emerald/40 focus-visible:border-velora-emerald/50"
+          className="h-9 flex-1 bg-muted/50 text-sm"
         />
+        <Button
+          type="submit"
+          size="sm"
+          disabled={state === 'submitting'}
+          className="h-9 shrink-0 bg-velora-emerald px-4 text-white hover:bg-velora-emerald-dark"
+        >
+          {state === 'submitting' ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Send className="mr-1.5 h-3.5 w-3.5" />}
+          Subscribe
+        </Button>
       </div>
-      <Button
-        type="submit"
-        size="sm"
-        className="h-9 px-4 bg-velora-emerald hover:bg-velora-emerald/90 text-white shrink-0"
-        aria-label="Subscribe to newsletter"
-      >
-        <Send className="w-3.5 h-3.5 mr-1.5" aria-hidden="true" />
-        Subscribe
-      </Button>
-      {error && (
-        <p id="newsletter-error" className="text-xs text-red-500" role="alert">
-          {error}
-        </p>
-      )}
-    </motion.form>
+      <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="newsletterWebsite">Website</label>
+        <input id="newsletterWebsite" name="newsletterWebsite" tabIndex={-1} autoComplete="off" />
+      </div>
+      <label className="flex items-start gap-2 text-[11px] leading-relaxed text-muted-foreground">
+        <input name="newsletterConsent" type="checkbox" required className="mt-0.5 accent-velora-emerald" />
+        <span>
+          Send me occasional product and automation updates. I can unsubscribe at any time. See the{' '}
+          <Link href="/privacy" className="underline underline-offset-2">Privacy Policy</Link>.
+        </span>
+      </label>
+      {state === 'error' ? <p className="text-xs text-destructive" role="alert">{message}</p> : null}
+    </form>
   )
 }

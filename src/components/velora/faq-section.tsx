@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo } from 'react'
 import { Search, X, ThumbsUp, ThumbsDown } from 'lucide-react'
-import { motion, useScroll, useSpring, useTransform, useMotionValueEvent } from 'framer-motion'
 import { Section, SectionHeading, FadeIn } from './section'
 import {
   Accordion,
@@ -25,12 +24,12 @@ const faqs = [
   {
     question: 'Can it answer phone calls?',
     answer:
-      'Yes. Our AI receptionist can answer incoming calls, identify the reason for the call, collect relevant information and take action such as scheduling appointments or routing to the correct team member. It clearly identifies itself as an AI system.',
+      'It can, when the telephony provider, consent requirements, business rules and escalation path are confirmed. The system must identify itself appropriately and stay within the approved workflow.',
   },
   {
     question: 'Can it book appointments?',
     answer:
-      'Yes. The appointment agent checks real-time availability, books appointments, sends confirmations, handles rescheduling requests and sends reminders. It connects with your existing calendar system.',
+      'It can when the calendar exposes suitable API access. Availability, confirmations, rescheduling, reminders and human exceptions are tested against the actual scheduling rules before launch.',
   },
   {
     question: 'Can it connect with our CRM?',
@@ -40,22 +39,22 @@ const faqs = [
   {
     question: 'Can a human take over?',
     answer:
-      'Yes. Every system includes human escalation rules. The AI transfers conversations to the appropriate team member when it encounters a complex request, a restricted topic or when the customer asks to speak with someone.',
+      'Human escalation is defined for every accepted deployment. The exact transfer method depends on the channel, staffing model and tools available to the client.',
   },
   {
     question: 'How long does implementation take?',
     answer:
-      'Implementation timelines vary based on the number of workflows, integration complexity and testing requirements. A single focused workflow can be deployed in a few weeks. Multi-agent systems with complex integrations take longer. We provide a timeline during the consultation.',
+      'Timelines depend on workflow scope, API access, data readiness, risk review and acceptance testing. The proposal includes a delivery plan only after those dependencies are confirmed.',
   },
   {
     question: 'How much does it cost?',
     answer:
-      'Projects typically have a one-time implementation fee and an ongoing management component. The final investment depends on the number of workflows, channels, integrations, usage volume and security requirements. We discuss pricing during the consultation.',
+      'Implementation starts at $2,500 USD for a limited workflow. Monthly management, model usage, telephony and third-party software are quoted separately based on scope and volume.',
   },
   {
-    question: 'Is our data used to train public models?',
+    question: 'How is our data handled by model providers?',
     answer:
-      'No. Your business data, conversation logs and customer information are not used to train public AI models. Data handling, retention and access controls are defined during implementation.',
+      'Provider data-use settings and contracts are reviewed for each deployment. We document which vendors receive data, their retention settings, whether training is disabled, and any remaining limitations before launch.',
   },
   {
     question: 'What happens when the agent does not know the answer?',
@@ -67,30 +66,8 @@ const faqs = [
 export function FaqSection() {
   const [search, setSearch] = useState('')
   const [votes, setVotes] = useState<Record<string, 'up' | 'down'>>({})
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  })
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  })
-
-  const scaleX = useTransform(smoothProgress, [0, 1], [0, 1])
-
-  const [scrolledCount, setScrolledCount] = useState(0)
-  const totalFaqs = faqs.length
-
-  useMotionValueEvent(smoothProgress, 'change', (latest) => {
-    setScrolledCount(Math.min(Math.round(latest * totalFaqs), totalFaqs))
-  })
-
-  const handleVote = (index: number, vote: 'up' | 'down') => {
-    setVotes((prev) => ({ ...prev, [index]: vote }))
+  const handleVote = (question: string, vote: 'up' | 'down') => {
+    setVotes((prev) => ({ ...prev, [question]: vote }))
   }
 
   const filteredFaqs = useMemo(() => {
@@ -101,22 +78,6 @@ export function FaqSection() {
 
   return (
     <Section id="faq" background="muted">
-      <div ref={sectionRef}>
-        {/* Scroll progress bar — sits at the top of the section */}
-        <div className="sticky top-0 z-10 h-[3px] w-full bg-velora-border/20 dark:bg-border/20">
-          <div className="relative h-full">
-            <motion.div
-              className="h-full bg-velora-emerald origin-left"
-              style={{ scaleX }}
-            />
-            {scrolledCount > 0 && (
-              <span className="absolute right-0 -top-5 text-[11px] text-muted-foreground/60 tabular-nums">
-                {scrolledCount} of {totalFaqs}
-              </span>
-            )}
-          </div>
-        </div>
-
       <SectionHeading
         label="FAQ"
         title="Frequently Asked Questions"
@@ -150,15 +111,15 @@ export function FaqSection() {
         <Accordion type="single" collapsible className="space-y-2">
           {filteredFaqs.map((faq, index) => {
             const itemValue = `faq-${index + 1}`
-            const vote = votes[index]
+            const vote = votes[faq.question]
 
             return (
               <AccordionItem
-                key={index}
+                key={faq.question}
                 value={itemValue}
                 className="bg-white dark:bg-card rounded-xl border border-velora-border/50 dark:border-border/50 shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] data-[state=open]:border-velora-emerald/20 data-[state=open]:shadow-[0_2px_12px_rgba(0,0,0,0.04)] dark:data-[state=open]:shadow-[0_2px_12px_rgba(0,0,0,0.2)] data-[state=open]:bg-white dark:data-[state=open]:bg-card transition-all duration-300 overflow-hidden"
               >
-                <AccordionTrigger className="text-left text-[15px] font-medium text-foreground/80 hover:text-foreground hover:no-underline py-5 px-6 transition-colors duration-200 [&>svg]:text-foreground/25 [&>svg]:transition-transform [&>svg]:duration-300 data-[state=open]:[&>svg]:rotate-180 data-[state=open]:text-foreground">
+                <AccordionTrigger className="text-left text-[15px] font-medium text-foreground/80 hover:text-foreground hover:no-underline py-5 px-6 transition-colors duration-200 [&>svg]:text-foreground/60 [&>svg]:transition-transform [&>svg]:duration-300 data-[state=open]:[&>svg]:rotate-180 data-[state=open]:text-foreground">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-foreground/70 leading-[1.75] px-6 pb-5">
@@ -174,7 +135,7 @@ export function FaqSection() {
                         <div className="flex items-center gap-1">
                           <button
                             type="button"
-                            onClick={() => handleVote(index, 'up')}
+                            onClick={() => handleVote(faq.question, 'up')}
                             className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground hover:text-velora-emerald hover:bg-velora-emerald/5 transition-colors duration-150"
                             aria-label="Mark as helpful"
                           >
@@ -183,7 +144,7 @@ export function FaqSection() {
                           </button>
                           <button
                             type="button"
-                            onClick={() => handleVote(index, 'down')}
+                            onClick={() => handleVote(faq.question, 'down')}
                             className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground hover:text-velora-amber hover:bg-velora-amber/5 transition-colors duration-150"
                             aria-label="Mark as not helpful"
                           >
@@ -206,7 +167,6 @@ export function FaqSection() {
           </p>
         )}
       </FadeIn>
-      </div>
     </Section>
   )
 }

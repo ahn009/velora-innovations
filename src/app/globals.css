@@ -153,11 +153,13 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Smooth theme transition */
-html,
-html *,
-html *::before,
-html *::after {
+/* Keep theme changes polished without assigning transitions to every node. */
+body,
+a,
+button,
+input,
+textarea,
+select {
   transition-property: background-color, border-color, color, box-shadow;
   transition-duration: 200ms;
   transition-timing-function: ease;

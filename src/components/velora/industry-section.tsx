@@ -20,11 +20,11 @@ const industries = [
     hoverShadow: 'hover:shadow-[0_8px_30px_rgba(217,158,46,0.12)]',
   },
   {
-    title: 'Dental Practices',
-    badge: 'Dental',
+    title: 'Property Management',
+    badge: 'Property',
     description:
-      'Answer common patient questions, schedule appointments and follow up with unbooked enquiries — around the clock.',
-    image: '/images/industry-dental.png',
+      'Collect tenant and prospect enquiries, categorize requests, schedule viewings and route urgent issues to a person.',
+    image: '/images/industry-realestate.png',
     gradient: 'from-velora-teal/70 via-velora-teal/40 to-transparent',
     accentBg: 'bg-velora-teal',
     accentLine: 'bg-gradient-to-r from-velora-teal to-velora-teal/30',
@@ -33,21 +33,6 @@ const industries = [
     badgeBorder: 'border-velora-teal/30',
     hoverBorder: 'hover:border-velora-teal/25',
     hoverShadow: 'hover:shadow-[0_8px_30px_rgba(20,184,140,0.12)]',
-  },
-  {
-    title: 'Law Firms',
-    badge: 'Law',
-    description:
-      'Qualify new enquiries by case type, route to the right attorney and schedule consultations consistently.',
-    image: '/images/industry-law.png',
-    gradient: 'from-velora-violet/70 via-velora-violet/40 to-transparent',
-    accentBg: 'bg-velora-violet',
-    accentLine: 'bg-gradient-to-r from-velora-violet to-velora-violet/30',
-    badgeBg: 'bg-velora-violet/20',
-    badgeText: 'text-velora-violet',
-    badgeBorder: 'border-velora-violet/30',
-    hoverBorder: 'hover:border-velora-violet/25',
-    hoverShadow: 'hover:shadow-[0_8px_30px_rgba(139,92,246,0.12)]',
   },
   {
     title: 'Real Estate',
@@ -98,11 +83,11 @@ export function IndustrySection() {
       <div className="relative z-10">
         <SectionHeading
           label="Industries"
-          title="Built for the Way Your Industry Works"
-          description="Each industry has unique customer journeys, operational rhythms and compliance requirements. Our AI systems are pre-configured with industry-specific workflows so you can deploy in days, not months."
+          title="Focused on Customer-Facing Service Workflows"
+          description="We start with a narrow workflow, verify the available tools and permissions, and define where a person must take over. These examples show the initial markets we support."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {industries.map((industry, i) => {
             const SlideComponent = i < 2 ? SlideInLeft : SlideInRight
             return (
@@ -123,7 +108,7 @@ export function IndustrySection() {
                       src={industry.image}
                       alt={industry.title}
                       fill
-                      sizes="(min-width: 768px) 50vw, 100vw"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 rounded-t-xl"
                     />
                     {/* Colored gradient overlay */}
@@ -157,30 +142,9 @@ export function IndustrySection() {
                       {industry.description}
                     </p>
 
-                    {/* Subtle CTA arrow */}
-                    <div className="mt-5 flex items-center gap-2">
-                      <span
-                        className={`
-                          text-sm font-medium transition-all duration-300
-                          ${industry.badgeText} opacity-70 group-hover:opacity-100
-                        `}
-                      >
-                        Learn more
-                      </span>
-                      <svg
-                        className={`
-                          w-4 h-4 transition-transform duration-300
-                          ${industry.badgeText} opacity-70 group-hover:opacity-100
-                          group-hover:translate-x-1
-                        `}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2.5}
-                        stroke="currentColor"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    </div>
+                    <p className={`mt-5 text-sm font-medium ${industry.badgeText}`}>
+                      Scope confirmed during consultation
+                    </p>
                   </div>
                 </div>
               </SlideComponent>

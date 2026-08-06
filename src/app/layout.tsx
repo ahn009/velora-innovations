@@ -71,12 +71,12 @@ const faqs = [
   {
     question: "Can it answer phone calls?",
     answer:
-      "Yes. Our AI receptionist can answer incoming calls, identify the reason for the call, collect relevant information and take action such as scheduling appointments or routing to the correct team member. It clearly identifies itself as an AI system.",
+      "It can, when the telephony provider, consent requirements, business rules and escalation path are confirmed. The system must identify itself appropriately and stay within the approved workflow.",
   },
   {
     question: "Can it book appointments?",
     answer:
-      "Yes. The appointment agent checks real-time availability, books appointments, sends confirmations, handles rescheduling requests and sends reminders. It connects with your existing calendar system.",
+      "It can when the calendar exposes suitable API access. Availability, confirmations, rescheduling, reminders and human exceptions are tested against the actual scheduling rules before launch.",
   },
   {
     question: "Can it connect with our CRM?",
@@ -86,22 +86,22 @@ const faqs = [
   {
     question: "Can a human take over?",
     answer:
-      "Yes. Every system includes human escalation rules. The AI transfers conversations to the appropriate team member when it encounters a complex request, a restricted topic or when the customer asks to speak with someone.",
+      "Human escalation is defined for every accepted deployment. The exact transfer method depends on the channel, staffing model and tools available to the client.",
   },
   {
     question: "How long does implementation take?",
     answer:
-      "Implementation timelines vary based on the number of workflows, integration complexity and testing requirements. A single focused workflow can be deployed in a few weeks. Multi-agent systems with complex integrations take longer. We provide a timeline during the consultation.",
+      "Timelines depend on workflow scope, API access, data readiness, risk review and acceptance testing. The proposal includes a delivery plan only after those dependencies are confirmed.",
   },
   {
     question: "How much does it cost?",
     answer:
-      "Projects typically have a one-time implementation fee and an ongoing management component. The final investment depends on the number of workflows, channels, integrations, usage volume and security requirements. We discuss pricing during the consultation.",
+      "Implementation starts at $2,500 USD for a limited workflow. Monthly management, model usage, telephony and third-party software are quoted separately based on scope and volume.",
   },
   {
-    question: "Is our data used to train public models?",
+    question: "How is our data handled by model providers?",
     answer:
-      "No. Your business data, conversation logs and customer information are not used to train public AI models. Data handling, retention and access controls are defined during implementation.",
+      "Provider data-use settings and contracts are reviewed for each deployment. We document which vendors receive data, their retention settings, whether training is disabled, and any remaining limitations before launch.",
   },
   {
     question: "What happens when the agent does not know the answer?",

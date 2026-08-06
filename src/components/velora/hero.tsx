@@ -1,10 +1,9 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform, type Variants } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ConsultationModal } from './consultation-modal'
+import { useConsultation } from './consultation-provider'
 import { FadeIn } from './section'
 import { MagneticButton } from './magnetic-button'
 import { ArrowRight, ArrowDown } from 'lucide-react'
@@ -148,15 +147,14 @@ function MobileWorkflow() {
 /* ------------------------------------------------------------------ */
 
 export function Hero() {
-  const [modalOpen, setModalOpen] = useState(false)
+  const { openConsultation } = useConsultation()
 
   const handleScrollToDemo = () => {
     document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <>
-      <div id="hero" className="relative overflow-hidden">
+    <div id="hero" className="relative overflow-hidden">
         {/* Mesh gradient background: large radial gradients at very low opacity */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Emerald glow - top left */}
@@ -188,26 +186,26 @@ export function Hero() {
               <div className="flex flex-col gap-7">
                 <FadeIn>
                   <p className="text-[11px] sm:text-xs font-semibold tracking-[0.15em] uppercase text-velora-emerald">
-                    AI Automation for Growing Businesses
+                    AI Reception and Workflow Automation
                   </p>
                 </FadeIn>
 
                 <FadeIn delay={0.1}>
                   <h1 className="text-[2.5rem] sm:text-5xl lg:text-[3.5rem] xl:text-[3.75rem] font-medium tracking-[-0.02em] text-foreground leading-[1.05]">
                     <span className="bg-gradient-to-r from-foreground via-velora-emerald to-foreground bg-clip-text text-transparent bg-[length:200%_auto] animate-[shimmer_3s_ease-in-out_infinite]">
-                      Turn Customer Enquiries
+                      Respond to Every Customer
                     </span>{' '}
-                    <span className="text-foreground/90">and Repetitive Work</span>
+                    <span className="text-foreground/90">Without Adding More Admin</span>
                     <br />
-                    Into Automated Growth
+                    Work to Your Team
                   </h1>
                 </FadeIn>
 
                 <FadeIn delay={0.2}>
                   <p className="text-base sm:text-lg text-foreground/60 max-w-xl leading-[1.7]">
-                    We design AI agents that answer customers, qualify leads, book
-                    appointments, send follow-ups and connect with the tools your
-                    business already uses.
+                    Velora designs customer-facing automation for service businesses:
+                    answer routine enquiries, collect lead details, book appointments,
+                    and hand complex conversations to a person.
                   </p>
                 </FadeIn>
 
@@ -215,10 +213,10 @@ export function Hero() {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 pt-2">
                     <MagneticButton>
                       <Button
-                        onClick={() => setModalOpen(true)}
+                        onClick={openConsultation}
                         className="press-effect bg-velora-emerald hover:bg-velora-emerald-dark text-white rounded-xl h-[52px] px-8 text-[15px] font-medium shadow-lg shadow-velora-emerald/20 hover:shadow-xl hover:shadow-velora-emerald/30 transition-all duration-300"
                       >
-                        Book a Free Automation Consultation
+                        Request a Free Consultation
                       </Button>
                     </MagneticButton>
                     <MagneticButton>
@@ -227,15 +225,15 @@ export function Hero() {
                         onClick={handleScrollToDemo}
                         className="press-effect rounded-xl h-[52px] px-7 text-[15px] font-medium border-foreground/15 hover:bg-muted/60 hover:border-foreground/25 transition-all duration-300"
                       >
-                        See an AI Agent in Action
+                        Try the Guided Workflow Demo
                       </Button>
                     </MagneticButton>
                   </div>
                 </FadeIn>
 
                 <FadeIn delay={0.38}>
-                  <p className="text-[13px] text-foreground/40">
-                    No obligation. Practical recommendations based on your current workflow.
+                  <p className="text-[13px] text-foreground/65">
+                    No purchase required. We start by checking fit, risk, and integration constraints.
                   </p>
                 </FadeIn>
               </div>
@@ -266,10 +264,9 @@ export function Hero() {
                   <div className="rounded-2xl overflow-hidden bg-white dark:bg-card p-1 shadow-xl shadow-black/[0.06] dark:shadow-black/[0.3] border border-velora-border/30 dark:border-border/30 transition-transform duration-500 ease-out hover:scale-[1.02]">
                     <Image
                       src="/images/hero-dashboard.png"
-                      alt="Velora AI Dashboard — showing automated customer interactions, lead qualification, and appointment booking workflow"
+                      alt="Illustrative Velora workflow dashboard showing customer intake and appointment routing"
                       width={1344}
                       height={768}
-                      priority
                       className="w-full h-auto rounded-xl"
                     />
                   </div>
@@ -283,7 +280,7 @@ export function Hero() {
                   className="absolute -top-3 -right-3 bg-white dark:bg-card rounded-xl shadow-lg shadow-black/[0.08] dark:shadow-black/[0.3] border border-velora-border/50 dark:border-border/50 px-3.5 py-2 flex items-center gap-2"
                 >
                   <div className="w-2 h-2 rounded-full bg-velora-emerald animate-pulse" />
-                  <span className="text-[12px] font-semibold text-foreground/80">AI Live</span>
+                  <span className="text-[12px] font-semibold text-foreground/80">Illustrative workflow</span>
                 </motion.div>
 
                 <motion.div
@@ -295,7 +292,7 @@ export function Hero() {
                   <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-velora-amber/20 to-velora-amber/5 flex items-center justify-center">
                     <ArrowRight className="w-3 h-3 text-velora-amber" />
                   </div>
-                  <span className="text-[12px] font-semibold text-foreground/80">+42% Leads</span>
+                  <span className="text-[12px] font-semibold text-foreground/80">Human handoff included</span>
                 </motion.div>
               </div>
             </div>
@@ -304,9 +301,6 @@ export function Hero() {
             <MobileWorkflow />
           </div>
         </div>
-      </div>
-
-      <ConsultationModal open={modalOpen} onOpenChange={setModalOpen} />
-    </>
+    </div>
   )
 }

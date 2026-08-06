@@ -5,15 +5,13 @@ import {
   Section,
   SectionHeading,
   ScaleIn,
-  FadeIn,
 } from './section'
-import { SocialShare } from './social-share'
 
 const projects = [
   {
     title: 'AI Receptionist for Home Services',
     description:
-      'A plumbing company receiving 40+ calls per day implemented an AI receptionist to handle after-hours enquiries, qualify service requests and schedule jobs.',
+      'Illustrative workflow: a home-service company routes after-hours enquiries through structured intake, service-area checks, and scheduling.',
     image: '/images/result-home-services.png',
     accent: 'velora-amber',
     gradientFrom: 'from-velora-amber/80',
@@ -23,7 +21,7 @@ const projects = [
     badgeText: 'text-velora-amber',
     borderColor: 'hover:border-velora-amber/30',
     shadowColor: 'hover:shadow-[0_8px_30px_rgba(234,179,8,0.12)]',
-    statHighlight: '3x faster response',
+    statHighlight: 'After-hours intake',
     metrics: [
       'After-hours calls captured instantly',
       'Service area qualification automated',
@@ -33,7 +31,7 @@ const projects = [
   {
     title: 'Lead Qualification for Real Estate',
     description:
-      'A real estate brokerage receiving enquiries from multiple sources implemented a qualification agent to prioritize high-intent buyers and route them to available agents.',
+      'Illustrative workflow: a real-estate team consolidates enquiries, collects approved qualification details, and routes prospects to an available person.',
     image: '/images/result-realestate.png',
     accent: 'velora-sky',
     gradientFrom: 'from-velora-sky/80',
@@ -43,7 +41,7 @@ const projects = [
     badgeText: 'text-velora-sky',
     borderColor: 'hover:border-velora-sky/30',
     shadowColor: 'hover:shadow-[0_8px_30px_rgba(14,165,233,0.12)]',
-    statHighlight: '24/7 coverage',
+    statHighlight: 'Lead routing',
     metrics: [
       'Enquiry sources consolidated in one workflow',
       'Buyer intent scored and prioritized',
@@ -51,10 +49,10 @@ const projects = [
     ],
   },
   {
-    title: 'Appointment Automation for Dental',
+    title: 'Appointment Workflow for Service Teams',
     description:
-      'A dental practice handling 30+ daily patient calls implemented an appointment agent to answer common questions, check availability and schedule visits.',
-    image: '/images/result-dental.png',
+      'Illustrative workflow: an appointment-based business answers approved routine questions, checks availability, and offers a human escalation path.',
+    image: '/images/solution-visual.png',
     accent: 'velora-teal',
     gradientFrom: 'from-velora-teal/80',
     gradientVia: 'via-velora-teal/40',
@@ -63,9 +61,9 @@ const projects = [
     badgeText: 'text-velora-teal',
     borderColor: 'hover:border-velora-teal/30',
     shadowColor: 'hover:shadow-[0_8px_30px_rgba(20,184,166,0.12)]',
-    statHighlight: '92% auto-booked',
+    statHighlight: 'Scheduling workflow',
     metrics: [
-      'Routine patient questions answered instantly',
+      'Approved routine questions answered consistently',
       'Availability checked and appointments scheduled',
       'Follow-up sent for unbooked enquiries',
     ],
@@ -90,9 +88,9 @@ export function ResultsSection() {
       />
 
       <SectionHeading
-        label="Results"
-        title="Real-World Impact"
-        description="Before we publish verified case studies, these sample workflows illustrate what our systems achieve."
+        label="Illustrative Workflows"
+        title="Examples of What a Carefully Scoped System Can Do"
+        description="These are transparent examples, not customer case studies or performance claims. Final capabilities depend on the client's tools, permissions, data, testing, and risk requirements."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 relative z-10">
@@ -113,7 +111,7 @@ export function ResultsSection() {
               <div className="relative bg-velora-navy">
                 <Image
                   src={project.image}
-                  alt={`${project.title} dashboard screenshot`}
+                  alt={`Illustrative ${project.title} workflow dashboard`}
                   width={1024}
                   height={1024}
                   className="w-full aspect-[4/3] object-cover rounded-t-none"
@@ -158,13 +156,6 @@ export function ResultsSection() {
         ))}
       </div>
 
-      <FadeIn className="mt-10 flex flex-col items-center gap-2 relative z-10">
-        <span className="text-xs text-muted-foreground">Share these results</span>
-        <SocialShare
-          title="Real-World Impact"
-          text="See how Velora AI automation delivers measurable results for home services, real estate, and dental practices."
-        />
-      </FadeIn>
     </Section>
   )
 }

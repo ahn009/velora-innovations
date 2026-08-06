@@ -12,11 +12,11 @@ interface ChatMessage {
 const MESSAGES: ChatMessage[] = [
   {
     role: 'customer',
-    text: "Hi, I'd like to book a teeth cleaning appointment this week.",
+    text: "Hi, I'd like to schedule an air-conditioning service this week.",
   },
   {
     role: 'ai',
-    text: "Of course! Let me check available slots. Dr. Sarah has openings on Tuesday at 2 PM and Thursday at 10 AM. Which works better for you?",
+    text: "I can help with the request. The sample calendar shows Tuesday at 2 PM and Thursday at 10 AM. Which works better for you?",
   },
   {
     role: 'customer',
@@ -119,7 +119,7 @@ function ConfirmedBanner() {
     >
       <CheckCircle2 className="w-5 h-5 text-velora-emerald shrink-0" />
       <p className="text-sm font-medium text-velora-emerald">
-        ✓ Appointment Confirmed — Tuesday 2:00 PM
+        Sample booking confirmed — Tuesday 2:00 PM
       </p>
     </motion.div>
   )
@@ -194,16 +194,16 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
 
   return (
     <div ref={containerRef} className="relative">
-      {/* Live Demo Badge */}
+      {/* Guided sample badge */}
       <div className="flex items-center gap-2 mb-4">
         <span className="inline-flex items-center gap-2 rounded-full bg-velora-emerald/10 border border-velora-emerald/20 px-3 py-1.5 text-xs font-semibold text-velora-emerald">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-velora-emerald opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-velora-emerald" />
           </span>
-          Live Demo
+          Guided Sample
         </span>
-        <span className="text-xs text-muted-foreground/60">AI-powered scheduling</span>
+        <span className="text-xs text-muted-foreground">Scripted scheduling workflow</span>
       </div>
 
       {/* Chat Container */}
@@ -215,7 +215,7 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-white/90">AI Scheduling Agent</p>
-            <p className="text-[11px] text-white/40">Bright Smile Dental</p>
+            <p className="text-[11px] text-white/70">Northwind Home Services (example)</p>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="flex gap-1">
@@ -242,7 +242,7 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
             transition={{ delay: 0.2, duration: 0.4 }}
             className="text-center"
           >
-            <span className="inline-block text-[11px] text-white/25 bg-white/[0.04] rounded-full px-3 py-1">
+            <span className="inline-block text-[11px] text-white/70 bg-white/[0.07] rounded-full px-3 py-1">
               Conversation started — AI identifies itself
             </span>
           </motion.div>
@@ -278,7 +278,7 @@ export function InteractiveDemoWidget({ onSeeFullDemo }: InteractiveDemoWidgetPr
               onClick={onSeeFullDemo}
               className="inline-flex items-center gap-2 text-sm font-medium text-velora-emerald hover:text-velora-emerald-dark transition-colors duration-200 group/btn"
             >
-              See Full Demo
+              Discuss This Workflow
               <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" />
             </button>
           </motion.div>

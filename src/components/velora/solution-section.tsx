@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import {
   Headphones,
@@ -17,9 +16,9 @@ import {
   StaggerItem,
   FadeIn,
 } from './section'
-import { ConsultationModal } from './consultation-modal'
 import { CardShine } from './card-shine'
 import { MeshGradient } from './mesh-gradient'
+import { useConsultation } from './consultation-provider'
 
 const solutions = [
   {
@@ -61,11 +60,10 @@ const solutions = [
 ] as const
 
 export function SolutionSection() {
-  const [modalOpen, setModalOpen] = useState(false)
+  const { openConsultation } = useConsultation()
 
   return (
-    <>
-      <Section id="solutions" className="relative overflow-hidden">
+    <Section id="solutions" className="relative overflow-hidden">
         {/* Mesh gradient background — richer emerald glow */}
         <MeshGradient variant="emerald" intensity="medium" />
 
@@ -83,17 +81,10 @@ export function SolutionSection() {
                 const Icon = solution.icon
                 return (
                   <StaggerItem key={solution.title}>
-                    <div
-                      className="relative flex flex-col h-full bg-white dark:bg-card rounded-2xl border border-velora-border/50 dark:border-border/50 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:shadow-xl hover:shadow-velora-emerald/8 hover:border-velora-emerald/25 hover:-translate-y-1 transition-all duration-300 group cursor-pointer overflow-hidden"
-                      onClick={() => setModalOpen(true)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault()
-                          setModalOpen(true)
-                        }
-                      }}
-                      role="button"
-                      tabIndex={0}
+                    <button
+                      type="button"
+                      className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-velora-border/50 bg-white p-6 text-left shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-velora-emerald/25 hover:shadow-xl hover:shadow-velora-emerald/8 dark:border-border/50 dark:bg-card dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] group"
+                      onClick={openConsultation}
                     >
                       <CardShine />
                       <div className="w-10 h-10 rounded-lg bg-velora-emerald/10 text-velora-emerald group-hover:bg-velora-emerald group-hover:text-white transition-all duration-300 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3">
@@ -113,7 +104,7 @@ export function SolutionSection() {
                           &rarr;
                         </span>
                       </div>
-                    </div>
+                    </button>
                   </StaggerItem>
                 )
               })}
@@ -150,9 +141,6 @@ export function SolutionSection() {
             </div>
           </FadeIn>
         </div>
-      </Section>
-
-      <ConsultationModal open={modalOpen} onOpenChange={setModalOpen} />
-    </>
+    </Section>
   )
 }

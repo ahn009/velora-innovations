@@ -1,29 +1,20 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { motion, useSpring, useTransform } from 'framer-motion'
 import { SectionHeading, FadeIn } from './section'
 import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
-import { TrendingUp, DollarSign, Calendar, Zap } from 'lucide-react'
+import { TrendingUp, DollarSign, Users } from 'lucide-react'
 
 /* ---------- animated number ---------- */
 
 function AnimatedNumber({ value, prefix = '', suffix = '', decimals = 0 }: { value: number; prefix?: string; suffix?: string; decimals?: number }) {
-  const spring = useSpring(value, { stiffness: 120, damping: 30, mass: 0.8 })
-  const display = useTransform(spring, (v) => {
-    const formatted = v.toLocaleString('en-US', {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    })
-    return `${prefix}${formatted}${suffix}`
+  const formatted = value.toLocaleString('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
   })
 
-  return (
-    <motion.span className="tabular-nums">
-      {display}
-    </motion.span>
-  )
+  return <span className="tabular-nums">{prefix}{formatted}{suffix}</span>
 }
 
 /* ---------- slider input ---------- */
@@ -85,7 +76,7 @@ function ResultCard({ icon, label, value, prefix = '', suffix = '', decimals = 0
         {icon}
       </div>
       <div className="min-w-0">
-        <p className="text-xs text-white/50 font-medium uppercase tracking-wider mb-1">{label}</p>
+        <p className="text-xs text-white/75 font-medium uppercase tracking-wider mb-1">{label}</p>
         <p className={cn('text-2xl sm:text-3xl font-bold leading-tight', gradient ? 'text-gradient-emerald' : 'text-velora-emerald')}>
           <AnimatedNumber value={value} prefix={prefix} suffix={suffix} decimals={decimals} />
         </p>
@@ -99,15 +90,15 @@ function ResultCard({ icon, label, value, prefix = '', suffix = '', decimals = 0
 export function RoiCalculator() {
   const [enquiries, setEnquiries] = useState(200)
   const [avgRevenue, setAvgRevenue] = useState(500)
-  const [currentRate, setCurrentRate] = useState(25)
-  const [aiFactor, setAiFactor] = useState(40)
+  const [missedRate, setMissedRate] = useState(20)
+  const [recoveryRate, setRecoveryRate] = useState(25)
 
   const results = useMemo(() => {
-    const monthlyRecovered = enquiries * avgRevenue * (aiFactor / 100) * (1 - currentRate / 100)
-    const annualRevenue = monthlyRecovered * 12
-    const roiFirstYear = annualRevenue / (annualRevenue * 0.15) * 100
-    return { monthlyRecovered, annualRevenue, roiFirstYear }
-  }, [enquiries, avgRevenue, currentRate, aiFactor])
+    const currentlyMissed = enquiries * (missedRate / 100)
+    const modeledRecovered = currentlyMissed * (recoveryRate / 100)
+    const monthlyOpportunity = modeledRecovered * avgRevenue
+    return { modeledRecovered, monthlyOpportunity, annualOpportunity: monthlyOpportunity * 12 }
+  }, [enquiries, avgRevenue, missedRate, recoveryRate])
 
   return (
     <section className="relative py-20 sm:py-24 overflow-hidden">
@@ -117,8 +108,8 @@ export function RoiCalculator() {
       <div className="relative max-w-5xl mx-auto px-5 sm:px-8 lg:px-10">
         <FadeIn>
           <SectionHeading
-            label="ROI Calculator"
-            title="See What Automation Could Save You"
+            label="Opportunity Model"
+            title="Model the Size of a Missed-Enquiry Problem"
           />
         </FadeIn>
 
@@ -128,7 +119,7 @@ export function RoiCalculator() {
             <div className="rounded-2xl border border-velora-border/60 bg-white/60 backdrop-blur-xl shadow-[0_2px_24px_rgba(0,0,0,0.04)] p-6 sm:p-8 space-y-7">
               <div>
                 <h3 className="text-base font-semibold text-foreground mb-1">Your Business Inputs</h3>
-                <p className="text-sm text-muted-foreground">Adjust the sliders to match your business metrics.</p>
+                <p className="text-sm text-muted-foreground">Use your own inputs. This is a scenario model, not a result forecast.</p>
               </div>
 
               <SliderInput
@@ -141,7 +132,7 @@ export function RoiCalculator() {
               />
 
               <SliderInput
-                label="Average revenue per customer"
+                label="Average revenue per customer (USD)"
                 value={avgRevenue}
                 onChange={setAvgRevenue}
                 min={100}
@@ -151,9 +142,9 @@ export function RoiCalculator() {
               />
 
               <SliderInput
-                label="Current lead capture rate"
-                value={currentRate}
-                onChange={setCurrentRate}
+                label="Enquiries currently missed"
+                value={missedRate}
+                onChange={setMissedRate}
                 min={5}
                 max={80}
                 step={5}
@@ -161,9 +152,9 @@ export function RoiCalculator() {
               />
 
               <SliderInput
-                label="AI improvement factor"
-                value={aiFactor}
-                onChange={setAiFactor}
+                label="Scenario: share of missed enquiries recovered"
+                value={recoveryRate}
+                onChange={setRecoveryRate}
                 min={10}
                 max={90}
                 step={5}
@@ -174,47 +165,39 @@ export function RoiCalculator() {
             {/* Results panel — dark navy */}
             <div className="rounded-2xl border border-white/10 bg-velora-navy p-6 sm:p-8 flex flex-col">
               <div className="mb-6">
-                <h3 className="text-base font-semibold text-white mb-1">Projected Results</h3>
-                <p className="text-sm text-white/50">Based on your inputs above.</p>
+                <h3 className="text-base font-semibold text-white mb-1">Illustrative opportunity</h3>
+                <p className="text-sm text-white/70">Calculated only from the assumptions you selected.</p>
               </div>
 
               <div className="space-y-4 flex-1">
                 <ResultCard
-                  icon={<TrendingUp className="w-4 h-4" />}
-                  label="Est. monthly revenue recovered"
-                  value={results.monthlyRecovered}
-                  prefix="$"
-                  decimals={0}
+                  icon={<Users className="w-4 h-4" />}
+                  label="Modeled enquiries recovered monthly"
+                  value={results.modeledRecovered}
+                  decimals={1}
                   gradient
                 />
 
                 <ResultCard
-                  icon={<DollarSign className="w-4 h-4" />}
-                  label="Annual projected revenue"
-                  value={results.annualRevenue}
+                  icon={<TrendingUp className="w-4 h-4" />}
+                  label="Modeled monthly opportunity"
+                  value={results.monthlyOpportunity}
                   prefix="$"
                   decimals={0}
                 />
 
                 <ResultCard
-                  icon={<Zap className="w-4 h-4" />}
-                  label="ROI in first year"
-                  value={results.roiFirstYear}
-                  suffix="%"
+                  icon={<DollarSign className="w-4 h-4" />}
+                  label="Modeled annual opportunity"
+                  value={results.annualOpportunity}
+                  prefix="$"
                   decimals={0}
                 />
 
-                <ResultCard
-                  icon={<Calendar className="w-4 h-4" />}
-                  label="Break-even time"
-                  value={2.5}
-                  suffix=" months"
-                  decimals={1}
-                />
               </div>
 
-              <p className="mt-6 text-[11px] text-white/30 leading-relaxed">
-                Estimates are illustrative. Actual results depend on implementation quality and business context.
+              <p className="mt-6 text-xs text-white/70 leading-relaxed">
+                This arithmetic does not include conversion quality, capacity, refunds, costs, taxes, implementation success, or customer behaviour. Validate every assumption with real baseline data before making an investment decision.
               </p>
             </div>
           </div>
