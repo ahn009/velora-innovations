@@ -1,0 +1,480 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Velora custom colors */
+  --color-velora-navy: var(--velora-navy);
+  --color-velora-navy-light: var(--velora-navy-light);
+  --color-velora-emerald: var(--velora-emerald);
+  --color-velora-emerald-light: var(--velora-emerald-light);
+  --color-velora-emerald-dark: var(--velora-emerald-dark);
+  --color-velora-surface: var(--velora-surface);
+  --color-velora-surface-elevated: var(--velora-surface-elevated);
+  --color-velora-border: var(--velora-border);
+  --color-velora-muted: var(--velora-muted);
+  --color-velora-amber: var(--velora-amber);
+  --color-velora-violet: var(--velora-violet);
+  --color-velora-sky: var(--velora-sky);
+  --color-velora-rose: var(--velora-rose);
+  --color-velora-teal: var(--velora-teal);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Core palette — warm, premium, high trust */
+  --background: oklch(0.9856 0.0017 106.42);
+  --foreground: oklch(0.178 0.032 261.85);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.178 0.032 261.85);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.178 0.032 261.85);
+
+  --primary: oklch(0.208 0.042 265.75);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.967 0.003 264.54);
+  --secondary-foreground: oklch(0.208 0.042 265.75);
+
+  --muted: oklch(0.967 0.003 264.54);
+  --muted-foreground: oklch(0.508 0.025 264.54);
+
+  --accent: oklch(0.967 0.003 264.54);
+  --accent-foreground: oklch(0.208 0.042 265.75);
+
+  --destructive: oklch(0.577 0.245 27.325);
+
+  --border: oklch(0.923 0.005 264.54);
+  --input: oklch(0.923 0.005 264.54);
+  --ring: oklch(0.707 0.165 163);
+
+  /* Velora brand tokens — Emerald (default color theme) */
+  --velora-navy: oklch(0.208 0.042 265.75);
+  --velora-navy-light: oklch(0.314 0.05 265.75);
+  --velora-emerald: oklch(0.627 0.194 149.21);
+  --velora-emerald-light: oklch(0.744 0.162 155);
+  --velora-emerald-dark: oklch(0.517 0.179 149.21);
+  --velora-surface: oklch(0.9856 0.0017 106.42);
+  --velora-surface-elevated: oklch(1 0 0);
+  --velora-border: oklch(0.923 0.005 264.54);
+  --velora-muted: oklch(0.508 0.025 264.54);
+  --velora-amber: oklch(0.769 0.188 70.08);
+  --velora-violet: oklch(0.541 0.281 293.009);
+  --velora-sky: oklch(0.685 0.169 237.323);
+  --velora-rose: oklch(0.645 0.246 16.439);
+  --velora-teal: oklch(0.648 0.15 195);
+
+  --chart-1: oklch(0.627 0.194 149.21);
+  --chart-2: oklch(0.646 0.222 41.116);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+
+  --sidebar: oklch(0.9856 0.0017 106.42);
+  --sidebar-foreground: oklch(0.178 0.032 261.85);
+  --sidebar-primary: oklch(0.627 0.194 149.21);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.967 0.003 264.54);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.75);
+  --sidebar-border: oklch(0.923 0.005 264.54);
+  --sidebar-ring: oklch(0.707 0.165 163);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Premium scrollbar styling */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.78 0.01 264.54);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.65 0.02 264.54);
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth theme transition */
+html,
+html *,
+html *::before,
+html *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Disable transition during page load to prevent flash */
+html.no-transition,
+html.no-transition *,
+html.no-transition *::before,
+html.no-transition *::after {
+  transition: none !important;
+}
+
+/* Selection styling — theme-aware */
+::selection {
+  background: oklch(from var(--velora-emerald) l c h / 25%);
+  color: oklch(0.178 0.032 261.85);
+}
+
+/* Focus visible styling — theme-aware */
+:focus-visible {
+  outline: 2px solid var(--velora-emerald);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, oklch(0.967 0.003 264.54 / 40%) 25%, oklch(0.967 0.003 264.54 / 60%) 50%, oklch(0.967 0.003 264.54 / 40%) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(90deg, oklch(0.22 0.025 265 / 40%) 25%, oklch(0.22 0.025 265 / 60%) 50%, oklch(0.22 0.025 265 / 40%) 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes pulse-bg {
+  0%, 100% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.2); opacity: 0.15; }
+}
+
+/* ========== Dark Mode ========== */
+.dark {
+  color-scheme: dark;
+
+  /* Core palette */
+  --background: oklch(0.13 0.02 265);
+  --foreground: oklch(0.95 0.005 265);
+
+  --card: oklch(0.17 0.02 265);
+  --card-foreground: oklch(0.95 0.005 265);
+
+  --popover: oklch(0.17 0.02 265);
+  --popover-foreground: oklch(0.95 0.005 265);
+
+  --primary: oklch(0.75 0.18 149);
+  --primary-foreground: oklch(0.13 0.02 265);
+
+  --secondary: oklch(0.22 0.025 265);
+  --secondary-foreground: oklch(0.90 0.005 265);
+
+  --muted: oklch(0.22 0.025 265);
+  --muted-foreground: oklch(0.70 0.015 265);
+
+  --accent: oklch(0.22 0.025 265);
+  --accent-foreground: oklch(0.90 0.005 265);
+
+  --destructive: oklch(0.65 0.25 25);
+
+  --border: oklch(0.28 0.025 265);
+  --input: oklch(0.25 0.025 265);
+  --ring: oklch(0.70 0.165 163);
+
+  /* Velora brand tokens — Emerald (default dark mode) */
+  --velora-navy: oklch(0.13 0.025 265);
+  --velora-navy-light: oklch(0.22 0.035 265);
+  --velora-emerald: oklch(0.70 0.18 149);
+  --velora-emerald-light: oklch(0.80 0.15 155);
+  --velora-emerald-dark: oklch(0.55 0.17 149);
+  --velora-surface: oklch(0.13 0.02 265);
+  --velora-surface-elevated: oklch(0.18 0.02 265);
+  --velora-border: oklch(0.28 0.025 265);
+  --velora-muted: oklch(0.60 0.015 265);
+
+  /* Accent colors — slightly brighter in dark mode */
+  --velora-amber: oklch(0.80 0.18 70);
+  --velora-violet: oklch(0.62 0.26 293);
+  --velora-sky: oklch(0.75 0.16 237);
+  --velora-rose: oklch(0.72 0.22 16);
+  --velora-teal: oklch(0.72 0.14 195);
+
+  /* Sidebar */
+  --sidebar: oklch(0.13 0.02 265);
+  --sidebar-foreground: oklch(0.95 0.005 265);
+  --sidebar-primary: oklch(0.70 0.18 149);
+  --sidebar-primary-foreground: oklch(0.13 0.02 265);
+  --sidebar-accent: oklch(0.22 0.025 265);
+  --sidebar-accent-foreground: oklch(0.90 0.005 265);
+  --sidebar-border: oklch(0.28 0.025 265);
+  --sidebar-ring: oklch(0.70 0.165 163);
+}
+
+/* ========== Color Theme System ========== */
+/* Ocean — blue-teal (base: oklch(0.635 0.168 230)) */
+.theme-ocean {
+  --velora-emerald: oklch(0.635 0.168 230);
+  --velora-emerald-light: oklch(0.75 0.14 232);
+  --velora-emerald-dark: oklch(0.52 0.16 228);
+  --ring: oklch(0.70 0.14 230);
+  --sidebar-primary: oklch(0.635 0.168 230);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --chart-1: oklch(0.635 0.168 230);
+}
+.dark.theme-ocean {
+  --velora-emerald: oklch(0.72 0.15 230);
+  --velora-emerald-light: oklch(0.82 0.12 232);
+  --velora-emerald-dark: oklch(0.56 0.14 228);
+  --ring: oklch(0.75 0.13 230);
+  --sidebar-primary: oklch(0.72 0.15 230);
+  --sidebar-primary-foreground: oklch(0.13 0.02 265);
+  --chart-1: oklch(0.72 0.15 230);
+}
+
+/* Sunset — warm orange-amber (base: oklch(0.682 0.198 52)) */
+.theme-sunset {
+  --velora-emerald: oklch(0.682 0.198 52);
+  --velora-emerald-light: oklch(0.78 0.16 54);
+  --velora-emerald-dark: oklch(0.56 0.19 50);
+  --ring: oklch(0.74 0.16 52);
+  --sidebar-primary: oklch(0.682 0.198 52);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --chart-1: oklch(0.682 0.198 52);
+}
+.dark.theme-sunset {
+  --velora-emerald: oklch(0.75 0.17 52);
+  --velora-emerald-light: oklch(0.84 0.13 54);
+  --velora-emerald-dark: oklch(0.60 0.16 50);
+  --ring: oklch(0.78 0.14 52);
+  --sidebar-primary: oklch(0.75 0.17 52);
+  --sidebar-primary-foreground: oklch(0.13 0.02 265);
+  --chart-1: oklch(0.75 0.17 52);
+}
+
+/* Violet — purple (base: oklch(0.596 0.248 293)) */
+.theme-violet {
+  --velora-emerald: oklch(0.596 0.248 293);
+  --velora-emerald-light: oklch(0.72 0.20 295);
+  --velora-emerald-dark: oklch(0.49 0.23 291);
+  --ring: oklch(0.66 0.20 293);
+  --sidebar-primary: oklch(0.596 0.248 293);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --chart-1: oklch(0.596 0.248 293);
+}
+.dark.theme-violet {
+  --velora-emerald: oklch(0.67 0.22 293);
+  --velora-emerald-light: oklch(0.78 0.17 295);
+  --velora-emerald-dark: oklch(0.53 0.20 291);
+  --ring: oklch(0.70 0.18 293);
+  --sidebar-primary: oklch(0.67 0.22 293);
+  --sidebar-primary-foreground: oklch(0.13 0.02 265);
+  --chart-1: oklch(0.67 0.22 293);
+}
+
+/* Rose — pink-red (base: oklch(0.645 0.246 16.4)) */
+.theme-rose {
+  --velora-emerald: oklch(0.645 0.246 16.4);
+  --velora-emerald-light: oklch(0.76 0.20 18);
+  --velora-emerald-dark: oklch(0.53 0.23 14);
+  --ring: oklch(0.70 0.20 16.4);
+  --sidebar-primary: oklch(0.645 0.246 16.4);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --chart-1: oklch(0.645 0.246 16.4);
+}
+.dark.theme-rose {
+  --velora-emerald: oklch(0.72 0.22 16.4);
+  --velora-emerald-light: oklch(0.82 0.17 18);
+  --velora-emerald-dark: oklch(0.57 0.20 14);
+  --ring: oklch(0.75 0.18 16.4);
+  --sidebar-primary: oklch(0.72 0.22 16.4);
+  --sidebar-primary-foreground: oklch(0.13 0.02 265);
+  --chart-1: oklch(0.72 0.22 16.4);
+}
+
+/* ========== Dark mode overrides ========== */
+/* Dark mode: soften white cards to dark elevated surface (excludes opacity variants like bg-white/5) */
+.dark [class*="bg-white"]:not([class*="bg-white/"]) {
+  background-color: oklch(0.18 0.02 265) !important;
+}
+
+/* Dark mode: hero glassmorphism cards */
+.dark [class*="bg-white/80"] {
+  background-color: oklch(0.18 0.02 265 / 80%) !important;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0.02 265);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.45 0.025 265);
+}
+
+/* Dark mode selection — theme-aware */
+.dark ::selection {
+  background: oklch(from var(--velora-emerald-dark) l c h / 30%);
+  color: oklch(0.95 0.005 265);
+}
+
+/* ========== Utility: Nav Link Hover Underline — theme-aware ========== */
+.nav-link-hover {
+  position: relative;
+}
+.nav-link-hover:hover {
+  text-shadow: 0 0 20px oklch(from var(--velora-emerald) l c h / 15%);
+}
+.nav-link-hover::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 14px;
+  right: 14px;
+  height: 1.5px;
+  background-color: var(--velora-emerald);
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms ease;
+}
+.nav-link-hover:hover::after {
+  transform: scaleX(1);
+}
+
+/* ========== Utility: Button Press Effect ========== */
+.press-effect {
+  transition: transform 150ms ease, filter 150ms ease;
+}
+.press-effect:active {
+  transform: scale(0.95);
+  filter: brightness(1.08);
+}
+
+/* ========== Utility: Glass Card ========== */
+.glass-card {
+  background: oklch(1 0 0 / 70%);
+  backdrop-filter: blur(12px);
+  border: 1px solid oklch(0.923 0.005 264.54 / 50%);
+}
+.dark .glass-card {
+  background: oklch(0.17 0.02 265 / 70%);
+  border: 1px solid oklch(0.28 0.025 265 / 40%);
+}
+
+/* ========== Animation: Glow Border — theme-aware ========== */
+@keyframes glow-border {
+  0%, 100% {
+    border-color: oklch(from var(--velora-emerald) l c h / 30%);
+    box-shadow: 0 0 15px oklch(from var(--velora-emerald) l c h / 10%);
+  }
+  50% {
+    border-color: oklch(from var(--velora-emerald) l c h / 60%);
+    box-shadow: 0 0 25px oklch(from var(--velora-emerald) l c h / 20%);
+  }
+}
+
+.hero-glow:hover {
+  animation: glow-border 2s ease-in-out infinite;
+}
+
+/* ========== Utility: Gradient Text — theme-aware ========== */
+.text-gradient-emerald {
+  background: linear-gradient(135deg, var(--velora-emerald), var(--velora-emerald-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
