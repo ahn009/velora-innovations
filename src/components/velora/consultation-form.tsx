@@ -33,7 +33,7 @@ type SubmitState =
   | { status: 'error'; message: string }
   | { status: 'success'; message: string; reference: string }
 
-export function ConsultationForm({ source = 'website-consultation' }: { source?: string }) {
+export function ConsultationForm({ source = 'website-consultation', defaultValues = {} }: { source?: string; defaultValues?: { industry?: string; budget?: string; notes?: string } }) {
   const idPrefix = useId()
   const [state, setState] = useState<SubmitState>({ status: 'idle', message: '' })
 
@@ -146,7 +146,7 @@ export function ConsultationForm({ source = 'website-consultation' }: { source?:
           id={`${idPrefix}-industry`}
           name="industry"
           required
-          defaultValue=""
+          defaultValue={defaultValues.industry || ''}
           className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <option value="" disabled>Select your industry</option>
@@ -159,7 +159,7 @@ export function ConsultationForm({ source = 'website-consultation' }: { source?:
         <select
           id={`${idPrefix}-budget`}
           name="budget"
-          defaultValue=""
+          defaultValue={defaultValues.budget || ''}
           className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <option value="">Select a range</option>
@@ -169,7 +169,7 @@ export function ConsultationForm({ source = 'website-consultation' }: { source?:
 
       <div className="space-y-2">
         <Label htmlFor={`${idPrefix}-notes`}>What workflow would you like to improve?</Label>
-        <Textarea id={`${idPrefix}-notes`} name="notes" rows={4} maxLength={2000} />
+      <Textarea id={`${idPrefix}-notes`} name="notes" rows={4} maxLength={2000} defaultValue={defaultValues.notes || ''} />
       </div>
 
       <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">

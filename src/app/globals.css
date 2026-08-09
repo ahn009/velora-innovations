@@ -42,6 +42,20 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-surface-primary: var(--surface-primary);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-primary-foreground: var(--brand-primary-foreground);
+
   /* Velora custom colors */
   --color-velora-navy: var(--velora-navy);
   --color-velora-navy-light: var(--velora-navy-light);
@@ -61,6 +75,31 @@
 
 :root {
   --radius: 0.625rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 5rem;
+  --space-10: 6rem;
+  --space-11: 8rem;
+
+  --motion-fast: 160ms;
+  --motion-normal: 260ms;
+  --motion-slow: 520ms;
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 12px rgb(15 23 42 / 0.04);
+  --shadow-card: 0 12px 28px rgb(15 23 42 / 0.08);
+  --shadow-brand: 0 8px 18px rgb(16 185 129 / 0.18);
+  --shadow-brand-hover: 0 12px 24px rgb(16 185 129 / 0.24);
 
   /* Core palette — warm, premium, high trust */
   --background: oklch(0.9856 0.0017 106.42);
@@ -106,6 +145,20 @@
   --velora-rose: oklch(0.645 0.246 16.439);
   --velora-teal: oklch(0.648 0.15 195);
 
+  --background-primary: oklch(0.9856 0.0017 106.42);
+  --background-secondary: oklch(0.967 0.003 264.54);
+  --surface-primary: oklch(1 0 0);
+  --surface-secondary: oklch(0.975 0.002 264.54);
+  --surface-elevated: oklch(1 0 0);
+  --text-primary: oklch(0.178 0.032 261.85);
+  --text-secondary: oklch(0.42 0.025 264.54);
+  --text-muted: oklch(0.508 0.025 264.54);
+  --border-subtle: oklch(0.923 0.005 264.54);
+  --border-strong: oklch(0.84 0.008 264.54);
+  --brand-primary: oklch(0.627 0.194 149.21);
+  --brand-hover: oklch(0.517 0.179 149.21);
+  --brand-primary-foreground: oklch(0.985 0 0);
+
   --chart-1: oklch(0.627 0.194 149.21);
   --chart-2: oklch(0.646 0.222 41.116);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -146,6 +199,34 @@
   ::-webkit-scrollbar-thumb:hover {
     background: oklch(0.65 0.02 264.54);
   }
+}
+
+/* Shared marketing typography and product-state motion */
+body {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+.eyebrow {
+  color: var(--brand-primary);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.workflow-active-glow {
+  animation: workflow-active-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes workflow-active-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(16 185 129 / 0); }
+  50% { box-shadow: 0 0 0 4px rgb(16 185 129 / 0.10); }
 }
 
 /* Smooth scroll behavior */
@@ -295,6 +376,20 @@ html.no-transition *::after {
   --velora-sky: oklch(0.75 0.16 237);
   --velora-rose: oklch(0.72 0.22 16);
   --velora-teal: oklch(0.72 0.14 195);
+
+  --background-primary: oklch(0.13 0.02 265);
+  --background-secondary: oklch(0.17 0.02 265);
+  --surface-primary: oklch(0.17 0.02 265);
+  --surface-secondary: oklch(0.22 0.025 265);
+  --surface-elevated: oklch(0.20 0.022 265);
+  --text-primary: oklch(0.95 0.005 265);
+  --text-secondary: oklch(0.78 0.012 265);
+  --text-muted: oklch(0.70 0.015 265);
+  --border-subtle: oklch(0.28 0.025 265);
+  --border-strong: oklch(0.38 0.025 265);
+  --brand-primary: oklch(0.70 0.18 149);
+  --brand-hover: oklch(0.78 0.16 149);
+  --brand-primary-foreground: oklch(0.13 0.02 265);
 
   /* Sidebar */
   --sidebar: oklch(0.13 0.02 265);

@@ -25,3 +25,8 @@ pnpm-debug.log*
 
 # deployment
 .vercel
+
+
+
+#Documentation
+/docs
