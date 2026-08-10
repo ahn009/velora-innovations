@@ -4,16 +4,16 @@ import { NewsletterSignup } from './newsletter-signup'
 const footerLinks = {
   Solutions: [
     { label: 'Solutions Overview', href: '/solutions' },
-    { label: 'AI Receptionist', href: '/solutions#ai-receptionist' },
-    { label: 'Lead Qualification', href: '/solutions#lead-qualification' },
-    { label: 'Appointment Booking', href: '/solutions#appointment-booking' },
-    { label: 'Workflow Automation', href: '/solutions#workflow-automation' },
+    { label: 'AI Receptionist', href: '/solutions/ai-receptionist' },
+    { label: 'Lead Qualification', href: '/solutions/lead-qualification' },
+    { label: 'Appointment Booking', href: '/solutions/appointment-automation' },
+    { label: 'Workflow Automation', href: '/solutions/workflow-automation' },
   ],
   Industries: [
     { label: 'Industries Overview', href: '/industries' },
-    { label: 'Home Services', href: '/industries#home-services' },
-    { label: 'Property Management', href: '/industries#property-management' },
-    { label: 'Real Estate', href: '/industries#real-estate' },
+    { label: 'Home Services', href: '/industries/home-services' },
+    { label: 'Property Management', href: '/industries/property-management' },
+    { label: 'Real Estate', href: '/industries/real-estate' },
   ],
   Company: [
     { label: 'About', href: '/about' },

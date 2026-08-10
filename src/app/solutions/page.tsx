@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import { ArrowRight, Cable } from 'lucide-react'
 import { FinalCtaSection } from '@/components/velora/final-cta-section'
@@ -6,10 +6,7 @@ import { PageHero } from '@/components/velora/page-hero'
 import { ProblemSection } from '@/components/velora/problem-section'
 import { SolutionSection } from '@/components/velora/solution-section'
 
-export const metadata: Metadata = {
-  title: 'AI Agent Solutions | Velora Innovations',
-  description: 'Explore focused AI receptionist, lead qualification, appointment and workflow automation services.',
-}
+export const metadata = pageMetadata({ title: 'AI Automation Solutions | Velora Innovations', description: 'Explore AI receptionist, lead qualification, appointment, support, follow-up, CRM, and workflow automation services.', path: '/solutions' })
 
 export default function SolutionsPage() {
   return (

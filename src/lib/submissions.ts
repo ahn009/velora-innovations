@@ -10,6 +10,9 @@ const PHONE_PATTERN = /^[+()\-\.\s\d]{7,30}$/
 
 const industries = new Set([
   'home-services',
+  'dental',
+  'medical',
+  'law',
   'property-management',
   'real-estate',
   'accounting-firm',
@@ -20,6 +23,7 @@ const industries = new Set([
 ])
 
 const budgets = new Set([
+  'under-2500',
   '2500-5000-usd',
   '5000-10000-usd',
   '10000-20000-usd',
@@ -27,30 +31,8 @@ const budgets = new Set([
   'not-sure',
 ])
 
-type LeadInput = {
-  firstName?: unknown
-  lastName?: unknown
-  email?: unknown
-  phone?: unknown
-  company?: unknown
-  industry?: unknown
-  budget?: unknown
-  notes?: unknown
-  consent?: unknown
-  website?: unknown
-  source?: unknown
-}
-
-type NewsletterInput = {
-  email?: unknown
-  consent?: unknown
-  website?: unknown
-  source?: unknown
-}
-
-type UnsubscribeInput = {
-  email?: unknown
-  website?: unknown
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
 function cleanString(value: unknown, maxLength: number) {
@@ -62,45 +44,48 @@ function normalizeEmail(value: unknown) {
   return cleanString(value, 254).toLowerCase()
 }
 
-export function validateLead(input: LeadInput) {
+export function validateLead(input: unknown) {
+  const data = isRecord(input) ? input : {}
   const value = {
-    firstName: cleanString(input.firstName, 80),
-    lastName: cleanString(input.lastName, 80),
-    email: normalizeEmail(input.email),
-    phone: cleanString(input.phone, 30),
-    company: cleanString(input.company, 120),
-    industry: cleanString(input.industry, 80),
-    budget: cleanString(input.budget, 80),
-    notes: cleanString(input.notes, 2000),
-    source: cleanString(input.source, 120) || 'website-consultation',
+    firstName: cleanString(data.firstName, 80),
+    lastName: cleanString(data.lastName, 80),
+    email: normalizeEmail(data.email),
+    phone: cleanString(data.phone, 30),
+    company: cleanString(data.company, 120),
+    industry: cleanString(data.industry, 80),
+    budget: cleanString(data.budget, 80),
+    notes: cleanString(data.notes, 2000),
+    source: cleanString(data.source, 120) || 'website-consultation',
   }
 
-  if (cleanString(input.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }
+  if (cleanString(data.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }
   if (!value.firstName || !value.lastName || !value.company) return { ok: false as const, message: 'Please complete all required fields.' }
   if (!EMAIL_PATTERN.test(value.email)) return { ok: false as const, message: 'Please enter a valid work email.' }
   if (value.phone && !PHONE_PATTERN.test(value.phone)) return { ok: false as const, message: 'Please enter a valid phone number.' }
   if (!industries.has(value.industry)) return { ok: false as const, message: 'Please select a valid industry.' }
   if (value.budget && !budgets.has(value.budget)) return { ok: false as const, message: 'Please select a valid budget range.' }
-  if (input.consent !== true) return { ok: false as const, message: 'Please agree to the privacy notice before submitting.' }
+  if (data.consent !== true) return { ok: false as const, message: 'Please agree to the privacy notice before submitting.' }
 
   return { ok: true as const, value }
 }
 
-export function validateNewsletter(input: NewsletterInput) {
-  const email = normalizeEmail(input.email)
-  const source = cleanString(input.source, 120) || 'website-newsletter'
+export function validateNewsletter(input: unknown) {
+  const data = isRecord(input) ? input : {}
+  const email = normalizeEmail(data.email)
+  const source = cleanString(data.source, 120) || 'website-newsletter'
 
-  if (cleanString(input.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }
+  if (cleanString(data.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }
   if (!EMAIL_PATTERN.test(email)) return { ok: false as const, message: 'Please enter a valid email address.' }
-  if (input.consent !== true) return { ok: false as const, message: 'Please confirm that you want to receive email updates.' }
+  if (data.consent !== true) return { ok: false as const, message: 'Please confirm that you want to receive email updates.' }
 
   return { ok: true as const, value: { email, source } }
 }
 
-export function validateUnsubscribe(input: UnsubscribeInput) {
-  const email = normalizeEmail(input.email)
+export function validateUnsubscribe(input: unknown) {
+  const data = isRecord(input) ? input : {}
+  const email = normalizeEmail(data.email)
 
-  if (cleanString(input.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }
+  if (cleanString(data.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }
   if (!EMAIL_PATTERN.test(email)) return { ok: false as const, message: 'Please enter a valid email address.' }
 
   return { ok: true as const, value: { email } }

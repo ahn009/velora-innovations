@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'About Velora Innovations | AI Automation Studio', description: 'Learn how Velora Innovations designs focused AI workflows with clear boundaries, testing, integrations, and human ownership.', path: '/about' })
 
 export default function AboutPage() {
   return (

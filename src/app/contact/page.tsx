@@ -1,5 +1,8 @@
 import { ConsultationForm } from '@/components/velora/consultation-form'
 import { InfoPage } from '@/components/velora/info-page'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'Contact Velora Innovations | AI Automation Consultation', description: 'Share the customer or operational workflow you want to improve and request a practical consultation with Velora Innovations.', path: '/contact' })
 
 export default function ContactPage() {
   return (

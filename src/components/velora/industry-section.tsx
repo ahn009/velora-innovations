@@ -1,6 +1,7 @@
 'use client'
 
 import { useId, useState } from 'react'
+import Link from 'next/link'
 import { Building2, CarFront, CircleDollarSign, FileText, Gavel, Home, Hospital, ShoppingBag, Wrench } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Section, SectionHeading } from './section'
@@ -20,12 +21,14 @@ const industries: Industry[] = [
 ]
 
 export function IndustryExample({ industry }: { industry: Industry }) {
+  const detailRoutes: Record<string, string> = { 'home-services': '/industries/home-services', 'dental-practices': '/industries/dental', 'medical-practices': '/industries/medical-practices', 'law-firms': '/industries/law-firms', 'real-estate': '/industries/real-estate', 'property-management': '/industries/property-management', accounting: '/industries/accounting', automotive: '/industries/automotive', 'e-commerce': '/industries/ecommerce' }
   return (
     <div id={`${industry.id}-example`} role="tabpanel" className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
       <div>
         <span className="eyebrow">Example workflow</span>
         <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">{industry.title}</h3>
         <p className="mt-3 text-sm leading-6 text-white/65">{industry.automation}</p>
+        <Link href={detailRoutes[industry.id] ?? '/industries'} className="mt-5 inline-flex min-h-10 items-center text-sm font-semibold text-brand-primary hover:text-brand-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">Explore {industry.title} <span className="ml-2" aria-hidden="true">→</span></Link>
       </div>
       <div className="rounded-[var(--radius-lg)] border border-white/10 bg-white/[0.06] p-4 sm:p-5">
         <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/50"><MessageIcon /> {industry.customerLabel}</div>

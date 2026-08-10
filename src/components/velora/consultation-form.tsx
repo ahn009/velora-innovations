@@ -10,6 +10,9 @@ import { Textarea } from '@/components/ui/textarea'
 
 const industries = [
   ['home-services', 'Home services'],
+  ['dental', 'Dental practice'],
+  ['medical', 'Medical practice'],
+  ['law', 'Law firm'],
   ['property-management', 'Property management'],
   ['real-estate', 'Real estate'],
   ['accounting-firm', 'Accounting firm'],
@@ -20,6 +23,7 @@ const industries = [
 ] as const
 
 const budgetRanges = [
+  ['under-2500', 'Under $2,500 USD'],
   ['2500-5000-usd', '$2,500–$5,000 USD'],
   ['5000-10000-usd', '$5,000–$10,000 USD'],
   ['10000-20000-usd', '$10,000–$20,000 USD'],
@@ -113,7 +117,7 @@ export function ConsultationForm({ source = 'website-consultation', defaultValue
   const pending = state.status === 'submitting'
 
   return (
-    <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+    <form onSubmit={handleSubmit} aria-busy={pending} className="mt-5 space-y-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor={`${idPrefix}-firstName`}>First name</Label>

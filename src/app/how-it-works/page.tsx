@@ -1,14 +1,11 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Cable, ShieldCheck } from 'lucide-react'
 import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { HowItWorksSection } from '@/components/velora/how-it-works-section'
 import { PageHero } from '@/components/velora/page-hero'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'How It Works | Velora Innovations',
-  description: 'Understand the workflow discovery, integration review, testing, launch and measurement process.',
-}
+export const metadata = pageMetadata({ title: 'How AI Automation Implementation Works | Velora Innovations', description: 'Understand Velora Innovations’ workflow discovery, integration review, testing, controlled launch, and optimization process.', path: '/how-it-works' })
 
 const supportingPages = [
   {

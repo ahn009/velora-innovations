@@ -55,7 +55,7 @@ function scoreAssessment(answers: AssessmentAnswers) {
   if (answers.volume === 'high' || answers.volume === 'very-high') Object.keys(scores).forEach((key) => { scores[key as keyof typeof scores] += 1 })
   const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1])
   const readiness = answers.readiness === 'documented' && answers.integration !== 'no'
-  const primary = ranked[0][1] === 0 ? 'moderate' : ranked[0][0]
+  const primary = ranked[0][1] === 0 || !readiness ? 'moderate' : ranked[0][0]
   const labels: Record<string, string> = { voice: 'AI Receptionist', appointment: 'Appointment Automation', qualification: 'Lead Qualification Automation', support: 'Customer Support Automation', followUp: 'Follow-Up Automation', workflow: 'Internal Workflow Automation', moderate: readiness ? 'Focused Automation Opportunity' : 'Not Yet Ready for Automation' }
   const secondary = ranked.find(([key, score]) => key !== primary && score > 0)?.[0]
   return { primary, primaryLabel: labels[primary], secondaryLabel: secondary ? labels[secondary] : 'Workflow Readiness Review', scores, readiness }

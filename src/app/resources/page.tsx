@@ -1,11 +1,8 @@
-import type { Metadata } from 'next'
 import { PageHero } from '@/components/velora/page-hero'
 import { ResourceHub } from '@/components/velora/resource-hub'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Resources | Velora Innovations',
-  description: 'Explore guided examples, workflow ideas, integrations, security controls, calculator and frequently asked questions.',
-}
+export const metadata = pageMetadata({ title: 'AI Automation Resources | Velora Innovations', description: 'Explore workflow examples, integration questions, security controls, implementation costs, and frequently asked questions.', path: '/resources' })
 
 export default function ResourcesPage() {
   return (

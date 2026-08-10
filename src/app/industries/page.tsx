@@ -1,14 +1,11 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, CircleOff } from 'lucide-react'
 import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { IndustrySection } from '@/components/velora/industry-section'
 import { PageHero } from '@/components/velora/page-hero'
 
-export const metadata: Metadata = {
-  title: 'Industries | Velora Innovations',
-  description: 'Review where carefully scoped customer-facing AI workflows can be a practical fit.',
-}
+export const metadata = pageMetadata({ title: 'Industries We Support | Velora Innovations', description: 'Review practical AI workflow opportunities for home services, dental, law, real estate, property management, and other enquiry-driven teams.', path: '/industries' })
 
 export default function IndustriesPage() {
   return (
