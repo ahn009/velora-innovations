@@ -12,11 +12,13 @@ export default function IndustriesPage() {
     <main id="main-content">
       <PageHero
         eyebrow="Industries"
-        title="A Practical Fit for Enquiry-Driven Service Businesses"
-        description="We focus on teams with repeatable customer questions, documented scheduling or routing rules and a clear owner for exceptions."
-        secondaryLink={{ label: 'Explore solutions', href: '/solutions' }}
+        title="AI automation built around how your business actually operates"
+        description="Choose an industry to see common workflows, useful automation opportunities, and the implementation boundaries that keep people in control."
+        primaryLink={{ label: 'Find my industry fit', href: '/assessment' }}
+        secondaryLink={{ label: 'Book a Consultation', href: '/consultation' }}
+        compact
       />
-      <IndustrySection />
+      <IndustrySection variant="directory" />
       <section className="bg-background py-16 sm:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-6 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
           <div className="rounded-2xl border border-velora-emerald/25 bg-velora-emerald/[0.06] p-6 sm:p-8">

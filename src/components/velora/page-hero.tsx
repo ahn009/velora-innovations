@@ -12,12 +12,16 @@ export function PageHero({
   description,
   breadcrumbs = [],
   secondaryLink,
+  primaryLink,
+  compact = false,
 }: {
   eyebrow: string
   title: string
   description: string
   breadcrumbs?: Breadcrumb[]
   secondaryLink?: { label: string; href: string }
+  primaryLink?: { label: string; href: string }
+  compact?: boolean
 }) {
   return (
     <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-velora-emerald/[0.07] via-background to-background">
@@ -25,7 +29,7 @@ export function PageHero({
         className="pointer-events-none absolute left-1/2 top-0 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-velora-emerald/10 blur-3xl"
         aria-hidden="true"
       />
-      <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <div className={`relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-10 ${compact ? 'py-10 sm:py-12 lg:py-14' : 'py-14 sm:py-20 lg:py-24'}`}>
         {breadcrumbs.length > 0 ? (
           <nav aria-label="Breadcrumb" className="mb-7">
             <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
@@ -46,18 +50,18 @@ export function PageHero({
 
         <div className="max-w-3xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-velora-emerald">{eyebrow}</p>
-          <h1 className="mt-4 text-balance text-4xl font-semibold leading-[1.08] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className={`mt-4 text-balance font-semibold leading-[1.08] tracking-[-0.03em] text-foreground ${compact ? 'text-3xl sm:text-4xl lg:text-5xl' : 'text-4xl sm:text-5xl lg:text-6xl'}`}>
             {title}
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             {description}
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/contact"
+              href={primaryLink?.href ?? '/contact'}
               className="inline-flex h-11 items-center justify-center rounded-xl bg-velora-emerald px-5 text-sm font-medium text-white shadow-sm transition-[background-color,transform,box-shadow] duration-150 hover:bg-velora-emerald-dark hover:shadow-md active:scale-[0.97]"
             >
-              Request a Consultation
+              {primaryLink?.label ?? 'Request a Consultation'}
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </Link>
             {secondaryLink ? (

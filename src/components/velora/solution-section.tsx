@@ -35,11 +35,19 @@ export function SolutionCard({ solution }: { solution: Solution }) {
   )
 }
 
-export function SolutionSection() {
+const solutionGroups = [
+  { title: 'Customer Communication', ids: ['ai-receptionist', 'customer-support'] },
+  { title: 'Revenue Operations', ids: ['lead-qualification', 'appointment-booking', 'follow-up-automation'] },
+  { title: 'Business Operations', ids: ['crm-automation', 'workflow-automation'] },
+] as const
+
+export function SolutionSection({ variant = 'featured' }: { variant?: 'featured' | 'catalog' }) {
+  const visibleSolutions = variant === 'featured' ? solutions.filter((solution) => ['ai-receptionist', 'lead-qualification', 'appointment-booking', 'workflow-automation'].includes(solution.id)) : solutions
   return (
     <Section id="solutions">
-      <SectionHeading label="Solutions" title="AI Systems Designed Around Real Business Workflows." description="Start with one bounded process, connect the tools that matter, and expand only when the workflow is tested and owned." />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{solutions.map((solution) => <SolutionCard key={solution.id} solution={solution} />)}</div>
+      <SectionHeading label={variant === 'catalog' ? 'Solution Catalog' : 'Featured Solutions'} title={variant === 'catalog' ? 'AI systems for the work your team handles every day' : 'A focused system for the workflow that needs attention first.'} description={variant === 'catalog' ? 'Compare customer communication, revenue operations, and business operations systems by the job they are designed to perform.' : 'Start with one bounded process, connect the tools that matter, and expand only when the workflow is tested and owned.'} />
+      {variant === 'catalog' ? <div className="space-y-12">{solutionGroups.map((group) => <div key={group.title}><div className="mb-5 flex items-end justify-between gap-4"><div><p className="eyebrow">Capability group</p><h2 className="mt-2 text-2xl font-semibold tracking-tight text-text-primary">{group.title}</h2></div></div><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{group.ids.map((id) => { const solution = solutions.find((item) => item.id === id); return solution ? <SolutionCard key={solution.id} solution={solution} /> : null })}</div></div>)}</div> : <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{visibleSolutions.map((solution) => <SolutionCard key={solution.id} solution={solution} />)}</div>}
+      {variant === 'featured' && <div className="mt-8 text-center"><Link href="/solutions" className="group inline-flex items-center text-sm font-semibold text-brand-hover hover:text-brand-primary">Explore all solutions <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-[var(--motion-fast)] group-hover:translate-x-0.5" aria-hidden="true" /></Link></div>}
     </Section>
   )
 }

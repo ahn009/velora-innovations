@@ -37,6 +37,34 @@ type SubmitState =
   | { status: 'error'; message: string }
   | { status: 'success'; message: string; reference: string }
 
+function getAttribution() {
+  if (typeof window === 'undefined') return {}
+
+  const query = new URLSearchParams(window.location.search)
+  let assessment: { result?: { primaryLabel?: string; secondaryLabel?: string; readiness?: boolean }; answers?: { timeline?: string } } = {}
+  try {
+    const saved = sessionStorage.getItem('velora-assessment-result')
+    if (saved) assessment = JSON.parse(saved) as typeof assessment
+  } catch {
+    assessment = {}
+  }
+
+  const value = (key: string, maxLength: number) => query.get(key)?.trim().slice(0, maxLength) || undefined
+  return {
+    utmSource: value('utm_source', 100),
+    utmMedium: value('utm_medium', 100),
+    utmCampaign: value('utm_campaign', 150),
+    utmContent: value('utm_content', 150),
+    utmTerm: value('utm_term', 150),
+    referrer: document.referrer.slice(0, 500) || undefined,
+    landingPage: `${window.location.pathname}${window.location.search ? window.location.search.slice(0, 180) : ''}`.slice(0, 200),
+    primaryOpportunity: assessment.result?.primaryLabel,
+    secondaryOpportunity: assessment.result?.secondaryLabel,
+    readiness: typeof assessment.result?.readiness === 'boolean' ? (assessment.result.readiness ? 'ready' : 'review') : undefined,
+    timeline: assessment.answers?.timeline,
+  }
+}
+
 export function ConsultationForm({ source = 'website-consultation', defaultValues = {} }: { source?: string; defaultValues?: { industry?: string; budget?: string; notes?: string } }) {
   const idPrefix = useId()
   const [state, setState] = useState<SubmitState>({ status: 'idle', message: '' })
@@ -63,6 +91,7 @@ export function ConsultationForm({ source = 'website-consultation', defaultValue
           website: formData.get('website'),
           consent: formData.get('consent') === 'on',
           source,
+          ...getAttribution(),
         }),
       })
 

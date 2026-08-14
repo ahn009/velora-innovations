@@ -56,6 +56,17 @@ export function validateLead(input: unknown) {
     budget: cleanString(data.budget, 80),
     notes: cleanString(data.notes, 2000),
     source: cleanString(data.source, 120) || 'website-consultation',
+    utmSource: cleanString(data.utmSource, 100),
+    utmMedium: cleanString(data.utmMedium, 100),
+    utmCampaign: cleanString(data.utmCampaign, 150),
+    utmContent: cleanString(data.utmContent, 150),
+    utmTerm: cleanString(data.utmTerm, 150),
+    referrer: cleanString(data.referrer, 500),
+    landingPage: cleanString(data.landingPage, 200),
+    primaryOpportunity: cleanString(data.primaryOpportunity, 120),
+    secondaryOpportunity: cleanString(data.secondaryOpportunity, 120),
+    readiness: cleanString(data.readiness, 40),
+    timeline: cleanString(data.timeline, 40),
   }
 
   if (cleanString(data.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }

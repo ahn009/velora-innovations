@@ -41,19 +41,21 @@ export function IndustryExample({ industry }: { industry: Industry }) {
 
 function MessageIcon() { return <FileText className="h-3.5 w-3.5 text-brand-primary" aria-hidden="true" /> }
 
-export function IndustrySection() {
-  const [selected, setSelected] = useState(industries[0].id)
+export function IndustrySection({ variant = 'featured' }: { variant?: 'featured' | 'directory' }) {
+  const visibleIndustries = variant === 'featured' ? industries.slice(0, 6) : industries
+  const [selected, setSelected] = useState(visibleIndustries[0].id)
   const panelId = useId()
-  const active = industries.find((industry) => industry.id === selected) ?? industries[0]
+  const active = visibleIndustries.find((industry) => industry.id === selected) ?? visibleIndustries[0]
   return (
     <Section id="industries" background="muted">
-      <SectionHeading label="Industries" title="Built Around the Way Your Industry Works." description="Choose the environment that feels closest to your business to see a practical example of how a bounded workflow could be structured." />
+      <SectionHeading label={variant === 'directory' ? 'Industry Directory' : 'Featured Industries'} title={variant === 'directory' ? 'AI automation built around how your business actually operates' : 'See how the workflow changes by industry.'} description={variant === 'directory' ? 'Choose an industry to compare common operational problems, useful systems, and the boundaries that should remain with people.' : 'Choose the environment that feels closest to your business to see a practical example of how a bounded workflow could be structured.'} />
       <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-8">
         <div role="tablist" aria-label="Industries" className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2">
-          {industries.map((industry) => { const Icon = industry.icon; const isActive = industry.id === selected; return <button key={industry.id} id={`${panelId}-${industry.id}`} type="button" role="tab" aria-selected={isActive} aria-controls={panelId} onClick={() => setSelected(industry.id)} className={`flex min-h-16 items-center gap-3 rounded-[var(--radius-md)] border px-3 text-left text-sm font-semibold transition-[border-color,background-color,box-shadow] duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 ${isActive ? 'border-brand-primary/35 bg-surface-primary text-text-primary shadow-[var(--shadow-soft)]' : 'border-border-subtle bg-surface-secondary/60 text-text-secondary hover:border-brand-primary/20 hover:bg-surface-primary'}`}><span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] ${isActive ? 'bg-brand-primary text-brand-primary-foreground' : 'bg-brand-primary/[0.09] text-brand-primary'}`}><Icon className="h-4 w-4" aria-hidden="true" /></span>{industry.title}</button> })}
+          {visibleIndustries.map((industry) => { const Icon = industry.icon; const isActive = industry.id === selected; return <button key={industry.id} id={`${panelId}-${industry.id}`} type="button" role="tab" aria-selected={isActive} aria-controls={panelId} onClick={() => setSelected(industry.id)} className={`flex min-h-16 items-center gap-3 rounded-[var(--radius-md)] border px-3 text-left text-sm font-semibold transition-[border-color,background-color,box-shadow] duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 ${isActive ? 'border-brand-primary/35 bg-surface-primary text-text-primary shadow-[var(--shadow-soft)]' : 'border-border-subtle bg-surface-secondary/60 text-text-secondary hover:border-brand-primary/20 hover:bg-surface-primary'}`}><span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] ${isActive ? 'bg-brand-primary text-brand-primary-foreground' : 'bg-brand-primary/[0.09] text-brand-primary'}`}><Icon className="h-4 w-4" aria-hidden="true" /></span>{industry.title}</button> })}
         </div>
         <div id={panelId} aria-live="polite" className="rounded-[var(--radius-xl)] bg-velora-navy p-5 shadow-[var(--shadow-card)] sm:p-7"><IndustryExample industry={active} /></div>
       </div>
+      {variant === 'featured' && <div className="mt-7 text-center"><Link href="/industries" className="group inline-flex items-center text-sm font-semibold text-brand-hover hover:text-brand-primary">Explore all industries <span className="ml-2 transition-transform duration-[var(--motion-fast)] group-hover:translate-x-0.5" aria-hidden="true">→</span></Link></div>}
     </Section>
   )
 }

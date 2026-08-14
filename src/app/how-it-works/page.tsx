@@ -27,9 +27,11 @@ export default function HowItWorksPage() {
     <main id="main-content">
       <PageHero
         eyebrow="How It Works"
-        title="A Controlled Delivery Process, Not an Open-Ended AI Experiment"
-        description="Every proposal is tied to real systems, approved scenarios, acceptance criteria and a named human owner for exceptions."
+        title="From a manual workflow to a working AI system"
+        description="We start with the process, not the AI. Every proposal is tied to real systems, approved scenarios, acceptance criteria, and a named human owner for exceptions."
+        primaryLink={{ label: 'Book a Consultation', href: '/consultation' }}
         secondaryLink={{ label: 'Review pricing', href: '/pricing' }}
+        compact
       />
       <HowItWorksSection />
       <section className="bg-muted/35 py-16 sm:py-20 lg:py-24">

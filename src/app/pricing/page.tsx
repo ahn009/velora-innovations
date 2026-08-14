@@ -20,7 +20,9 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title="Clear Starting Points With Scope Confirmed Before Commitment"
         description="Implementation begins with a bounded workflow. Recurring management, model usage, telephony and third-party software are quoted separately."
+        primaryLink={{ label: 'Discuss My Automation Plan', href: '/consultation' }}
         secondaryLink={{ label: 'Read pricing FAQ', href: '/resources/faq' }}
+        compact
       />
       <PricingSection />
       <section className="bg-muted/35 py-16 sm:py-20 lg:py-24">

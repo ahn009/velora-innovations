@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, Layers3, Network, Sparkles } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useConsultation } from './consultation-provider'
 import { Section, SectionHeading } from './section'
@@ -22,4 +23,8 @@ export function PricingSection() {
     </article>)}</div>
     <div className="mx-auto mt-10 max-w-4xl rounded-[var(--radius-lg)] border border-border-subtle bg-background-secondary p-5 sm:p-6"><div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between"><div><p className="eyebrow">Commercial transparency</p><h3 className="mt-2 text-lg font-semibold text-text-primary">Know what is included before work begins.</h3></div><p className="max-w-xl text-sm leading-6 text-text-secondary">Proposals separate one-time implementation from monthly management and support, third-party usage charges, and optional custom integrations. Final scope is confirmed after reviewing the workflow.</p></div><div className="mt-5 grid gap-3 border-t border-border-subtle pt-5 text-sm text-text-secondary sm:grid-cols-3"><span>Implementation scope</span><span>Ongoing management</span><span>Provider and usage costs</span></div></div>
   </Section>
+}
+
+export function PricingTeaser() {
+  return <section className="border-y border-border-subtle bg-background-secondary py-10 sm:py-12"><div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10"><div><p className="eyebrow">Pricing starting point</p><p className="mt-2 text-lg font-semibold text-text-primary">Projects typically begin at $2,500.</p><p className="mt-1 text-sm text-text-secondary">Scope, integrations, usage, and ongoing management shape the final proposal.</p></div><Link href="/pricing" className="inline-flex min-h-10 items-center justify-center rounded-[var(--radius-md)] border border-border-strong px-4 text-sm font-semibold text-text-primary hover:bg-surface-primary">See pricing &amp; engagement options <span className="ml-2" aria-hidden="true">→</span></Link></div></section>
 }

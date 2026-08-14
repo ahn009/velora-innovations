@@ -12,7 +12,8 @@ export default function PrivacyPage() {
         <h2>Information we collect</h2>
         <p>
           The consultation form can collect your name, work email, optional phone number, company,
-          industry, budget range, workflow notes, submission source, consent version, and timestamp.
+          industry, budget range, workflow notes, submission source, optional campaign attribution,
+          landing page, assessment recommendation context, consent version, and timestamp.
           The newsletter form collects your email, consent version, source, and timestamp.
         </p>
         <p className="mt-3">

@@ -9,9 +9,11 @@ export default function ResourcesPage() {
     <main id="main-content">
       <PageHero
         eyebrow="Resources"
-        title="Practical Detail Before You Book a Conversation"
+        title="Learn how to evaluate AI automation properly"
         description="Explore the workflow, integration, security, cost and delivery questions that should be answered before an AI deployment begins."
-        secondaryLink={{ label: 'Explore solutions', href: '/solutions' }}
+        primaryLink={{ label: 'Explore the guided demo', href: '/resources/demo' }}
+        secondaryLink={{ label: 'Take the assessment', href: '/assessment' }}
+        compact
       />
       <ResourceHub />
     </main>

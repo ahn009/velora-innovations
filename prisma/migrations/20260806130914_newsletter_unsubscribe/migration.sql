@@ -1,2 +1,1 @@
--- AlterTable
-ALTER TABLE "Subscriber" ADD COLUMN "unsubscribedAt" DATETIME;
+-- Historical SQLite migration replaced by the PostgreSQL baseline.
