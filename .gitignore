@@ -31,5 +31,5 @@ pnpm-debug.log*
 #Documentation
 /docs
 
-#HOME
-/hello
+#LOGS
+/logs
