@@ -4,7 +4,66 @@ import { useState } from 'react'
 import { CalendarDays, CheckCircle2, ListChecks } from 'lucide-react'
 import { ConsultationForm } from './consultation-form'
 
+type ConsultationDefaults = { industry?: string; budget?: string; notes?: string }
+
+const industryMap: Record<string, string> = {
+  'law-firms': 'law',
+  'medical-practices': 'medical',
+  accounting: 'accounting-firm',
+  automotive: 'automotive-business',
+  ecommerce: 'e-commerce',
+}
+
+function getDefaults(): ConsultationDefaults {
+  if (typeof window === 'undefined') return {}
+  try {
+    const query = new URLSearchParams(window.location.search)
+    const saved = sessionStorage.getItem('velora-assessment-result')
+    const data = saved ? JSON.parse(saved) as { answers?: Record<string, string | string[]>; result?: { primaryLabel?: string } } : {}
+    const answers = data.answers || {}
+    const queryIndustry = query.get('industry')
+    const agent = query.get('agent')
+    const solution = query.get('solution')
+    const interest = query.get('interest')
+    const context = [
+      agent ? `Agent workflow: ${agent}.` : '',
+      solution ? `Core capability: ${solution.replaceAll('-', ' ')}.` : '',
+      interest ? `I am interested in ${interest.replaceAll('-', ' ')}.` : '',
+    ].filter(Boolean).join(' ')
+
+    return {
+      industry: queryIndustry ? (industryMap[queryIndustry] || queryIndustry) : typeof answers.industry === 'string' ? answers.industry : undefined,
+      budget: typeof answers.budget === 'string' ? answers.budget : undefined,
+      notes: context || data.result?.primaryLabel ? `${context}${context ? ' ' : ''}${data.result?.primaryLabel ? `Assessment recommendation: ${data.result.primaryLabel}. I would like to discuss this workflow.` : ''}` : undefined,
+    }
+  } catch {
+    return {}
+  }
+}
+
 export function ConsultationPage() {
-  const [defaults] = useState<{ industry?: string; budget?: string; notes?: string }>(() => { if (typeof window === 'undefined') return {}; try { const query = new URLSearchParams(window.location.search); const industryMap: Record<string, string> = { 'law-firms': 'law', 'medical-practices': 'medical', accounting: 'accounting-firm', automotive: 'automotive-business', ecommerce: 'e-commerce' }; const queryIndustry = query.get('industry'); const saved = sessionStorage.getItem('velora-assessment-result'); const data = saved ? JSON.parse(saved) as { answers?: Record<string, string | string[]>; result?: { primaryLabel?: string } } : {}; const answers = data.answers || {}; const interest = query.get('interest'); return { industry: queryIndustry ? (industryMap[queryIndustry] || queryIndustry) : typeof answers.industry === 'string' ? answers.industry : undefined, budget: typeof answers.budget === 'string' ? answers.budget : undefined, notes: interest ? `I am interested in ${interest.replaceAll('-', ' ')}.` : data.result?.primaryLabel ? `Assessment recommendation: ${data.result.primaryLabel}. I would like to discuss this workflow.` : undefined } } catch { return {} } })
-  return <main id="main-content"><section className="border-b border-border-subtle bg-background-secondary"><div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:px-10"><div><p className="eyebrow">Consultation</p><h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-text-primary sm:text-5xl">Let&apos;s review what your business can automate.</h1><p className="mt-5 text-base leading-7 text-text-secondary sm:text-lg">Share the workflow that is slowing your team down. We&apos;ll review fit, systems, boundaries, and a sensible next step without pretending every process should be automated.</p><div className="mt-8 space-y-4"><div className="flex gap-3"><CalendarDays className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What we discuss</h2><p className="mt-1 text-sm leading-6 text-text-secondary">Customer enquiries, repetitive work, current tools, handoff requirements, and implementation scope.</p></div></div><div className="flex gap-3"><ListChecks className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What to prepare</h2><p className="mt-1 text-sm leading-6 text-text-secondary">A real workflow, the systems involved, and the people who own exceptions or approvals.</p></div></div><div className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What happens next</h2><p className="mt-1 text-sm leading-6 text-text-secondary">We review the request and follow up using the details you provide. This is a request flow, not claimed live calendar availability.</p></div></div></div></div><div className="rounded-[var(--radius-xl)] border border-border-subtle bg-surface-primary p-5 shadow-card sm:p-8"><h2 className="text-xl font-semibold text-text-primary">Consultation request</h2><ConsultationForm source="consultation-page" defaultValues={defaults} /></div></div></section></main>
+  const [defaults] = useState<ConsultationDefaults>(getDefaults)
+
+  return (
+    <main id="main-content">
+      <section className="border-b border-border-subtle bg-background-secondary">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:px-10">
+          <div>
+            <p className="eyebrow">Consultation</p>
+            <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-text-primary sm:text-5xl">Let&apos;s review what your business can automate.</h1>
+            <p className="mt-5 text-base leading-7 text-text-secondary sm:text-lg">Share the workflow that is slowing your team down. We&apos;ll review fit, systems, boundaries, and a sensible next step without pretending every process should be automated.</p>
+            <div className="mt-8 space-y-4">
+              <div className="flex gap-3"><CalendarDays className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What we discuss</h2><p className="mt-1 text-sm leading-6 text-text-secondary">Customer enquiries, repetitive work, current tools, handoff requirements, and implementation scope.</p></div></div>
+              <div className="flex gap-3"><ListChecks className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What to prepare</h2><p className="mt-1 text-sm leading-6 text-text-secondary">A real workflow, the systems involved, and the people who own exceptions or approvals.</p></div></div>
+              <div className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What happens next</h2><p className="mt-1 text-sm leading-6 text-text-secondary">We review the request and follow up using the details you provide. This is a request flow, not claimed live calendar availability.</p></div></div>
+            </div>
+          </div>
+          <div className="rounded-[var(--radius-xl)] border border-border-subtle bg-surface-primary p-5 shadow-card sm:p-8">
+            <h2 className="text-xl font-semibold text-text-primary">Consultation request</h2>
+            <ConsultationForm source="consultation-page" defaultValues={defaults} />
+          </div>
+        </div>
+      </section>
+    </main>
+  )
 }

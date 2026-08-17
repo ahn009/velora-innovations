@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Bot, CalendarCheck2, Headphones, MailCheck, MessageSquareText, PhoneCall, Route, UserRoundCheck } from 'lucide-react'
+import { ArrowRight, Bot, CalendarCheck2, Headphones, MailCheck, MessageSquareText, Route, UserRoundCheck } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Section, SectionHeading } from './section'
@@ -10,9 +10,8 @@ type Solution = { id: string; title: string; outcome: string; description: strin
 
 const solutions: Solution[] = [
   { id: 'ai-receptionist', title: 'AI Receptionist', outcome: 'Give every routine enquiry a clear next step.', description: 'Answers approved questions, captures customer details, routes requests, and escalates exceptions to your team.', tags: ['Voice', 'Web', 'SMS'], icon: Headphones, href: '/solutions/ai-receptionist' },
-  { id: 'ai-voice-agent', title: 'AI Voice Agent', outcome: 'Handle more calls without adding phone coverage.', description: 'Runs defined call flows for intake, status checks, scheduling, and handoff when a conversation needs a person.', tags: ['Voice', 'Calendar'], icon: PhoneCall, href: '/solutions/ai-receptionist' },
   { id: 'lead-qualification', title: 'Lead Qualification', outcome: 'Send the right opportunities to the right person.', description: 'Collects approved qualification details, identifies intent, and routes each enquiry using clear business rules.', tags: ['Web', 'SMS', 'CRM'], icon: UserRoundCheck, href: '/solutions/lead-qualification' },
-  { id: 'appointment-booking', title: 'Appointment Booking', outcome: 'Turn suitable enquiries into confirmed times.', description: 'Checks permitted availability, books eligible appointments, sends confirmations, and keeps exceptions visible.', tags: ['Calendar', 'SMS'], icon: CalendarCheck2, href: '/solutions/appointment-automation' },
+  { id: 'appointment-automation', title: 'Appointment Automation', outcome: 'Turn suitable enquiries into confirmed times.', description: 'Checks permitted availability, books eligible appointments, sends confirmations, and keeps exceptions visible.', tags: ['Calendar', 'SMS'], icon: CalendarCheck2, href: '/solutions/appointment-automation' },
   { id: 'customer-support', title: 'Customer Support', outcome: 'Resolve routine questions with consistent answers.', description: 'Uses approved knowledge to respond, retrieves the right information, and hands complex cases to a human.', tags: ['Web', 'Email'], icon: MessageSquareText, href: '/solutions/customer-support' },
   { id: 'follow-up-automation', title: 'Follow-Up Automation', outcome: 'Keep good conversations moving.', description: 'Sends structured follow-up across approved channels based on the stage, timing, and response rules you define.', tags: ['Email', 'SMS'], icon: MailCheck, href: '/solutions/follow-up-automation' },
   { id: 'crm-automation', title: 'CRM Automation', outcome: 'Keep customer records current without duplicate entry.', description: 'Writes approved details, statuses, and next actions back to the systems your team relies on.', tags: ['CRM', 'Web'], icon: Route, href: '/solutions/crm-automation' },
@@ -37,12 +36,12 @@ export function SolutionCard({ solution }: { solution: Solution }) {
 
 const solutionGroups = [
   { title: 'Customer Communication', ids: ['ai-receptionist', 'customer-support'] },
-  { title: 'Revenue Operations', ids: ['lead-qualification', 'appointment-booking', 'follow-up-automation'] },
+  { title: 'Revenue Operations', ids: ['lead-qualification', 'appointment-automation', 'follow-up-automation'] },
   { title: 'Business Operations', ids: ['crm-automation', 'workflow-automation'] },
 ] as const
 
 export function SolutionSection({ variant = 'featured' }: { variant?: 'featured' | 'catalog' }) {
-  const visibleSolutions = variant === 'featured' ? solutions.filter((solution) => ['ai-receptionist', 'lead-qualification', 'appointment-booking', 'workflow-automation'].includes(solution.id)) : solutions
+  const visibleSolutions = variant === 'featured' ? solutions.filter((solution) => ['ai-receptionist', 'lead-qualification', 'appointment-automation', 'workflow-automation'].includes(solution.id)) : solutions
   return (
     <Section id="solutions">
       <SectionHeading label={variant === 'catalog' ? 'Solution Catalog' : 'Featured Solutions'} title={variant === 'catalog' ? 'AI systems for the work your team handles every day' : 'A focused system for the workflow that needs attention first.'} description={variant === 'catalog' ? 'Compare customer communication, revenue operations, and business operations systems by the job they are designed to perform.' : 'Start with one bounded process, connect the tools that matter, and expand only when the workflow is tested and owned.'} />

@@ -4,9 +4,22 @@ import { Button } from '@/components/ui/button'
 import { Section, SectionHeading } from './section'
 import { FaqSection } from './faq-section'
 import { FinalCtaSection } from './final-cta-section'
+import { industryAgentConfigs } from '@/lib/industry-agent-configs'
 
 export type SolutionContent = { eyebrow: string; title: string; description: string; outcome: string; does: string[]; doesNot: string[]; workflow: string[]; useCases: { title: string; description: string }[]; integrations: string[]; faq: { question: string; answer: string }[] }
 export type IndustryContent = { eyebrow: string; title: string; description: string; problems: string[]; systems: { title: string; description: string }[]; conversation: { speaker: string; text: string }[]; workflow: string[]; integrations: string[]; considerations: string[]; faq: { question: string; answer: string }[] }
+
+export function withIndustryAgents(content: IndustryContent, current: string): IndustryContent {
+  const configuredAgents = industryAgentConfigs[current] ?? []
+  if (!configuredAgents.length) return content
+  return {
+    ...content,
+    systems: configuredAgents.map((item) => ({
+      title: item.name,
+      description: `${item.problem} ${item.actions.slice(0, 2).join(' ')} Connects with ${item.integrations.join(', ')}. Human handoff: ${item.handoff}`,
+    })),
+  }
+}
 
 export const aiReceptionist: SolutionContent = { eyebrow: 'Solution · AI Receptionist', title: 'An AI receptionist built around the way your business handles calls', description: 'Answer routine enquiries, collect the right details, route qualified requests, and give your team a clear human handoff when the conversation needs judgment.', outcome: 'A defined first response for calls and enquiries without pretending the system replaces every reception responsibility.', does: ['Answer approved routine questions', 'Capture caller details and intent', 'Check configured service-area or eligibility rules', 'Offer eligible appointment windows where supported', 'Route calls and notify the right team member', 'Update connected systems with a useful summary'], doesNot: ['Invent unavailable services or appointments', 'Make regulated professional decisions', 'Bypass human approval for restricted actions', 'Guarantee bookings, revenue, or customer outcomes', 'Operate outside configured permissions or knowledge'], workflow: ['Customer call', 'AI receptionist', 'Intent + qualification', 'Business rules', 'Appointment, routing, or handoff', 'CRM update'], useCases: [{ title: 'Home services', description: 'Capture the issue, location, urgency, and timing before routing a service request.' }, { title: 'Dental practices', description: 'Handle approved questions, collect appointment intent, and route clinical or sensitive questions.' }, { title: 'Law firms', description: 'Collect administrative intake details and route matters without providing legal advice.' }, { title: 'Real estate', description: 'Capture enquiry context, qualify the request, and route to an available agent.' }, { title: 'Property management', description: 'Triage routine tenant or viewing enquiries with defined escalation rules.' }], integrations: ['Phone provider', 'CRM', 'Calendar', 'SMS or email', 'Team notifications'], faq: [{ question: 'Does an AI receptionist replace our front desk?', answer: 'No. It can handle defined repetitive work and improve first response, while people remain responsible for exceptions, sensitive conversations, judgment, and relationship management.' }, { question: 'Can it transfer a call to a person?', answer: 'Yes, when the selected channel and implementation support a defined transfer or notification path.' }, { question: 'Can it book appointments?', answer: 'Where a calendar provides suitable access and the business rules are clear, eligible appointments can be offered and confirmed.' }] }
 
