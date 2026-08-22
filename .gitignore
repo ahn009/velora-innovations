@@ -28,8 +28,9 @@ pnpm-debug.log*
 
 
 
-#Documentation
-/docs
+# Documentation
+/docs/*
+!/docs/image-sources.md
 
 #LOGS
 /logs
