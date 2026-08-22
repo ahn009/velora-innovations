@@ -6,7 +6,7 @@ export type Problem = { title: string; description: string; icon: LucideIcon }
 
 export const problems: Problem[] = [
   { title: 'Missed Calls', description: 'Customers reach voicemail when the team is busy, after hours, or already helping someone else.', icon: PhoneMissed },
-  { title: 'Slow Lead Response', description: 'A promising enquiry waits for a reply while the customer compares options or moves on.', icon: Clock3 },
+  { title: 'Slow Lead Response', description: 'A promising inquiry waits for a reply while the customer compares options or moves on.', icon: Clock3 },
   { title: 'Repetitive Questions', description: 'Your team spends the same hours explaining services, availability, pricing, and next steps.', icon: MessageCircleQuestion },
   { title: 'Inconsistent Follow-Up', description: 'Good opportunities fade because follow-up depends on memory, inboxes, and spare capacity.', icon: RefreshCcw },
   { title: 'Disconnected Systems', description: 'Details are copied between forms, calendars, spreadsheets, and CRMs instead of moving with the customer.', icon: Unplug },

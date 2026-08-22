@@ -17,9 +17,20 @@ export async function POST(request: Request) {
     return Response.json({ message: 'Invalid request origin.' }, { status: 403 })
   }
 
+  let rawBody: string
+  try {
+    rawBody = await request.text()
+  } catch {
+    return Response.json({ message: 'Invalid request body.' }, { status: 400 })
+  }
+
+  if (new TextEncoder().encode(rawBody).byteLength > 32 * 1024) {
+    return Response.json({ message: 'Request is too large.' }, { status: 413 })
+  }
+
   let body: unknown
   try {
-    body = await request.json()
+    body = JSON.parse(rawBody)
   } catch {
     return Response.json({ message: 'Invalid request body.' }, { status: 400 })
   }

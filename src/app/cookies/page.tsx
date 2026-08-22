@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'Cookie and Local Storage Notice | Velora Innovations', description: 'Review how the Velora Innovations website uses browser preferences, local storage, and any future analytics controls.', path: '/cookies' })
 
 export default function CookiesPage() {
   return (

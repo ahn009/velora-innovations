@@ -15,7 +15,7 @@ export default function SolutionsPage() {
         title="AI systems for the work your team handles every day"
         description="Compare focused systems for customer communication, lead management, scheduling, follow-up, and connected business operations."
         primaryLink={{ label: 'Find my best automation', href: '/assessment' }}
-        secondaryLink={{ label: 'Book a Consultation', href: '/consultation' }}
+        secondaryLink={{ label: 'Request a Consultation', href: '/consultation' }}
         compact
       />
       <SolutionSection variant="catalog" />

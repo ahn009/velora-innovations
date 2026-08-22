@@ -35,11 +35,11 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button type="button" variant="brand" size="lg" onClick={openConsultation} className="w-full sm:w-auto">
-              Book a Free Consultation
+              Request a Consultation
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Button>
             <Button type="button" variant="outline" size="lg" onClick={handleScrollToDemo} className="w-full bg-surface-primary/70 sm:w-auto">
-              See an AI agent in action
+              See the Guided Demo
               <ChevronDown className="h-4 w-4" aria-hidden="true" />
             </Button>
           </div>

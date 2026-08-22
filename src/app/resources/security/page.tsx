@@ -1,12 +1,9 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { PageHero } from '@/components/velora/page-hero'
 import { SecuritySection } from '@/components/velora/security-section'
 
-export const metadata: Metadata = {
-  title: 'Security and Control | Velora Innovations',
-  description: 'Review the deployment-specific controls considered for AI workflows.',
-}
+export const metadata = pageMetadata({ title: 'Security and Control | Velora Innovations', description: 'Review the deployment-specific controls considered for AI workflows.', path: '/resources/security' })
 
 export default function SecurityPage() {
   return (

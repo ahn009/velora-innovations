@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { CheckCircle2, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -65,12 +65,17 @@ function getAttribution() {
   }
 }
 
-export function ConsultationForm({ source = 'website-consultation', defaultValues = {} }: { source?: string; defaultValues?: { industry?: string; budget?: string; notes?: string } }) {
+type ConsultationDefaults = { firstName?: string; lastName?: string; email?: string; company?: string; industry?: string; budget?: string; notes?: string }
+
+export function ConsultationForm({ source = 'website-consultation', defaultValues = {} }: { source?: string; defaultValues?: ConsultationDefaults }) {
   const idPrefix = useId()
   const [state, setState] = useState<SubmitState>({ status: 'idle', message: '' })
+  const submittingRef = useRef(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (submittingRef.current) return
+    submittingRef.current = true
     const form = event.currentTarget
     const formData = new FormData(form)
     setState({ status: 'submitting', message: '' })
@@ -111,6 +116,7 @@ export function ConsultationForm({ source = 'website-consultation', defaultValue
         reference: result.reference,
       })
     } catch (error) {
+      submittingRef.current = false
       setState({
         status: 'error',
         message: error instanceof Error ? error.message : 'We could not save your request. Please try again.',
@@ -150,17 +156,17 @@ export function ConsultationForm({ source = 'website-consultation', defaultValue
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor={`${idPrefix}-firstName`}>First name</Label>
-          <Input id={`${idPrefix}-firstName`} name="firstName" autoComplete="given-name" required maxLength={80} />
+          <Input id={`${idPrefix}-firstName`} name="firstName" autoComplete="given-name" required maxLength={80} defaultValue={defaultValues.firstName || ''} />
         </div>
         <div className="space-y-2">
           <Label htmlFor={`${idPrefix}-lastName`}>Last name</Label>
-          <Input id={`${idPrefix}-lastName`} name="lastName" autoComplete="family-name" required maxLength={80} />
+          <Input id={`${idPrefix}-lastName`} name="lastName" autoComplete="family-name" required maxLength={80} defaultValue={defaultValues.lastName || ''} />
         </div>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor={`${idPrefix}-email`}>Work email</Label>
-        <Input id={`${idPrefix}-email`} name="email" type="email" autoComplete="email" required maxLength={254} />
+        <Input id={`${idPrefix}-email`} name="email" type="email" autoComplete="email" required maxLength={254} defaultValue={defaultValues.email || ''} />
       </div>
 
       <div className="space-y-2">
@@ -170,7 +176,7 @@ export function ConsultationForm({ source = 'website-consultation', defaultValue
 
       <div className="space-y-2">
         <Label htmlFor={`${idPrefix}-company`}>Company</Label>
-        <Input id={`${idPrefix}-company`} name="company" autoComplete="organization" required maxLength={120} />
+        <Input id={`${idPrefix}-company`} name="company" autoComplete="organization" required maxLength={120} defaultValue={defaultValues.company || ''} />
       </div>
 
       <div className="space-y-2">

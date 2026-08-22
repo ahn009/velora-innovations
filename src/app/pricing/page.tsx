@@ -19,7 +19,7 @@ export default function PricingPage() {
       <PageHero
         eyebrow="Pricing"
         title="Clear Starting Points With Scope Confirmed Before Commitment"
-        description="Implementation begins with a bounded workflow. Recurring management, model usage, telephony and third-party software are quoted separately."
+        description="Implementation begins with a scoped workflow. Recurring management, model usage, telephony and third-party software are quoted separately."
         primaryLink={{ label: 'Discuss My Automation Plan', href: '/consultation' }}
         secondaryLink={{ label: 'Read pricing FAQ', href: '/resources/faq' }}
         compact
@@ -42,7 +42,7 @@ export default function PricingPage() {
           </div>
           <div className="mt-8 text-center">
             <Link href="/resources/calculator" className="group inline-flex items-center text-sm font-medium text-velora-emerald hover:text-velora-emerald-dark">
-              Model the missed-enquiry opportunity
+              Model the missed-inquiry opportunity
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5" aria-hidden="true" />
             </Link>
           </div>

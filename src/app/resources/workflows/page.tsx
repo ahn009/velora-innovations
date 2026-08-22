@@ -1,12 +1,9 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { PageHero } from '@/components/velora/page-hero'
 import { ResultsSection } from '@/components/velora/results-section'
 
-export const metadata: Metadata = {
-  title: 'Example AI Workflows | Velora Innovations',
-  description: 'Explore illustrative customer intake, qualification and appointment workflows.',
-}
+export const metadata = pageMetadata({ title: 'Example AI Workflows | Velora Innovations', description: 'Explore illustrative customer intake, qualification and appointment workflows.', path: '/resources/workflows' })
 
 export default function WorkflowsPage() {
   return (

@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'Website Terms | Velora Innovations', description: 'Review the terms governing use of the Velora Innovations website, guided demo, and consultation request flow.', path: '/terms' })
 
 export default function TermsPage() {
   return (
@@ -53,7 +56,7 @@ export default function TermsPage() {
       </section>
       <section>
         <h2>Questions</h2>
-        <p>Use the <Link href="/contact">contact page</Link> for questions about these terms.</p>
+        <p>Use the <Link href="/consultation">consultation request page</Link> for questions about these terms.</p>
       </section>
     </InfoPage>
   )

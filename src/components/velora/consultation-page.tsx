@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { CalendarDays, CheckCircle2, ListChecks } from 'lucide-react'
 import { ConsultationForm } from './consultation-form'
 
-type ConsultationDefaults = { industry?: string; budget?: string; notes?: string }
+type ConsultationDefaults = { firstName?: string; lastName?: string; email?: string; company?: string; industry?: string; budget?: string; notes?: string }
 
 const industryMap: Record<string, string> = {
   'law-firms': 'law',
@@ -12,6 +12,13 @@ const industryMap: Record<string, string> = {
   accounting: 'accounting-firm',
   automotive: 'automotive-business',
   ecommerce: 'e-commerce',
+}
+
+const budgetMap: Record<string, string> = {
+  '2500-5000': '2500-5000-usd',
+  '5000-10000': '5000-10000-usd',
+  '10000-20000': '10000-20000-usd',
+  '20000-plus': '20000-plus-usd',
 }
 
 function getDefaults(): ConsultationDefaults {
@@ -31,9 +38,16 @@ function getDefaults(): ConsultationDefaults {
       interest ? `I am interested in ${interest.replaceAll('-', ' ')}.` : '',
     ].filter(Boolean).join(' ')
 
+    const answerIndustry = typeof answers.industry === 'string' ? answers.industry : undefined
+    const answerBudget = typeof answers.budget === 'string' ? answers.budget : undefined
+
     return {
-      industry: queryIndustry ? (industryMap[queryIndustry] || queryIndustry) : typeof answers.industry === 'string' ? answers.industry : undefined,
-      budget: typeof answers.budget === 'string' ? answers.budget : undefined,
+      firstName: typeof answers.firstName === 'string' ? answers.firstName : undefined,
+      lastName: typeof answers.lastName === 'string' ? answers.lastName : undefined,
+      email: typeof answers.email === 'string' ? answers.email : undefined,
+      company: typeof answers.company === 'string' ? answers.company : undefined,
+      industry: queryIndustry ? (industryMap[queryIndustry] || queryIndustry) : answerIndustry ? (industryMap[answerIndustry] || answerIndustry) : undefined,
+      budget: answerBudget ? (budgetMap[answerBudget] || answerBudget) : undefined,
       notes: context || data.result?.primaryLabel ? `${context}${context ? ' ' : ''}${data.result?.primaryLabel ? `Assessment recommendation: ${data.result.primaryLabel}. I would like to discuss this workflow.` : ''}` : undefined,
     }
   } catch {
@@ -53,7 +67,7 @@ export function ConsultationPage() {
             <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-text-primary sm:text-5xl">Let&apos;s review what your business can automate.</h1>
             <p className="mt-5 text-base leading-7 text-text-secondary sm:text-lg">Share the workflow that is slowing your team down. We&apos;ll review fit, systems, boundaries, and a sensible next step without pretending every process should be automated.</p>
             <div className="mt-8 space-y-4">
-              <div className="flex gap-3"><CalendarDays className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What we discuss</h2><p className="mt-1 text-sm leading-6 text-text-secondary">Customer enquiries, repetitive work, current tools, handoff requirements, and implementation scope.</p></div></div>
+              <div className="flex gap-3"><CalendarDays className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What we discuss</h2><p className="mt-1 text-sm leading-6 text-text-secondary">Customer inquiries, repetitive work, current tools, handoff requirements, and implementation scope.</p></div></div>
               <div className="flex gap-3"><ListChecks className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What to prepare</h2><p className="mt-1 text-sm leading-6 text-text-secondary">A real workflow, the systems involved, and the people who own exceptions or approvals.</p></div></div>
               <div className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" /><div><h2 className="font-semibold text-text-primary">What happens next</h2><p className="mt-1 text-sm leading-6 text-text-secondary">We review the request and follow up using the details you provide. This is a request flow, not claimed live calendar availability.</p></div></div>
             </div>

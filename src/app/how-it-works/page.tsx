@@ -29,7 +29,7 @@ export default function HowItWorksPage() {
         eyebrow="How It Works"
         title="From a manual workflow to a working AI system"
         description="We start with the process, not the AI. Every proposal is tied to real systems, approved scenarios, acceptance criteria, and a named human owner for exceptions."
-        primaryLink={{ label: 'Book a Consultation', href: '/consultation' }}
+        primaryLink={{ label: 'Request a Consultation', href: '/consultation' }}
         secondaryLink={{ label: 'Review pricing', href: '/pricing' }}
         compact
       />

@@ -15,7 +15,7 @@ export default function AboutPage() {
         <h2>What we build</h2>
         <p>
           We design focused workflows for customer intake, routine questions, lead qualification,
-          appointment coordination, follow-up, and human escalation. We begin with one bounded
+          appointment coordination, follow-up, and human escalation. We begin with one scoped
           process instead of promising that AI can replace an entire operation.
         </p>
       </section>
@@ -32,7 +32,7 @@ export default function AboutPage() {
         <h2>Our current focus</h2>
         <p>
           We currently focus on home services, property management, real estate, and similar
-          appointment- or enquiry-driven businesses. Regulated or high-risk use cases require a
+          appointment- or inquiry-driven businesses. Regulated or high-risk use cases require a
           separate legal, privacy, and security assessment and may not be accepted.
         </p>
       </section>
@@ -40,7 +40,7 @@ export default function AboutPage() {
         <h2>Talk with the person responsible for your project</h2>
         <p>
           We share the proposed project owner, delivery responsibilities, vendors, and escalation
-          contacts before an engagement begins. <Link href="/contact">Request an introductory consultation</Link>.
+          contacts before an engagement begins. <Link href="/consultation">Request an introductory consultation</Link>.
         </p>
       </section>
     </InfoPage>

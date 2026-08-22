@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/velora/header"
 import { Footer } from "@/components/velora/footer"
 import { ConsultationProvider } from "@/components/velora/consultation-provider"
-import { siteName, siteUrl } from "@/lib/site-config"
+import { isIndexingEnabled, siteName, siteUrl } from "@/lib/site-config"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
       "Custom AI agents that help your business respond faster, follow up consistently and operate more efficiently.",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: isIndexingEnabled,
+    follow: isIndexingEnabled,
   },
 }
 

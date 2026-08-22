@@ -77,7 +77,7 @@ export function Header() {
 
         <div className="hidden lg:block">
           <Button type="button" variant="brand" size="default" onClick={openConsultation} className="px-5 text-[13px]">
-            Book a Consultation
+            Request a Consultation
           </Button>
         </div>
 
@@ -103,7 +103,7 @@ export function Header() {
               </div>
               <div className="border-t border-border p-5">
                 <Button type="button" variant="brand" size="lg" onClick={() => { closeMobile(); openConsultation() }} className="w-full">
-                  Book a Consultation
+                  Request a Consultation
                 </Button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">Practical recommendations. No purchase required.</p>
               </div>

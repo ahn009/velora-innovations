@@ -35,7 +35,7 @@ export const resourceNavigation = [
   {
     label: 'Opportunity Calculator',
     href: '/resources/calculator',
-    description: 'Model a missed-enquiry opportunity using your inputs.',
+    description: 'Model a missed-inquiry opportunity using your inputs.',
   },
   {
     label: 'FAQ',

@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'Accessibility Statement | Velora Innovations', description: 'Review Velora Innovations accessibility goals, implemented measures, known limitations, and feedback route.', path: '/accessibility' })
 
 export default function AccessibilityPage() {
   return (

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 
 const heroSteps = [
-  { label: 'Incoming enquiry', detail: '“My AC stopped working. Do you have an opening tomorrow?”', icon: Phone },
+  { label: 'Incoming inquiry', detail: '“My AC stopped working. Do you have an opening tomorrow?”', icon: Phone },
   { label: 'AI receptionist', detail: 'Collecting service type, location, urgency, and preferred time.', icon: Bot },
   { label: 'Qualified lead', detail: 'Service area confirmed · Urgent · Ready to schedule', icon: UserRoundCheck },
   { label: 'Appointment booked', detail: 'Tomorrow at 10:30 AM · Customer confirmation sent', icon: CalendarCheck2 },
@@ -45,7 +45,7 @@ export function HeroWorkflowVisual() {
   const CurrentIcon = current.icon
 
   return (
-    <div className="relative overflow-hidden rounded-[var(--radius-xl)] border border-border-subtle bg-surface-primary text-left shadow-[var(--shadow-card)]" aria-label="Illustrative AI workflow: customer enquiry to appointment booking">
+    <div className="relative overflow-hidden rounded-[var(--radius-xl)] border border-border-subtle bg-surface-primary text-left shadow-[var(--shadow-card)]" aria-label="Illustrative AI workflow: customer inquiry to appointment booking">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_0%,rgb(16_185_129_/_0.12),transparent_35%)]" aria-hidden="true" />
       <div className="relative p-4 sm:p-5 lg:p-6">
         <div className="flex items-start justify-between gap-4 border-b border-border-subtle pb-4">
@@ -54,7 +54,7 @@ export function HeroWorkflowVisual() {
               <span className="flex h-7 w-7 items-center justify-center rounded-[var(--radius-sm)] bg-brand-primary text-brand-primary-foreground"><CurrentIcon className="h-3.5 w-3.5" aria-hidden="true" /></span>
               <p className="text-sm font-semibold text-text-primary">Customer workflow</p>
             </div>
-            <p className="mt-2 text-[11px] text-text-muted">Illustrative service enquiry · Human handoff available</p>
+            <p className="mt-2 text-[11px] text-text-muted">Illustrative service inquiry · Human handoff available</p>
           </div>
           <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-brand-primary/20 bg-brand-primary/[0.08] px-2.5 py-1 text-[10px] font-semibold text-brand-hover"><span className="h-1.5 w-1.5 rounded-full bg-brand-primary" /> Active</span>
         </div>
@@ -98,7 +98,7 @@ export function HeroWorkflowVisual() {
 
 export function SolutionWorkflowVisual() {
   const nodes = [
-    { icon: MessageSquareText, label: 'Customer enquiry' },
+    { icon: MessageSquareText, label: 'Customer inquiry' },
     { icon: Bot, label: 'Approved workflow' },
     { icon: CalendarCheck2, label: 'Next action' },
     { icon: UserRoundCheck, label: 'Human escalation' },

@@ -1,5 +1,8 @@
 import { InfoPage } from '@/components/velora/info-page'
 import { UnsubscribeForm } from '@/components/velora/unsubscribe-form'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'Unsubscribe | Velora Innovations', description: 'Manage email preferences for Velora Innovations updates.', path: '/unsubscribe', index: false })
 
 export default function UnsubscribePage() {
   return (

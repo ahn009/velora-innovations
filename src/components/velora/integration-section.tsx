@@ -83,7 +83,7 @@ export function IntegrationSection() {
         </div>
 
         {/* Right — integration visual (desktop) */}
-        <div className="hidden lg:block lg:col-span-2">
+        <div className="lg:col-span-2">
           <FadeIn delay={0.3}>
             <div className="relative rounded-2xl overflow-hidden border border-velora-border/30 dark:border-border/30 shadow-lg shadow-black/[0.06] dark:shadow-black/[0.25] bg-white/60 dark:bg-card/60 backdrop-blur-sm">
               <IntegrationWorkflowVisual />
@@ -92,14 +92,6 @@ export function IntegrationSection() {
         </div>
       </div>
 
-      {/* Mobile-only visual */}
-      <div className="lg:hidden mt-10 relative z-10">
-        <FadeIn delay={0.15}>
-          <div className="relative rounded-2xl overflow-hidden border border-velora-border/30 dark:border-border/30 shadow-lg shadow-black/[0.06] dark:shadow-black/[0.25] bg-white/60 dark:bg-card/60 backdrop-blur-sm">
-            <IntegrationWorkflowVisual />
-          </div>
-        </FadeIn>
-      </div>
     </Section>
   )
 }

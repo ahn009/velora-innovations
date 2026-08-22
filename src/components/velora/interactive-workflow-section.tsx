@@ -23,7 +23,7 @@ export function InteractiveWorkflowSection() {
 
   return (
     <Section id="workflow" background="navy" className="overflow-hidden">
-      <SectionHeading label="Workflow architecture" title="From First Enquiry to the Right Next Action." description="A practical automation system connects the channels customers already use to defined decisions, business tools, and human ownership." light />
+      <SectionHeading label="Workflow architecture" title="From First Inquiry to the Right Next Action." description="A practical automation system connects the channels customers already use to defined decisions, business tools, and human ownership." light />
 
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-3 sm:grid-cols-4" aria-label="Entry channels">

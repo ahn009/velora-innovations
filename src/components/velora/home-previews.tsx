@@ -27,12 +27,12 @@ const solutions = [
   {
     icon: Headphones,
     title: 'AI Receptionist',
-    description: 'Structure routine enquiries, capture lead details and escalate exceptions to a person.',
+    description: 'Structure routine inquiries, capture lead details and escalate exceptions to a person.',
   },
   {
     icon: MessageSquareText,
     title: 'Lead Qualification',
-    description: 'Collect approved qualification details and route each enquiry using clear business rules.',
+    description: 'Collect approved qualification details and route each inquiry using clear business rules.',
   },
   {
     icon: CalendarCheck2,
@@ -48,7 +48,7 @@ export function HomeSolutionsPreview() {
         <PreviewHeading
           eyebrow="Solutions"
           title="Start With One Customer Workflow"
-          description="Choose a bounded process with clear inputs, permissions and a responsible human owner before expanding automation."
+          description="Choose a scoped process with clear inputs, permissions and a responsible human owner before expanding automation."
         />
         <div className="grid gap-5 md:grid-cols-3">
           {solutions.map(({ icon: Icon, title, description }) => (
@@ -73,8 +73,8 @@ export function HomeSolutionsPreview() {
 }
 
 const industries = [
-  { icon: Wrench, title: 'Home Services', description: 'Enquiry intake, service-area checks and appointment coordination.' },
-  { icon: Building2, title: 'Property Management', description: 'Tenant request triage, viewing enquiries and team routing.' },
+  { icon: Wrench, title: 'Home Services', description: 'Inquiry intake, service-area checks and appointment coordination.' },
+  { icon: Building2, title: 'Property Management', description: 'Tenant request triage, viewing inquiries and team routing.' },
   { icon: Home, title: 'Real Estate', description: 'Lead intake, approved qualification and agent handoff.' },
 ] as const
 
@@ -86,7 +86,7 @@ export function HomeIndustriesPreview() {
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-velora-emerald">Industries</p>
             <h2 className="mt-4 text-balance text-3xl font-semibold leading-tight tracking-[-0.025em] sm:text-4xl">
-              Built for Enquiry-Driven Service Teams
+              Built for Inquiry-Driven Service Teams
             </h2>
             <p className="mt-4 text-base leading-7 text-muted-foreground">
               The strongest fit is a business with repeatable customer questions, defined scheduling rules and a clear escalation owner.
@@ -131,7 +131,7 @@ export function HomeDemoPreview() {
             Preview a Clear Customer Handoff
           </h2>
           <p className="mt-4 max-w-xl text-base leading-7 text-white/70">
-            See how a service enquiry can move from intake to approved qualification and then to a responsible person.
+            See how a service inquiry can move from intake to approved qualification and then to a responsible person.
           </p>
           <ul className="mt-6 space-y-3">
             {demoSignals.map((signal) => (
@@ -156,7 +156,7 @@ export function HomeDemoPreview() {
               <Bot className="h-4 w-4" aria-hidden="true" />
             </span>
             <div>
-              <p className="text-sm font-medium">Example enquiry assistant</p>
+              <p className="text-sm font-medium">Example inquiry assistant</p>
               <p className="text-xs text-white/55">Scripted preview</p>
             </div>
           </div>

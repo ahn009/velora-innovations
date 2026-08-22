@@ -58,7 +58,7 @@ export function PageHero({
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Link
-              href={primaryLink?.href ?? '/contact'}
+              href={primaryLink?.href ?? '/consultation'}
               className="inline-flex h-11 items-center justify-center rounded-xl bg-velora-emerald px-5 text-sm font-medium text-white shadow-sm transition-[background-color,transform,box-shadow] duration-150 hover:bg-velora-emerald-dark hover:shadow-md active:scale-[0.97]"
             >
               {primaryLink?.label ?? 'Request a Consultation'}

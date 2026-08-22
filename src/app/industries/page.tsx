@@ -5,7 +5,7 @@ import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { IndustrySection } from '@/components/velora/industry-section'
 import { PageHero } from '@/components/velora/page-hero'
 
-export const metadata = pageMetadata({ title: 'Industries We Support | Velora Innovations', description: 'Review practical AI workflow opportunities for home services, dental, law, real estate, property management, and other enquiry-driven teams.', path: '/industries' })
+export const metadata = pageMetadata({ title: 'Industries We Support | Velora Innovations', description: 'Review practical AI workflow opportunities for home services, dental, law, real estate, property management, and other inquiry-driven teams.', path: '/industries' })
 
 export default function IndustriesPage() {
   return (
@@ -15,7 +15,7 @@ export default function IndustriesPage() {
         title="AI automation built around how your business actually operates"
         description="Choose an industry to see common workflows, useful automation opportunities, and the implementation boundaries that keep people in control."
         primaryLink={{ label: 'Find my industry fit', href: '/assessment' }}
-        secondaryLink={{ label: 'Book a Consultation', href: '/consultation' }}
+        secondaryLink={{ label: 'Request a Consultation', href: '/consultation' }}
         compact
       />
       <IndustrySection variant="directory" />
@@ -25,7 +25,7 @@ export default function IndustriesPage() {
             <CheckCircle2 className="h-6 w-6 text-velora-emerald" aria-hidden="true" />
             <h2 className="mt-5 text-2xl font-semibold tracking-tight">Strong initial fit</h2>
             <ul className="mt-5 space-y-3 text-sm leading-6 text-foreground/75">
-              <li>High volumes of similar enquiries or coordination tasks</li>
+              <li>High volumes of similar inquiries or coordination tasks</li>
               <li>Documented policies, service areas, availability and escalation rules</li>
               <li>Systems with suitable API access and a team member responsible for outcomes</li>
             </ul>

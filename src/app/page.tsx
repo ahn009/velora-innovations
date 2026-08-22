@@ -10,6 +10,9 @@ import { HowItWorksSection } from '@/components/velora/how-it-works-section'
 import { ResultsSection } from '@/components/velora/results-section'
 import { SecuritySection } from '@/components/velora/security-section'
 import { StickyMobileCta } from '@/components/velora/sticky-mobile-cta'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'Velora Innovations — AI Automation for Growing Businesses', description: 'Velora designs practical AI workflows for customer response, qualification, scheduling, follow-up, and connected business operations.', path: '/' })
 import { TrustBar } from '@/components/velora/trust-bar'
 
 export default function Home() {

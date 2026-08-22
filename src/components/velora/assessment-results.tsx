@@ -12,7 +12,7 @@ type ResultState = { answers: Record<string, string | string[]>; result: { prima
 const workflowByType: Record<string, string[]> = {
   voice: ['Incoming call', 'AI receptionist', 'Intent + qualification', 'Calendar or routing', 'CRM update', 'Human handoff when required'],
   appointment: ['Customer request', 'Eligibility rules', 'Availability check', 'Appointment created', 'Confirmation', 'Team notification'],
-  qualification: ['New enquiry', 'Approved questions', 'Lead qualification', 'Routing rule', 'CRM record', 'Human follow-up'],
+  qualification: ['New inquiry', 'Approved questions', 'Lead qualification', 'Routing rule', 'CRM record', 'Human follow-up'],
   support: ['Customer question', 'Approved knowledge', 'Answer or fallback', 'Ticket or handoff', 'Conversation log'],
   followUp: ['New lead', 'Consent and timing rules', 'Follow-up sequence', 'Reply detection', 'Team notification'],
   workflow: ['Incoming data', 'Business rules', 'System action', 'Status update', 'Owner notification'],

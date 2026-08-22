@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'Privacy Policy | Velora Innovations', description: 'Review how Velora Innovations collects, uses, protects, and retains information submitted through this website.', path: '/privacy' })
 
 export default function PrivacyPage() {
   return (
@@ -61,7 +64,7 @@ export default function PrivacyPage() {
       <section>
         <h2>Contact and complaints</h2>
         <p>
-          Use the <Link href="/contact">contact form</Link> and write “privacy request” in the workflow
+          Use the <Link href="/consultation">consultation request form</Link> and write “privacy request” in the workflow
           field. Do not submit identity documents until we provide a secure verification method.
         </p>
       </section>

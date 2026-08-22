@@ -1,12 +1,9 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { FaqSection } from '@/components/velora/faq-section'
 import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { PageHero } from '@/components/velora/page-hero'
 
-export const metadata: Metadata = {
-  title: 'Frequently Asked Questions | Velora Innovations',
-  description: 'Answers about AI agent scope, integrations, cost, timelines, data handling and human escalation.',
-}
+export const metadata = pageMetadata({ title: 'Frequently Asked Questions | Velora Innovations', description: 'Answers about AI agent scope, integrations, cost, timelines, data handling and human escalation.', path: '/resources/faq' })
 
 export default function FaqPage() {
   return (

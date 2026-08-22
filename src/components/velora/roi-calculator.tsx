@@ -89,17 +89,17 @@ function ResultCard({ icon, label, value, prefix = '', suffix = '', decimals = 0
 /* ---------- main component ---------- */
 
 export function RoiCalculator() {
-  const [enquiries, setEnquiries] = useState(200)
+  const [inquiries, setInquiries] = useState(200)
   const [avgRevenue, setAvgRevenue] = useState(500)
   const [missedRate, setMissedRate] = useState(20)
   const [recoveryRate, setRecoveryRate] = useState(25)
 
   const results = useMemo(() => {
-    const currentlyMissed = enquiries * (missedRate / 100)
+    const currentlyMissed = inquiries * (missedRate / 100)
     const modeledRecovered = currentlyMissed * (recoveryRate / 100)
     const monthlyOpportunity = modeledRecovered * avgRevenue
     return { modeledRecovered, monthlyOpportunity, annualOpportunity: monthlyOpportunity * 12 }
-  }, [enquiries, avgRevenue, missedRate, recoveryRate])
+  }, [inquiries, avgRevenue, missedRate, recoveryRate])
 
   return (
     <section className="relative py-20 sm:py-24 overflow-hidden">
@@ -125,9 +125,9 @@ export function RoiCalculator() {
               </div>
 
               <SliderInput
-                label="Monthly customer enquiries"
-                value={enquiries}
-                onChange={setEnquiries}
+                label="Monthly customer inquiries"
+                value={inquiries}
+                onChange={setInquiries}
                 min={50}
                 max={2000}
                 step={50}
@@ -144,7 +144,7 @@ export function RoiCalculator() {
               />
 
               <SliderInput
-                label="Enquiries currently missed"
+                label="Inquiries currently missed"
                 value={missedRate}
                 onChange={setMissedRate}
                 min={5}
@@ -154,7 +154,7 @@ export function RoiCalculator() {
               />
 
               <SliderInput
-                label="Scenario: share of missed enquiries recovered"
+                label="Scenario: share of missed inquiries recovered"
                 value={recoveryRate}
                 onChange={setRecoveryRate}
                 min={10}
@@ -174,7 +174,7 @@ export function RoiCalculator() {
               <div className="space-y-4 flex-1">
                 <ResultCard
                   icon={<Users className="w-4 h-4" />}
-                  label="Modeled enquiries recovered monthly"
+                  label="Modeled inquiries recovered monthly"
                   value={results.modeledRecovered}
                   decimals={1}
                   gradient

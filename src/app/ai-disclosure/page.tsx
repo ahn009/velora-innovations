@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = pageMetadata({ title: 'AI Disclosure | Velora Innovations', description: 'Understand how Velora Innovations labels scripted demos and approaches disclosure, limitations, and human oversight in AI workflows.', path: '/ai-disclosure' })
 
 export default function AiDisclosurePage() {
   return (
@@ -34,7 +37,7 @@ export default function AiDisclosurePage() {
       </section>
       <section>
         <h2>Questions</h2>
-        <p>Use the <Link href="/contact">contact page</Link> to request the disclosure and control plan for a proposed project.</p>
+        <p>Use the <Link href="/consultation">consultation request page</Link> to request the disclosure and control plan for a proposed project.</p>
       </section>
     </InfoPage>
   )
