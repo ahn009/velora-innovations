@@ -15,4 +15,11 @@ function normalizeSiteUrl(value: string | undefined) {
 
 export const siteUrl = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
 export const siteName = 'Velora Innovations'
-export const isIndexingEnabled = process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true' && !new URL(siteUrl).hostname.endsWith('.vercel.app')
+
+const isProductionDomain = new URL(siteUrl).hostname === new URL(productionSiteUrl).hostname
+const isVercelProduction = process.env.VERCEL_ENV === 'production'
+const isVercelPreview = process.env.VERCEL_ENV === 'preview'
+
+export const isIndexingEnabled = isProductionDomain
+  && !isVercelPreview
+  && (isVercelProduction || process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true')
