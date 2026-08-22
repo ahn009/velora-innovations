@@ -33,6 +33,8 @@ export function IndustryImage({
       <Image
         src={visual.src}
         alt={decorative ? '' : visual.alt}
+        role={decorative ? 'presentation' : undefined}
+        aria-hidden={decorative || undefined}
         fill
         preload={preload}
         loading={preload ? undefined : 'lazy'}

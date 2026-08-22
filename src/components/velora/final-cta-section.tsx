@@ -48,6 +48,7 @@ export function FinalCtaSection({ title, description }: { title?: string; descri
         fill
         sizes="100vw"
         className="pointer-events-none object-cover opacity-15"
+        role="presentation"
         aria-hidden="true"
       />
       <div className="pointer-events-none absolute inset-0 bg-velora-navy/75" aria-hidden="true" />
