@@ -1,14 +1,15 @@
-const fallbackSiteUrl = 'https://velora-innovations.vercel.app'
+const productionSiteUrl = 'https://www.veloraautomations.com'
 
 function normalizeSiteUrl(value: string | undefined) {
-  if (!value) return fallbackSiteUrl
+  if (!value) return productionSiteUrl
 
   try {
     const url = new URL(value)
-    if (url.protocol !== 'https:' && process.env.NODE_ENV === 'production') return fallbackSiteUrl
+    if (url.protocol !== 'https:' && process.env.NODE_ENV === 'production') return productionSiteUrl
+    if (url.hostname.endsWith('.vercel.app')) return productionSiteUrl
     return url.toString().replace(/\/$/, '')
   } catch {
-    return fallbackSiteUrl
+    return productionSiteUrl
   }
 }
 
