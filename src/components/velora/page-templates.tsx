@@ -7,6 +7,7 @@ import { FinalCtaSection } from './final-cta-section'
 import { IndustryImage } from './industry-image'
 import { industryAgentConfigs } from '@/lib/industry-agent-configs'
 import { getIndustryVisual, type IndustryVisual } from '@/lib/industry-visuals'
+import { siteUrl } from '@/lib/site-config'
 
 export type SolutionContent = { eyebrow: string; title: string; description: string; outcome: string; does: string[]; doesNot: string[]; workflow: string[]; useCases: { title: string; description: string }[]; integrations: string[]; faq: { question: string; answer: string }[] }
 export type IndustryContent = { eyebrow: string; title: string; description: string; problems: string[]; systems: { title: string; description: string }[]; conversation: { speaker: string; text: string }[]; workflow: string[]; integrations: string[]; considerations: string[]; faq: { question: string; answer: string }[] }
@@ -107,14 +108,51 @@ const industryHeadings: Record<string, { problems: string; systems: string; conv
   'E-commerce': { problems: 'Where repetitive order questions fill the queue', systems: 'Resolve routine questions and route exceptions', conversation: 'Use approved order context before support steps in', workflow: 'From customer question to support resolution', boundaries: 'Keep account access and exceptions controlled' },
 }
 
-function Breadcrumbs({ parent, current }: { parent: { label: string; href: string }; current: string }) { return <nav aria-label="Breadcrumb" className="mb-7"><ol className="flex flex-wrap items-center gap-2 text-xs text-text-muted"><li><Link href="/" className="hover:text-text-primary">Home</Link></li><li aria-hidden="true">/</li><li><Link href={parent.href} className="hover:text-text-primary">{parent.label}</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="text-text-primary">{current}</li></ol></nav> }
+function Breadcrumbs({ parent, current, currentPath }: { parent: { label: string; href: string }; current: string; currentPath: string }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: parent.label, item: `${siteUrl}${parent.href}` },
+      { '@type': 'ListItem', position: 3, name: current, item: `${siteUrl}${currentPath}` },
+    ],
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
+      <nav aria-label="Breadcrumb" className="mb-7">
+        <ol className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
+          <li><Link href="/" className="hover:text-text-primary">Home</Link></li>
+          <li aria-hidden="true">/</li>
+          <li><Link href={parent.href} className="hover:text-text-primary">{parent.label}</Link></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" className="text-text-primary">{current}</li>
+        </ol>
+      </nav>
+    </>
+  )
+}
+
+function getDetailPath(parentHref: string, consultationPath: string) {
+  const query = consultationPath.split('?')[1] ?? ''
+  const parameter = parentHref === '/solutions' ? 'interest' : 'industry'
+  const slug = new URLSearchParams(query).get(parameter)
+  return slug ? `${parentHref}/${slug}` : parentHref
+}
 
 function TemplateHero({ eyebrow, title, description, label, parent, current, consultationPath, visual }: { eyebrow: string; title: string; description: string; label: string; parent: { label: string; href: string }; current: string; consultationPath: string; visual?: IndustryVisual }) {
+  const currentPath = getDetailPath(parent.href, consultationPath)
+
   return (
     <section className="relative overflow-hidden border-b border-border-subtle bg-background-secondary">
       <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-brand-primary/10 blur-3xl" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <Breadcrumbs parent={parent} current={current} />
+        <Breadcrumbs parent={parent} current={current} currentPath={currentPath} />
         <div className={visual ? 'grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14' : undefined}>
           <div className={visual ? 'max-w-3xl' : 'max-w-4xl'}>
             <p className="eyebrow">{eyebrow}</p>
