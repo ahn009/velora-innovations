@@ -40,9 +40,9 @@ function NavLink({ label, href, pathname, mobile = false, onClick }: { label: st
       aria-current={active ? 'page' : undefined}
       className={cn(
         'group relative inline-flex items-center font-medium transition-colors duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50',
-        mobile ? 'min-h-12 rounded-[var(--radius-md)] px-4 text-[15px]' : 'h-10 px-3 text-[13px]',
+        mobile ? 'min-h-14 w-full justify-start border-b border-border/70 px-1 text-left text-lg font-semibold tracking-[-0.01em] last:border-b-0' : 'h-10 px-3 text-[13px]',
         active ? 'text-foreground' : 'text-foreground/60 hover:text-foreground',
-        mobile && active && 'bg-brand-primary/10'
+        mobile && active && 'text-brand-primary'
       )}
     >
       {label}
@@ -96,13 +96,13 @@ export function Header() {
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
-              <div className="flex-1 overflow-y-auto px-3 py-4">
-                <div className="space-y-1">
+              <div className="flex-1 overflow-y-auto px-5 py-6">
+                <div className="flex flex-col border-y border-border/70">
                   {navigation.map((item) => <NavLink key={item.href} {...item} pathname={pathname} mobile onClick={closeMobile} />)}
                 </div>
               </div>
               <div className="border-t border-border p-5">
-                <Button type="button" variant="brand" size="lg" onClick={() => { closeMobile(); openConsultation() }} className="w-full">
+                <Button type="button" variant="brand" size="lg" onClick={() => { closeMobile(); openConsultation() }} className="w-full text-base">
                   Request a Consultation
                 </Button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">Practical recommendations. No purchase required.</p>

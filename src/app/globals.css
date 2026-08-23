@@ -286,6 +286,49 @@ html.no-transition *::after {
   100% { background-position: 200% center; }
 }
 
+@keyframes consultation-submit-sheen {
+  0% { transform: translateX(0); opacity: 0; }
+  18% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { transform: translateX(460%); opacity: 0; }
+}
+
+@keyframes consultation-submit-plane {
+  0% { transform: translate3d(-10px, 5px, 0) rotate(-10deg); opacity: 0; }
+  18% { opacity: 1; }
+  58% { transform: translate3d(1px, -2px, 0) rotate(5deg); opacity: 1; }
+  100% { transform: translate3d(16px, -8px, 0) rotate(13deg); opacity: 0; }
+}
+
+@keyframes consultation-submit-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+  30% { transform: translateY(-3px); opacity: 1; }
+}
+
+.consultation-submit-sheen {
+  animation: consultation-submit-sheen 1.35s ease-in-out infinite;
+}
+
+.consultation-submit-plane {
+  animation: consultation-submit-plane 1.15s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.consultation-submit-dots > span {
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: consultation-submit-dot 0.9s ease-in-out infinite;
+}
+
+.consultation-submit-dots > span:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.consultation-submit-dots > span:nth-child(3) {
+  animation-delay: 240ms;
+}
+
 @keyframes skeleton-shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }

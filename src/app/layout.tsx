@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/velora/header"
 import { Footer } from "@/components/velora/footer"
 import { ConsultationProvider } from "@/components/velora/consultation-provider"
-import { isIndexingEnabled, siteName, siteUrl } from "@/lib/site-config"
+import { contactEmail, isIndexingEnabled, siteName, siteUrl } from "@/lib/site-config"
 
 const googleTagManagerId = "GTM-NVSPW7CJ"
 
@@ -72,6 +72,7 @@ const jsonLd = [
     "@type": "Organization",
     name: siteName,
     url: siteUrl,
+    email: contactEmail,
     logo: `${siteUrl}/favicon.svg`,
     description:
       "AI automation agency designing custom AI agents for businesses across the United States and Canada.",

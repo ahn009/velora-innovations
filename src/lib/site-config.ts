@@ -17,6 +17,8 @@ function normalizeSiteUrl(value: string | undefined) {
 
 export const siteUrl = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
 export const siteName = 'Velora Innovations'
+export const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim()
+  || 'info@veloraautomations.com'
 
 const isProductionDomain = new URL(siteUrl).hostname === new URL(productionSiteUrl).hostname
 const isVercelPreview = process.env.VERCEL_ENV === 'preview'

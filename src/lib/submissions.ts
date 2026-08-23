@@ -71,7 +71,7 @@ export function validateLead(input: unknown) {
 
   if (cleanString(data.website, 200)) return { ok: false as const, message: 'Unable to submit this request.' }
   if (!value.firstName || !value.lastName || !value.company) return { ok: false as const, message: 'Please complete all required fields.' }
-  if (!EMAIL_PATTERN.test(value.email)) return { ok: false as const, message: 'Please enter a valid work email.' }
+  if (!EMAIL_PATTERN.test(value.email)) return { ok: false as const, message: 'Please enter a valid email address.' }
   if (value.phone && !PHONE_PATTERN.test(value.phone)) return { ok: false as const, message: 'Please enter a valid phone number.' }
   if (!industries.has(value.industry)) return { ok: false as const, message: 'Please select a valid industry.' }
   if (value.budget && !budgets.has(value.budget)) return { ok: false as const, message: 'Please select a valid budget range.' }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useId, useRef, useState } from 'react'
-import { CheckCircle2, Loader2 } from 'lucide-react'
+import { CheckCircle2, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -165,8 +165,9 @@ export function ConsultationForm({ source = 'website-consultation', defaultValue
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor={`${idPrefix}-email`}>Work email</Label>
-        <Input id={`${idPrefix}-email`} name="email" type="email" autoComplete="email" required maxLength={254} defaultValue={defaultValues.email || ''} />
+        <Label htmlFor={`${idPrefix}-email`}>Email</Label>
+        <Input id={`${idPrefix}-email`} name="email" type="email" autoComplete="email" aria-describedby={`${idPrefix}-email-help`} required maxLength={254} defaultValue={defaultValues.email || ''} />
+        <p id={`${idPrefix}-email-help`} className="text-xs text-muted-foreground">Personal and business email addresses are welcome.</p>
       </div>
 
       <div className="space-y-2">
@@ -239,10 +240,27 @@ export function ConsultationForm({ source = 'website-consultation', defaultValue
 
       <Button
         type="submit"
-        className="h-11 w-full rounded-xl bg-velora-emerald text-white hover:bg-velora-emerald-dark"
+        className="relative h-11 w-full overflow-hidden rounded-xl bg-velora-emerald text-white hover:bg-velora-emerald-dark disabled:opacity-100"
         disabled={pending}
       >
-        {pending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving request...</> : 'Request a Consultation'}
+        {pending ? (
+          <>
+            <span className="pointer-events-none absolute inset-0" aria-hidden="true">
+              <span className="consultation-submit-sheen absolute inset-y-0 -left-1/2 w-1/3 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            </span>
+            <span className="relative inline-flex items-center gap-2" role="status">
+              <span className="relative h-5 w-7 overflow-hidden" aria-hidden="true">
+                <Send className="consultation-submit-plane absolute left-1 top-0.5 h-4 w-4" />
+              </span>
+              <span>Sending request</span>
+              <span className="consultation-submit-dots inline-flex items-end gap-1" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            </span>
+          </>
+        ) : 'Request a Consultation'}
       </Button>
       <p className="text-center text-xs text-muted-foreground">
         No purchase required. Submitting this form does not subscribe you to marketing email.

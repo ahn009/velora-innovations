@@ -1,32 +1,44 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useConsultation } from './consultation-provider'
 
 export function StickyMobileCta() {
   const { openConsultation } = useConsultation()
   const reduceMotion = useReducedMotion()
-  const [visible, setVisible] = useState(false)
-  const heroRef = useRef<HTMLElement | null>(null)
+  const [pastHero, setPastHero] = useState(false)
+  const [footerNearby, setFooterNearby] = useState(false)
 
   useEffect(() => {
-    // Wait for DOM to be ready
     const hero = document.getElementById('hero')
+    const footer = document.querySelector<HTMLElement>('footer[role="contentinfo"]')
     if (!hero) return
-    heroRef.current = hero
 
-    const observer = new IntersectionObserver(
+    const heroObserver = new IntersectionObserver(
       ([entry]) => {
-        // Show the bar when hero is NOT intersecting
-        setVisible(!entry.isIntersecting)
+        setPastHero(!entry.isIntersecting)
       },
       { threshold: 0 }
     )
 
-    observer.observe(hero)
-    return () => observer.disconnect()
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        setFooterNearby(entry.isIntersecting)
+      },
+      { rootMargin: '0px 0px 56px 0px', threshold: 0 }
+    )
+
+    heroObserver.observe(hero)
+    if (footer) footerObserver.observe(footer)
+
+    return () => {
+      heroObserver.disconnect()
+      footerObserver.disconnect()
+    }
   }, [])
+
+  const visible = pastHero && !footerNearby
 
   return (
     <AnimatePresence>
