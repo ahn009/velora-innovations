@@ -1,0 +1,58 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: URLs to notify after the production deployment is live
+        required: true
+        default: changed
+        type: choice
+        options:
+          - changed
+          - all
+
+concurrency:
+  group: indexnow-production
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Submit production URL changes
+        shell: bash
+        env:
+          INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
+          INDEXNOW_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'changed' }}
+          INDEXNOW_BASE_SHA: ${{ github.event.before }}
+          NEXT_PUBLIC_SITE_URL: https://www.veloraautomations.com
+        run: |
+          if [ -z "$INDEXNOW_API_KEY" ]; then
+            echo "INDEXNOW_API_KEY is not configured; skipping IndexNow notification."
+            exit 0
+          fi
+
+          args=("--$INDEXNOW_MODE" "--wait-for-commit" "$GITHUB_SHA" "--skip-if-noindex")
+          if [ -n "$INDEXNOW_BASE_SHA" ]; then
+            args+=("--base" "$INDEXNOW_BASE_SHA")
+          fi
+
+          node scripts/indexnow.mjs "${args[@]}"

@@ -1,4 +1,6 @@
-const productionSiteUrl = 'https://www.veloraautomations.com'
+import siteManifest from '@/lib/site-manifest.json'
+
+const productionSiteUrl = siteManifest.siteUrl
 
 function normalizeSiteUrl(value: string | undefined) {
   if (!value) return productionSiteUrl
