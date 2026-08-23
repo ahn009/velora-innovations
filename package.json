@@ -11,7 +11,11 @@
     "typecheck": "next typegen && tsc --noEmit",
     "indexnow": "node scripts/indexnow.mjs",
     "indexnow:all": "node scripts/indexnow.mjs --all",
-    "indexnow:changed": "node scripts/indexnow.mjs --changed"
+    "indexnow:changed": "node scripts/indexnow.mjs --changed",
+    "rag:ingest": "tsx scripts/ingest-knowledge.ts",
+    "rag:status": "tsx scripts/rag-status.ts",
+    "rag:qa": "tsx --test src/lib/rag/*.test.ts",
+    "rag:qa:live": "tsx scripts/rag-live-qa.ts"
   },
   "engines": {
     "node": ">=20.9.0"
@@ -77,6 +81,7 @@
     "prisma": "^6.19.3",
     "supabase": "^2.114.0",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.20.6",
     "typescript": "^5.1.0"
   }
 }

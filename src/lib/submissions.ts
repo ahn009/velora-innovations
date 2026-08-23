@@ -109,9 +109,9 @@ export function getRequestFingerprint(request: Request) {
   return createHash('sha256').update(`${address}|${agent}`).digest('hex')
 }
 
-export async function checkRateLimit(kind: 'lead' | 'newsletter' | 'unsubscribe', fingerprint: string) {
-  const windowMs = 10 * 60 * 1000
-  const limit = kind === 'lead' ? 5 : 8
+export async function checkRateLimit(kind: 'lead' | 'newsletter' | 'unsubscribe' | 'chat', fingerprint: string) {
+  const windowMs = kind === 'chat' ? 60 * 60 * 1000 : 10 * 60 * 1000
+  const limit = kind === 'chat' ? 15 : kind === 'lead' ? 5 : 8
   const now = Date.now()
   const bucketStart = Math.floor(now / windowMs) * windowMs
   const id = `${kind}:${bucketStart}:${fingerprint}`

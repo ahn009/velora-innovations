@@ -31,6 +31,7 @@ pnpm-debug.log*
 # Documentation
 /docs/*
 !/docs/image-sources.md
+!/docs/rag-system.md
 
 #LOGS
 /logs

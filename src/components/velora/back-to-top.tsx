@@ -38,7 +38,8 @@ export function BackToTop() {
               transition={reduceMotion ? { duration: 0 } : { duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               onClick={scrollToTop}
               className={cn(
-                'fixed bottom-20 right-5 z-45 h-11 w-11 rounded-full sm:right-6 lg:bottom-6',
+                'fixed bottom-20 z-45 h-11 w-11 rounded-full sm:right-6 lg:bottom-6',
+                process.env.NEXT_PUBLIC_RAG_CHAT_ENABLED === 'true' ? 'left-5 right-auto sm:left-auto' : 'right-5',
                 'bg-card border border-velora-border/60 shadow-lg shadow-black/[0.08]',
                 'flex items-center justify-center',
                 'text-velora-emerald/60 hover:text-velora-emerald hover:border-velora-emerald/30',

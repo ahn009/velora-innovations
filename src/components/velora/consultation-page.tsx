@@ -21,8 +21,8 @@ const budgetMap: Record<string, string> = {
   '20000-plus': '20000-plus-usd',
 }
 
-function getDefaults(): ConsultationDefaults {
-  if (typeof window === 'undefined') return {}
+function getPrefill(): { defaults: ConsultationDefaults; source: string } {
+  if (typeof window === 'undefined') return { defaults: {}, source: 'consultation-page' }
   try {
     const query = new URLSearchParams(window.location.search)
     const saved = sessionStorage.getItem('velora-assessment-result')
@@ -41,7 +41,7 @@ function getDefaults(): ConsultationDefaults {
     const answerIndustry = typeof answers.industry === 'string' ? answers.industry : undefined
     const answerBudget = typeof answers.budget === 'string' ? answers.budget : undefined
 
-    return {
+    const defaults = {
       firstName: typeof answers.firstName === 'string' ? answers.firstName : undefined,
       lastName: typeof answers.lastName === 'string' ? answers.lastName : undefined,
       email: typeof answers.email === 'string' ? answers.email : undefined,
@@ -50,13 +50,14 @@ function getDefaults(): ConsultationDefaults {
       budget: answerBudget ? (budgetMap[answerBudget] || answerBudget) : undefined,
       notes: context || data.result?.primaryLabel ? `${context}${context ? ' ' : ''}${data.result?.primaryLabel ? `Assessment recommendation: ${data.result.primaryLabel}. I would like to discuss this workflow.` : ''}` : undefined,
     }
+    return { defaults, source: query.get('source') === 'website-assistant' ? 'website-assistant' : 'consultation-page' }
   } catch {
-    return {}
+    return { defaults: {}, source: 'consultation-page' }
   }
 }
 
 export function ConsultationPage() {
-  const [defaults] = useState<ConsultationDefaults>(getDefaults)
+  const [prefill] = useState(getPrefill)
 
   return (
     <main id="main-content">
@@ -74,7 +75,7 @@ export function ConsultationPage() {
           </div>
           <div className="rounded-[var(--radius-xl)] border border-border-subtle bg-surface-primary p-5 shadow-card sm:p-8">
             <h2 className="text-xl font-semibold text-text-primary">Consultation request</h2>
-            <ConsultationForm source="consultation-page" defaultValues={defaults} />
+            <ConsultationForm source={prefill.source} defaultValues={prefill.defaults} />
           </div>
         </div>
       </section>

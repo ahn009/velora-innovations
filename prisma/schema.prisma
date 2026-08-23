@@ -59,3 +59,45 @@ model RateLimitBucket {
 
   @@index([expiresAt])
 }
+
+model KnowledgeChunk {
+  id                  String   @id @default(cuid())
+  sourceType          String
+  sourceTitle         String
+  sourceUrl           String?
+  route               String?
+  heading             String?
+  content             String
+  contentHash         String   @unique
+  embedding           Unsupported("vector(1536)")?
+  embeddingModel      String
+  embeddingDimensions Int
+  managedBy           String   @default("repository")
+  ingestionRunId      String?
+  isActive            Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([sourceType])
+  @@index([route])
+  @@index([isActive])
+  @@index([managedBy, ingestionRunId])
+}
+
+model KnowledgeIngestionRun {
+  id                  String    @id @default(cuid())
+  status              String
+  embeddingModel      String
+  embeddingDimensions Int
+  pagesSeen           Int       @default(0)
+  chunksSeen          Int       @default(0)
+  chunksEmbedded      Int       @default(0)
+  chunksReused        Int       @default(0)
+  chunksDeactivated   Int       @default(0)
+  errorCategory       String?
+  startedAt           DateTime  @default(now())
+  completedAt         DateTime?
+
+  @@index([startedAt])
+  @@index([status])
+}

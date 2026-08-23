@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/velora/header"
 import { Footer } from "@/components/velora/footer"
 import { ConsultationProvider } from "@/components/velora/consultation-provider"
+import { ChatLauncher } from "@/components/velora/chat/chat-launcher"
 import { contactEmail, isIndexingEnabled, siteName, siteUrl } from "@/lib/site-config"
 
 const googleTagManagerId = "GTM-NVSPW7CJ"
@@ -132,6 +133,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
           </ConsultationProvider>
           <Toaster />
+          {process.env.NEXT_PUBLIC_RAG_CHAT_ENABLED === "true" ? <ChatLauncher /> : null}
         </ThemeProvider>
         <Analytics />
       </body>
