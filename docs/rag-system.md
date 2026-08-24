@@ -10,11 +10,23 @@ Velora Assistant is a website RAG assistant, not a general chatbot. It answers f
 
 1. A visitor opens the dynamically loaded chat panel and submits a bounded message plus at most eight recent messages.
 2. `POST /api/chat` enforces origin, JSON byte size, schema, honeypot, message/history limits, feature configuration, and a separate database-backed chat rate limit.
-3. Deterministic safety rules handle prompt-injection/private-data requests and legal, medical, tax, accounting, and financial advice requests before any model call.
-4. The server embeds the current question with the configured embedding model.
-5. A parameterized Prisma raw query performs cosine search against active `KnowledgeChunk` rows in Supabase PostgreSQL/pgvector.
-6. The top matching chunks above the threshold are passed as untrusted factual excerpts to the Responses API. No OpenAI tools are enabled and `store` is false.
-7. The API returns grounded text, clean internal source links, an optional consultation CTA, and a request ID. Similarity data is available only when both `NODE_ENV !== "production"` and `RAG_DEBUG=true`, and only when the request adds `?debug=1`.
+3. A deterministic intelligence pass detects intent, industry, operational problems, relevant core solutions, buying stage, and useful context from recent visitor messages.
+4. Deterministic safety rules handle prompt-injection/private-data requests and legal, medical, tax, accounting, financial, equipment-diagnosis, and safety-critical requests before any model call.
+5. The server expands the retrieval query with the detected industry, operational problem, solution vocabulary, route, and bounded visitor context, then embeds it with the configured embedding model.
+6. A parameterized Prisma raw query performs cosine search against active `KnowledgeChunk` rows in Supabase PostgreSQL/pgvector. With the default top-k it retrieves 18 candidates (hard-capped at 24), then a deterministic reranker boosts the detected industry route, mapped solution routes, and current page before selecting the configured top six.
+7. A focused prompt combines the core Velora brand rules, only the relevant industry/intent guidance, zero to two selected response examples, and retrieved chunks. No OpenAI tools are enabled and `store` is false.
+8. The API returns grounded text, up to four clean internal source links, an optional consultation CTA based on buying stage, and a request ID. Similarity and intelligence data are available only when both `NODE_ENV !== "production"` and `RAG_DEBUG=true`, and only when the request adds `?debug=1`.
+
+## Brand intelligence and response planning
+
+- `brand-profile.ts` owns Velora's name, positioning, markets, commercial philosophy, voice, and avoided language.
+- `velora-knowledge.ts` owns compact approved canonical facts: seven core solutions, supported industries, public pricing, implementation stages, integration limits, consultation framing, and business boundaries.
+- `industry-intelligence.ts` maps nine industries to operational problems, approved implementation patterns, relevant core solutions, source routes, and professional or safety boundaries.
+- `solution-mapping.ts` maps common bottlenecks such as missed calls, slow lead response, scheduling overload, poor follow-up, and disconnected systems to the focused Velora solution catalog.
+- `intelligence.ts` performs deterministic intent, industry, problem, solution, buying-stage, conversation-memory, and retrieval-query planning. It does not call a classifier model.
+- `response-examples.ts` contains at least 25 reviewed examples. At most two are normally selected by intent, industry, and solution overlap; the complete library is never sent on every request.
+
+The model must answer directly, connect the question to an operating problem, describe a realistic trigger/action/system/handoff workflow, state material limitations once, recommend the relevant Velora capability, and offer one useful next step where appropriate. It must not use brand intelligence to create facts that are absent from approved canonical facts or retrieved content.
 
 ## Database
 
@@ -70,6 +82,8 @@ Defaults:
 
 Model names and limits are centralized in `src/lib/rag/config.ts`. Threshold and model changes require representative QA. The public response never exposes chunk IDs or similarity scores.
 
+The reranker does not lower the similarity threshold and does not add more chunks to the generation prompt. It only reorders already-qualified semantic candidates. Prompt growth is bounded to the compact brand core, one intent directive, one industry block when detected, and at most two examples.
+
 ## Safety, privacy, and security
 
 - The UI flag is not authorization. `RAG_ENABLED=true` and a server-only API key are required by the API.
@@ -98,10 +112,13 @@ Commercial-intent answers may return a `Request a Consultation` CTA. It passes o
 2. Apply the migration.
 3. set `RAG_ENABLED=true` but keep `NEXT_PUBLIC_RAG_CHAT_ENABLED=false` for API-only tests.
 4. Run `npm run rag:ingest` and `npm run rag:status`.
-5. Run `npm run rag:qa`, `npm run lint`, `npm run typecheck`, and `npm run build`.
-6. Test `POST /api/chat` for success, malformed JSON, oversized JSON, rate limits, timeout/provider failure, no-match, injection, regulated requests, and source links.
-7. Temporarily enable the public flag only in a non-production environment for 390, 768, 1440, and 1920 pixel visual/accessibility tests.
-8. With an enabled non-production server running, use `RAG_QA_BASE_URL=http://127.0.0.1:3000 node scripts/rag-visual-qa.mjs` on Windows/Chrome to capture breakpoint screenshots and viewport metrics.
+5. Run `npm run rag:qa`, `npm run rag:evaluate`, `npm run lint`, `npm run typecheck`, and `npm run build`.
+6. Test `POST /api/chat` for success, malformed JSON, oversized JSON, rate limits, timeout/provider failure, no-match, injection, regulated requests, source links, conversation memory, and consultation context.
+7. For generated-answer scoring against a running non-production server, use rate-limit-safe batches such as `npm run rag:evaluate -- --url=http://127.0.0.1:3000 --limit=10 --offset=0`. Repeat with reviewed offsets after the chat rate window resets. The script prints the query, debug retrieval, answer, sources, CTA, and eight deterministic quality dimensions. It does not bypass the public rate limit, and debug details remain unavailable in production.
+8. Temporarily enable the public flag only in a non-production environment for 390, 768, 1440, and 1920 pixel visual/accessibility tests.
+9. With an enabled non-production server running, use `RAG_QA_BASE_URL=http://127.0.0.1:3000 node scripts/rag-visual-qa.mjs` on Windows/Chrome to capture breakpoint screenshots and viewport metrics.
+
+The 66-case source-controlled corpus in `evaluation-cases.ts` covers all nine industries, all seven core solutions, pricing, integrations, security, implementation, hallucination, injection, regulated advice, purchase intent, unknown information, and context memory. `scripts/fixtures/rag-phase14-baseline.json` records the Phase 14 pre-change baseline attempt and explicitly distinguishes captured policy answers from answers unavailable because external services could not be reached.
 
 ## Vercel deployment
 

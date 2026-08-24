@@ -15,6 +15,7 @@
     "rag:ingest": "tsx scripts/ingest-knowledge.ts",
     "rag:status": "tsx scripts/rag-status.ts",
     "rag:qa": "tsx --test src/lib/rag/*.test.ts",
+    "rag:evaluate": "tsx scripts/evaluate-rag.ts",
     "rag:qa:live": "tsx scripts/rag-live-qa.ts"
   },
   "engines": {

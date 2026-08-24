@@ -19,12 +19,15 @@ export type RagSource = {
 
 export type RetrievedChunk = {
   id: string
+  sourceType?: string
   sourceTitle: string
   sourceUrl: string | null
   route: string | null
   heading: string | null
   content: string
   similarity: number
+  retrievalScore?: number
+  rankingReasons?: string[]
 }
 
 export type ChatResponse = {
@@ -34,6 +37,12 @@ export type ChatResponse = {
   requestId: string
   retryable?: boolean
   debug?: {
+    intent: string
+    industry: string | null
+    buyingStage: string
+    inferredSolutions: string[]
+    retrievalQuery: string
+    selectedExamples: string[]
     retrieved: Array<{ title: string; route: string | null; similarity: number; tokenEstimate: number }>
   }
 }

@@ -1,4 +1,6 @@
+import { INDUSTRY_INTELLIGENCE } from './industry-intelligence'
 import type { RagSource } from './types'
+import { SOLUTION_ROUTES, type VeloraIndustry, type VeloraSolution } from './velora-knowledge'
 
 type PolicyAnswer = { answer: string; sources?: RagSource[] }
 
@@ -7,9 +9,10 @@ const source = (title: string, route: string): RagSource => ({ title, route, url
 export function getPolicyAnswer(message: string): PolicyAnswer | null {
   const normalized = message.toLowerCase()
 
-  if (/\b(system prompt|hidden (prompt|instruction|context)|api key|database schema|customer leads?|private data|internal context)\b/.test(normalized)
+  if (/\b(system prompt|hidden (prompt|instruction|context)|api key|database schema|private data|internal context|environment variables?|credentials?)\b/.test(normalized)
+    || /\b(show|list|reveal|print|give me)\b.{0,24}\b(?:customer )?leads?\b/.test(normalized)
     || /ignore (all |the )?(previous|prior|above) instructions/.test(normalized)) {
-    return { answer: 'I can’t reveal private data, hidden instructions, credentials, or internal system information. I can help with Velora’s published services and resources.' }
+    return { answer: 'I can’t reveal private data, leads, hidden instructions, credentials, or internal system information. Velora Assistant only uses Velora’s approved public business information, and I can help with its services, industries, pricing, implementation, integrations, or consultation process.' }
   }
 
   if (/\b(chest pain|can(?:not|'t) breathe|difficulty breathing|stroke|overdose|suicid|medical emergency)\b/.test(normalized)) {
@@ -19,23 +22,31 @@ export function getPolicyAnswer(message: string): PolicyAnswer | null {
     }
   }
 
-  if (/\b(diagnos|treatment|medication|symptom|what should i do for|medical advice)\b/.test(normalized)) {
+  if (/\b(?:diagnos\w*.*(?:ac|hvac|air condition|furnace|equipment|brake|vehicle|car)|(?:ac|hvac|air condition|furnace|equipment|brake|vehicle|car).*diagnos\w*)\b/.test(normalized)) {
+    const automotive = /\b(brake|vehicle|car|repair shop|automotive)\b/.test(normalized)
     return {
-      answer: 'I can’t provide diagnosis, treatment, or medical guidance. Velora supports administrative intake, front-desk workflows, and appointment coordination; clinical questions belong with qualified healthcare staff.',
+      answer: `No. Velora should not independently diagnose ${automotive ? 'a vehicle or make a safety-critical repair decision' : 'equipment or make a safety-critical service decision'}. It can collect the customer's description, location and contact details, apply approved intake and urgency rules, schedule an eligible service visit, and route uncertain or urgent situations to qualified staff.`,
+      sources: [source(automotive ? 'Automotive' : 'Home Services', automotive ? '/industries/automotive' : '/industries/home-services')],
+    }
+  }
+
+  if (/\b(diagnos\w*|treatment|medication|symptom\w*|what should i do for|medical advice)\b/.test(normalized)) {
+    return {
+      answer: 'I can’t provide diagnosis, treatment, or medical guidance. Velora supports administrative intake, front-desk workflows, and appointment coordination; clinical questions and safety-critical decisions stay with qualified healthcare staff.',
       sources: [source('Medical Practices', '/industries/medical-practices')],
     }
   }
 
-  if (/\b(strong legal case|legal advice|case strategy|interpret (the )?law|should i sue|do i have a case)\b/.test(normalized)) {
+  if (/\b(strong legal case|good (?:legal )?case|(?:legal )?case is strong|legal advice|case strategy|interpret (the )?law|should i sue|do i have a case|whether i have a (?:legal )?case)\b/.test(normalized)) {
     return {
-      answer: 'I can’t provide legal advice or assess a case. Velora can support non-advisory administrative intake, matter routing, and consultation scheduling for law firms; legal judgment stays with a qualified lawyer.',
+      answer: 'No. I can’t provide legal advice or assess a case, including whether someone has a strong case. Velora’s law-firm workflows can collect approved intake information, identify a broad matter category, create an intake record, schedule a consultation, and route the prospect; legal rights, case strength, and strategy stay with a qualified attorney.',
       sources: [source('Law Firms', '/industries/law-firms')],
     }
   }
 
-  if (/\b(tax deduction|tax advice|which deduction|financial advice|investment advice|accounting judgment)\b/.test(normalized)) {
+  if (/\b(tax deductions?|tax advice|which deduction|financial advice|investment advice|accounting judgment)\b/.test(normalized)) {
     return {
-      answer: 'I can’t provide personalized tax, accounting, or financial advice. Velora can support administrative intake, document reminders, and consultation scheduling for accounting firms; professional judgments stay with qualified professionals.',
+      answer: 'I can’t provide personalized tax, accounting, or financial advice or recommend a tax deduction. Velora can support an accounting firm with administrative intake, document reminders, prospect follow-up, and consultation scheduling; professional judgments stay with a qualified professional.',
       sources: [source('Accounting', '/industries/accounting')],
     }
   }
@@ -60,10 +71,14 @@ function inferredSolution(message: string) {
   return signals.find(([, pattern]) => pattern.test(message))?.[0]
 }
 
-export function consultationUrl(route?: string, message = '') {
+export function consultationUrl(route?: string, message = '', industryName?: VeloraIndustry | null, solutionName?: VeloraSolution | null) {
   const params = new URLSearchParams({ source: 'website-assistant' })
-  const industry = route?.match(/^\/industries\/([^/?#]+)/)?.[1]
-  const solution = route?.match(/^\/solutions\/([^/?#]+)/)?.[1] ?? inferredSolution(message)
+  const industry = industryName
+    ? INDUSTRY_INTELLIGENCE[industryName].route.split('/').at(-1)
+    : route?.match(/^\/industries\/([^/?#]+)/)?.[1]
+  const solution = solutionName
+    ? SOLUTION_ROUTES[solutionName].split('/').at(-1)
+    : route?.match(/^\/solutions\/([^/?#]+)/)?.[1] ?? inferredSolution(message)
   if (industry) params.set('industry', industry)
   if (solution) params.set('solution', solution)
   return `/consultation?${params.toString()}`

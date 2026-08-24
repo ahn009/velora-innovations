@@ -74,3 +74,39 @@ test('uses recent visitor context and current route for follow-up retrieval', as
   assert.match(retrievalQuery, /What would that include/)
   assert.doesNotMatch(retrievalQuery, /bounded receptionist workflow/)
 })
+
+test('returns development-only intelligence and retrieval details', async () => {
+  const result = await processChat({
+    message: 'We miss HVAC calls after hours.',
+    history: [],
+    route: '/industries/home-services',
+  }, 'request-6', 'fingerprint', dependencies(), { debug: true })
+
+  assert.equal(result.debug?.intent, 'INDUSTRY_USE_CASE')
+  assert.equal(result.debug?.industry, 'Home Services')
+  assert.ok(result.debug?.inferredSolutions.includes('AI Receptionist'))
+  assert.match(result.debug?.retrievalQuery ?? '', /Home Services/)
+  assert.ok((result.debug?.selectedExamples.length ?? 0) <= 2)
+})
+
+test('uses remembered industry context for a commercial pricing follow-up', async () => {
+  const result = await processChat({
+    message: 'How much would that cost?',
+    history: [{ role: 'user', content: 'I run a plumbing company and miss calls after hours.' }],
+    route: '/pricing',
+  }, 'request-7', 'fingerprint', dependencies())
+
+  assert.match(result.consultation?.url ?? '', /industry=home-services/)
+  assert.match(result.consultation?.url ?? '', /solution=ai-receptionist/)
+})
+
+test('handles equipment diagnosis before embeddings and uses the home-services boundary', async () => {
+  let embedded = false
+  const result = await processChat({ message: 'Can the AI diagnose an AC problem?', history: [] }, 'request-8', 'fingerprint', dependencies({
+    embed: async () => { embedded = true; return [[0.1, 0.2]] },
+  }))
+
+  assert.equal(embedded, false)
+  assert.match(result.answer, /should not independently diagnose equipment/i)
+  assert.equal(result.sources[0].route, '/industries/home-services')
+})

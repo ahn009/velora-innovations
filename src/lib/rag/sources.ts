@@ -7,5 +7,5 @@ export function publicSources(chunks: RetrievedChunk[]) {
     if (!url || seen.has(url)) return []
     seen.add(url)
     return [{ title: chunk.sourceTitle, url, route: chunk.route }]
-  }).slice(0, 5)
+  }).slice(0, 4)
 }
