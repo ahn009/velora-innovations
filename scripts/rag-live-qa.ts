@@ -1,7 +1,10 @@
 import { loadEnvConfig } from '@next/env'
 import { PrismaClient, Prisma } from '@prisma/client'
+import { configureDirectDatabaseForRagCli } from './rag-cli-env'
 
+async function main() {
 loadEnvConfig(process.cwd())
+configureDirectDatabaseForRagCli()
 
 const [{ ragConfig, assertRagServerConfig }, { createEmbeddings, generateGroundedAnswer }, { getPolicyAnswer }, { buildGroundedInput, VELORA_SYSTEM_PROMPT }] = await Promise.all([
   import('../src/lib/rag/config'),
@@ -111,3 +114,9 @@ try {
 } finally {
   await prisma.$disconnect()
 }
+}
+
+void main().catch((error) => {
+  console.error(error instanceof Error ? error.message : 'Live RAG QA failed.')
+  process.exitCode = 1
+})

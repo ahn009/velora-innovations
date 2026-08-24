@@ -18,7 +18,7 @@
     "rag:qa:live": "tsx scripts/rag-live-qa.ts"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=20.9.0 <23"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

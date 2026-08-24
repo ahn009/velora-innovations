@@ -94,7 +94,7 @@ Commercial-intent answers may return a `Request a Consultation` CTA. It passes o
 
 ## Local development and QA
 
-1. Use a development Supabase database and OpenAI project key.
+1. Use Node.js 22 LTS (the repository pins 22.23.2 in `.nvmrc`), a development Supabase database, and an OpenAI project key.
 2. Apply the migration.
 3. set `RAG_ENABLED=true` but keep `NEXT_PUBLIC_RAG_CHAT_ENABLED=false` for API-only tests.
 4. Run `npm run rag:ingest` and `npm run rag:status`.
