@@ -22,6 +22,18 @@ const fallbackSources = [
   { title: 'Request a Consultation', url: '/consultation?source=website-assistant', route: '/consultation' },
 ]
 
+export function buildRetrievalQuery(input: ChatInput) {
+  const recentUserContext = input.history
+    .filter((message) => message.role === 'user')
+    .slice(-2)
+    .map((message) => message.content)
+  return [
+    input.route ? `Current Velora page: ${input.route}` : '',
+    ...recentUserContext.map((message) => `Earlier visitor question: ${message}`),
+    `Current visitor question: ${input.message}`,
+  ].filter(Boolean).join('\n')
+}
+
 export async function processChat(
   input: ChatInput,
   requestId: string,
@@ -40,7 +52,7 @@ export async function processChat(
     }
   }
 
-  const [embedding] = await dependencies.embed([input.message], options.signal)
+  const [embedding] = await dependencies.embed([buildRetrievalQuery(input)], options.signal)
   if (!embedding) throw new Error('Embedding provider returned no query vector.')
   const chunks = await dependencies.retrieve(embedding)
   if (chunks.length === 0) {
@@ -58,7 +70,7 @@ export async function processChat(
   const answer = await dependencies.generate(
     VELORA_SYSTEM_PROMPT,
     input.history,
-    buildGroundedInput(input.message, chunks),
+    buildGroundedInput(input.message, chunks, input.route),
     options.signal,
   )
   return {

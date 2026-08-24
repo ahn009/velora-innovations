@@ -6,6 +6,8 @@ type ResponsesResponse = {
   output?: Array<{ type?: string; content?: Array<{ type?: string; text?: string }> }>
   output_text?: string
   error?: { message?: string }
+  status?: string
+  incomplete_details?: { reason?: string } | null
 }
 
 export class RagProviderError extends Error {
@@ -86,10 +88,14 @@ export async function generateGroundedAnswer(
     max_output_tokens: ragConfig.maxOutputTokens,
     store: false,
     tools: [],
-    text: { verbosity: 'low' },
+    reasoning: { effort: ragConfig.reasoningEffort },
+    text: { verbosity: ragConfig.responseVerbosity },
   }, 'generation', signal)
   const json = await response.json().catch(() => ({})) as ResponsesResponse
   if (!response.ok) throw new RagProviderError('generation', json.error?.message)
+  if (json.status === 'incomplete' || json.incomplete_details?.reason) {
+    throw new RagProviderError('invalid_response', `The provider response was incomplete: ${json.incomplete_details?.reason ?? 'unknown'}.`)
+  }
   const answer = extractOutputText(json)
   if (!answer) throw new RagProviderError('invalid_response', 'The provider returned no answer text.')
   return answer

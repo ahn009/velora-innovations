@@ -55,3 +55,22 @@ test('enforces the rate limit before model calls', async () => {
     ChatRateLimitError,
   )
 })
+
+test('uses recent visitor context and current route for follow-up retrieval', async () => {
+  let retrievalQuery = ''
+  await processChat({
+    message: 'What would that include?',
+    history: [
+      { role: 'user', content: 'I run an HVAC company and miss after-hours calls.' },
+      { role: 'assistant', content: 'Velora may be able to help with a bounded receptionist workflow.' },
+    ],
+    route: '/industries/home-services',
+  }, 'request-5', 'fingerprint', dependencies({
+    embed: async ([input]) => { retrievalQuery = input; return [[0.1, 0.2]] },
+  }))
+
+  assert.match(retrievalQuery, /HVAC company/)
+  assert.match(retrievalQuery, /\/industries\/home-services/)
+  assert.match(retrievalQuery, /What would that include/)
+  assert.doesNotMatch(retrievalQuery, /bounded receptionist workflow/)
+})

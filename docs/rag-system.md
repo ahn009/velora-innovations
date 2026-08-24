@@ -61,12 +61,12 @@ Re-run ingestion whenever approved public content, chunking, embedding model, or
 Defaults:
 
 - embeddings: `text-embedding-3-small`, 1536 dimensions;
-- chat: `gpt-5.6-luna`;
+- chat: `gpt-5.6-sol` with low reasoning effort and medium response verbosity;
 - similarity: cosine;
-- top-k: 5;
+- top-k: 6;
 - minimum similarity: 0.35;
-- maximum answer budget: 600 output tokens;
-- provider timeout: 15 seconds.
+- maximum answer budget: 1,200 output tokens, including reasoning tokens;
+- provider timeout: 25 seconds.
 
 Model names and limits are centralized in `src/lib/rag/config.ts`. Threshold and model changes require representative QA. The public response never exposes chunk IDs or similarity scores.
 
@@ -129,6 +129,8 @@ Required for an enabled server:
 - `RAG_CHAT_MODEL`
 - `RAG_EMBEDDING_MODEL`
 - `RAG_EMBEDDING_DIMENSIONS`
+- `RAG_REASONING_EFFORT`
+- `RAG_RESPONSE_VERBOSITY`
 - `NEXT_PUBLIC_RAG_CHAT_ENABLED`
 
 Optional controls:

@@ -63,7 +63,7 @@ export function ChatPanel({ open, onOpenChange, route }: { open: boolean; onOpen
 
     const controller = new AbortController()
     abortRef.current = controller
-    const clientTimeout = window.setTimeout(() => controller.abort(), 22_000)
+    const clientTimeout = window.setTimeout(() => controller.abort(), 32_000)
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
