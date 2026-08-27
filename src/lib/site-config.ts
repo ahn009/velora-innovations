@@ -19,6 +19,10 @@ export const siteUrl = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
 export const siteName = 'Velora Innovations'
 export const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim()
   || 'info@veloraautomations.com'
+export const linkedInUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim()
+  || 'https://www.linkedin.com/company/velora-ai-automations'
+export const xUrl = process.env.NEXT_PUBLIC_X_URL?.trim()
+  || 'https://x.com/Velora_Automate'
 
 const isProductionDomain = new URL(siteUrl).hostname === new URL(productionSiteUrl).hostname
 const isVercelPreview = process.env.VERCEL_ENV === 'preview'

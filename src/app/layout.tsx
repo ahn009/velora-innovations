@@ -9,7 +9,7 @@ import { Header } from "@/components/velora/header"
 import { Footer } from "@/components/velora/footer"
 import { ConsultationProvider } from "@/components/velora/consultation-provider"
 import { ChatLauncher } from "@/components/velora/chat/chat-launcher"
-import { contactEmail, isIndexingEnabled, siteName, siteUrl } from "@/lib/site-config"
+import { contactEmail, isIndexingEnabled, linkedInUrl, siteName, siteUrl, xUrl } from "@/lib/site-config"
 
 const googleTagManagerId = "GTM-NVSPW7CJ"
 
@@ -57,6 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    creator: "@Velora_Automate",
     title: "Velora Innovations — AI Automation for Growing Businesses",
     description:
       "Custom AI agents that help your business respond faster, follow up consistently and operate more efficiently.",
@@ -77,7 +78,7 @@ const jsonLd = [
     logo: `${siteUrl}/favicon.svg`,
     description:
       "AI automation agency designing custom AI agents for businesses across the United States and Canada.",
-    sameAs: [],
+    sameAs: [linkedInUrl, xUrl],
   },
 ]
 
