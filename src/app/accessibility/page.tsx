@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
 import { pageMetadata } from '@/lib/seo'
 
-export const metadata = pageMetadata({ title: 'Accessibility Statement | Velora Innovations', description: 'Review Velora Innovations accessibility goals, implemented measures, known limitations, and feedback route.', path: '/accessibility' })
+export const metadata = pageMetadata({ title: 'Accessibility Statement | Velora Automations', description: 'Review Velora Automations’ accessibility goals, implemented measures, known limitations, and feedback route.', path: '/accessibility' })
 
 export default function AccessibilityPage() {
   return (
@@ -31,7 +31,7 @@ export default function AccessibilityPage() {
       <section>
         <h2>Report a problem</h2>
         <p>
-          Use the <Link href="/contact">contact form</Link>, describe the page and task, and write
+          Use the <Link href="/consultation">consultation form</Link>, describe the page and task, and write
           “accessibility issue” in the workflow field. We will provide an alternative way to complete the task.
         </p>
       </section>

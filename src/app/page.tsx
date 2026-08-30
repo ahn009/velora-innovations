@@ -12,7 +12,7 @@ import { SecuritySection } from '@/components/velora/security-section'
 import { StickyMobileCta } from '@/components/velora/sticky-mobile-cta'
 import { pageMetadata } from '@/lib/seo'
 
-export const metadata = pageMetadata({ title: 'Velora Innovations — AI Automation for Growing Businesses', description: 'Velora designs practical AI workflows for customer response, qualification, scheduling, follow-up, and connected business operations.', path: '/' })
+export const metadata = pageMetadata({ title: 'Velora Automations | AI Automation for Growing Businesses', description: 'Practical AI automation for customer response, lead qualification, appointment scheduling, follow-up, CRM updates, and connected business workflows.', path: '/' })
 import { TrustBar } from '@/components/velora/trust-bar'
 
 export default function Home() {

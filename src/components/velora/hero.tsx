@@ -30,7 +30,7 @@ export function Hero() {
             Respond faster. Operate smarter.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-text-secondary sm:text-[1.125rem] sm:leading-8">
-            Velora designs practical AI agents that answer customers, qualify leads, book appointments, follow up consistently, and connect with the tools your business already uses.
+            Velora Automations builds practical AI automation systems for customer response, lead qualification, appointment scheduling, follow-up, CRM updates, and connected business workflows.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">

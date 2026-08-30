@@ -5,7 +5,7 @@ import { PageHero } from '@/components/velora/page-hero'
 import { PricingSection } from '@/components/velora/pricing-section'
 import { pageMetadata } from '@/lib/seo'
 
-export const metadata = pageMetadata({ title: 'AI Automation Pricing | Velora Innovations', description: 'Review implementation starting points and the workflow, integration, usage, and management factors that shape an AI automation proposal.', path: '/pricing' })
+export const metadata = pageMetadata({ title: 'AI Automation Pricing | Velora Automations', description: 'Review implementation starting points and the workflow, integration, usage, and management factors that shape an AI automation proposal.', path: '/pricing' })
 
 const costFactors = [
   { icon: PlugZap, title: 'Integration scope', description: 'The number and quality of APIs, authentication methods and data mappings.' },

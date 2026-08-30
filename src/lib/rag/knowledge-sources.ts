@@ -65,9 +65,9 @@ function industrySource(sourceTitle: string, route: string, item: IndustryConten
 
 const coreSources: KnowledgeSource[] = [
   {
-    sourceType: 'page', sourceTitle: 'Velora Innovations', route: '/', sourceUrl: `${SITE_URL}/`,
+    sourceType: 'page', sourceTitle: 'Velora Automations', route: '/', sourceUrl: `${SITE_URL}/`,
     sections: sections(
-      ['What Velora does', 'Velora Innovations designs practical, bounded AI workflows for customer response, routine questions, lead qualification, appointment coordination, follow-up, CRM updates, connected business operations, and clear human escalation. Velora starts with one scoped process and expands only after the workflow is tested and owned.'],
+      ['What Velora does', 'Velora Automations designs practical, bounded AI workflows for customer response, routine questions, lead qualification, appointment coordination, follow-up, CRM updates, connected business operations, and clear human escalation. Velora starts with one scoped process and expands only after the workflow is tested and owned.'],
       ['Who Velora serves', 'Velora serves customer-facing service businesses in the United States and Canada. Strong initial fits have repeated inquiries or coordination tasks, documented rules, suitable system access, and a human owner for outcomes.'],
       ['Operating boundaries', 'People remain responsible for judgment, sensitive conversations, exceptions, and regulated decisions. Velora does not guarantee revenue, bookings, or customer outcomes.'],
     ),
@@ -149,11 +149,11 @@ const coreSources: KnowledgeSource[] = [
     sections: defaultFaqs.map(([question, answer]) => ({ heading: question, content: `Question: ${question}\nAnswer: ${answer}` })),
   },
   {
-    sourceType: 'page', sourceTitle: 'About Velora Innovations', route: '/about', sourceUrl: `${SITE_URL}/about`,
+    sourceType: 'page', sourceTitle: 'About Velora Automations', route: '/about', sourceUrl: `${SITE_URL}/about`,
     sections: sections(
-      ['About', 'Velora Innovations is an independent AI automation studio serving customer-facing service businesses in the United States and Canada. It designs focused workflows for intake, routine questions, qualification, appointment coordination, follow-up, and human escalation.'],
+      ['About', 'Velora Automations builds practical AI automation systems for small and mid-sized, customer-facing businesses in the United States and Canada. It designs focused workflows for customer response, routine questions, lead qualification, appointment scheduling, follow-up, CRM updates, and human escalation.'],
       ['Working method', 'Velora maps the current workflow, confirms API access and data handling, defines success criteria, tests approved scenarios, launches in controlled scope, and expands only when evidence supports it. Proposed project ownership, delivery responsibilities, vendors, and escalation contacts are shared before an engagement begins.'],
-      ['Current focus', 'Velora currently focuses on home services, property management, real estate, and similar appointment- or inquiry-driven businesses. Regulated or high-risk use cases require separate legal, privacy, and security assessment and may not be accepted.'],
+      ['Current focus', 'Velora serves inquiry- and appointment-driven businesses, including home services, dental and medical practices, law firms, real estate, property management, accounting, automotive, and e-commerce teams. Regulated or high-risk use cases require separate legal, privacy, security, vendor, and professional review and may not be accepted.'],
     ),
   },
   {

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
 import { pageMetadata } from '@/lib/seo'
 
-export const metadata = pageMetadata({ title: 'AI Disclosure | Velora Innovations', description: 'Understand how Velora Innovations labels scripted demos and approaches disclosure, limitations, and human oversight in AI workflows.', path: '/ai-disclosure' })
+export const metadata = pageMetadata({ title: 'AI Disclosure | Velora Automations', description: 'Understand how Velora Automations labels scripted demos and approaches disclosure, limitations, and human oversight in AI workflows.', path: '/ai-disclosure' })
 
 export default function AiDisclosurePage() {
   return (

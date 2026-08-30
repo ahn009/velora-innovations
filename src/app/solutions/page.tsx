@@ -5,7 +5,7 @@ import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { PageHero } from '@/components/velora/page-hero'
 import { SolutionSection } from '@/components/velora/solution-section'
 
-export const metadata = pageMetadata({ title: 'AI Automation Solutions | Velora Innovations', description: 'Explore AI receptionist, lead qualification, appointment, support, follow-up, CRM, and workflow automation services.', path: '/solutions' })
+export const metadata = pageMetadata({ title: 'AI Automation Solutions | Velora Automations', description: 'Explore practical AI receptionist, lead qualification, appointment, support, follow-up, CRM, and workflow automation services.', path: '/solutions' })
 
 export default function SolutionsPage() {
   return (

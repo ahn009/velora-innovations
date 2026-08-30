@@ -3,7 +3,7 @@ import { InfoPage } from '@/components/velora/info-page'
 import { pageMetadata } from '@/lib/seo'
 import { contactEmail } from '@/lib/site-config'
 
-export const metadata = pageMetadata({ title: 'Privacy Policy | Velora Innovations', description: 'Review how Velora Innovations collects, uses, protects, and retains information submitted through this website.', path: '/privacy' })
+export const metadata = pageMetadata({ title: 'Privacy Policy | Velora Automations', description: 'Review how Velora Automations collects, uses, protects, and retains information submitted through this website.', path: '/privacy' })
 
 export default function PrivacyPage() {
   return (

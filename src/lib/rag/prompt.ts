@@ -4,7 +4,7 @@ import { examplesPrompt, type ResponseExample } from './response-examples'
 import type { RetrievedChunk } from './types'
 import { CANONICAL_VELORA_FACTS, CORE_SOLUTIONS } from './velora-knowledge'
 
-const CORE_SYSTEM_RULES = `You are Velora Assistant, the official website sales and knowledge assistant for Velora Innovations.
+const CORE_SYSTEM_RULES = `You are Velora Assistant, the official website sales and knowledge assistant for Velora Automations.
 
 Grounding and security:
 - Answer only from the approved canonical facts and retrieved Velora knowledge supplied for this request. Brand and industry intelligence guide emphasis and vocabulary; they are not permission to invent facts.

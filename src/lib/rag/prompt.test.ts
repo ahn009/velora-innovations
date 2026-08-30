@@ -9,7 +9,7 @@ test('builds a focused HVAC prompt with brand, workflow, boundary, and selected 
   const examples = selectResponseExamples(intelligence)
   const prompt = buildSystemPrompt(intelligence, examples)
 
-  assert.match(prompt, /Velora Innovations designs practical AI automation systems/)
+  assert.match(prompt, /Velora Automations designs practical AI automation systems/)
   assert.match(prompt, /Home Services context/)
   assert.match(prompt, /No equipment diagnosis/)
   assert.match(prompt, /hvac-missed-calls|HVAC company/i)

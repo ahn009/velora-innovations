@@ -2,14 +2,14 @@ import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
 import { pageMetadata } from '@/lib/seo'
 
-export const metadata = pageMetadata({ title: 'Cookie and Local Storage Notice | Velora Innovations', description: 'Review how the Velora Innovations website uses browser preferences, local storage, and any future analytics controls.', path: '/cookies' })
+export const metadata = pageMetadata({ title: 'Cookie and Analytics Notice | Velora Automations', description: 'Review how the Velora Automations website uses browser preferences, analytics, and essential platform storage.', path: '/cookies' })
 
 export default function CookiesPage() {
   return (
     <InfoPage
       eyebrow="Legal"
       title="Cookie and Local Storage Notice"
-      intro="The current website does not load advertising trackers or optional analytics cookies from this repository."
+      intro="This website uses preference storage and analytics tools to understand site performance. It does not use repository-configured advertising trackers."
     >
       <section>
         <h2>Browser preferences</h2>
@@ -26,10 +26,11 @@ export default function CookiesPage() {
         </p>
       </section>
       <section>
-        <h2>Future analytics</h2>
+        <h2>Analytics</h2>
         <p>
-          If optional analytics or advertising technologies are added, this notice and the consent
-          controls must be updated before those technologies run where opt-in consent is required.
+          Google Tag Manager and Vercel Analytics are configured in this website. Depending on their
+          deployment settings, they may process device, page-view, and request information to measure
+          site usage and performance. Consent controls must be applied where opt-in consent is required.
         </p>
       </section>
       <section>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, ChevronRight } from 'lucide-react'
+import { absoluteUrl } from '@/lib/site-config'
 
 type Breadcrumb = {
   label: string
@@ -14,6 +15,7 @@ export function PageHero({
   secondaryLink,
   primaryLink,
   compact = false,
+  path,
 }: {
   eyebrow: string
   title: string
@@ -22,9 +24,21 @@ export function PageHero({
   secondaryLink?: { label: string; href: string }
   primaryLink?: { label: string; href: string }
   compact?: boolean
+  path?: string
 }) {
+  const breadcrumbJsonLd = path && breadcrumbs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/') },
+      ...breadcrumbs.map((item, index) => ({ '@type': 'ListItem', position: index + 2, name: item.label, item: absoluteUrl(item.href) })),
+      { '@type': 'ListItem', position: breadcrumbs.length + 2, name: eyebrow, item: absoluteUrl(path) },
+    ],
+  } : null
+
   return (
     <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-velora-emerald/[0.07] via-background to-background">
+      {breadcrumbJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c') }} /> : null}
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-velora-emerald/10 blur-3xl"
         aria-hidden="true"

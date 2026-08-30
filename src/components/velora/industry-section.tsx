@@ -22,8 +22,19 @@ const industries: Industry[] = [
   { id: 'e-commerce', visualId: 'ecommerce', title: 'E-commerce', problem: 'Order and product questions create repetitive support work.', automation: 'A support flow answers approved questions, retrieves order context where supported, and escalates exceptions to the right team.', steps: ['Identify order intent', 'Retrieve approved context', 'Answer routine question', 'Offer next step', 'Escalate exception'], customerLabel: 'Customer', customerQuote: '“Can you help me check the status of my order?”', icon: ShoppingBag },
 ]
 
+const detailRoutes: Record<string, string> = {
+  'home-services': '/industries/home-services',
+  'dental-practices': '/industries/dental',
+  'medical-practices': '/industries/medical-practices',
+  'law-firms': '/industries/law-firms',
+  'real-estate': '/industries/real-estate',
+  'property-management': '/industries/property-management',
+  accounting: '/industries/accounting',
+  automotive: '/industries/automotive',
+  'e-commerce': '/industries/ecommerce',
+}
+
 export function IndustryExample({ industry }: { industry: Industry }) {
-  const detailRoutes: Record<string, string> = { 'home-services': '/industries/home-services', 'dental-practices': '/industries/dental', 'medical-practices': '/industries/medical-practices', 'law-firms': '/industries/law-firms', 'real-estate': '/industries/real-estate', 'property-management': '/industries/property-management', accounting: '/industries/accounting', automotive: '/industries/automotive', 'e-commerce': '/industries/ecommerce' }
   return (
     <div id={`${industry.id}-example`} role="tabpanel" className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
       <div>
@@ -86,6 +97,18 @@ export function IndustrySection({ variant = 'featured' }: { variant?: 'featured'
         </div>
         <div id={panelId} aria-live="polite" className="rounded-[var(--radius-xl)] bg-velora-navy p-5 shadow-[var(--shadow-card)] sm:p-7"><IndustryExample industry={active} /></div>
       </div>
+      {variant === 'directory' ? (
+        <nav className="mt-8 border-t border-border-subtle pt-6" aria-label="All industry guides">
+          <p className="text-sm font-semibold text-text-primary">Browse every industry guide</p>
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
+            {industries.map((industry) => (
+              <Link key={industry.id} href={detailRoutes[industry.id]} className="text-sm font-medium text-brand-hover hover:text-brand-primary">
+                {industry.title}
+              </Link>
+            ))}
+          </div>
+        </nav>
+      ) : null}
       {variant === 'featured' && <div className="mt-7 text-center"><Link href="/industries" className="group inline-flex items-center text-sm font-semibold text-brand-hover hover:text-brand-primary">Explore all industries <span className="ml-2 transition-transform duration-[var(--motion-fast)] group-hover:translate-x-0.5" aria-hidden="true">→</span></Link></div>}
     </Section>
   )

@@ -7,7 +7,7 @@ import { FinalCtaSection } from './final-cta-section'
 import { IndustryImage } from './industry-image'
 import { industryAgentConfigs } from '@/lib/industry-agent-configs'
 import { getIndustryVisual, type IndustryVisual } from '@/lib/industry-visuals'
-import { siteUrl } from '@/lib/site-config'
+import { absoluteUrl, siteUrl } from '@/lib/site-config'
 
 export type SolutionContent = { eyebrow: string; title: string; description: string; outcome: string; does: string[]; doesNot: string[]; workflow: string[]; useCases: { title: string; description: string }[]; integrations: string[]; faq: { question: string; answer: string }[] }
 export type IndustryContent = { eyebrow: string; title: string; description: string; problems: string[]; systems: { title: string; description: string }[]; conversation: { speaker: string; text: string }[]; workflow: string[]; integrations: string[]; considerations: string[]; faq: { question: string; answer: string }[] }
@@ -65,25 +65,25 @@ function WorkflowRail({ items }: { items: string[] }) { return <ol className="gr
 function RelatedLinks({ links }: { links: { label: string; href: string }[] }) { return <div className="mx-auto max-w-5xl border-t border-border-subtle pt-8"><p className="eyebrow">Continue exploring</p><div className="mt-4 flex flex-wrap gap-3">{links.map((link) => <Link key={link.href} href={link.href} className="inline-flex min-h-10 items-center rounded-[var(--radius-md)] border border-border-subtle bg-surface-primary px-4 text-sm font-semibold text-text-secondary hover:border-brand-primary/30 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">{link.label}<ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Link>)}</div></div> }
 
 const solutionRelated: Record<string, { label: string; href: string }[]> = {
-  'Lead Qualification': [{ label: 'Home Services', href: '/industries/home-services' }, { label: 'Real Estate', href: '/industries/real-estate' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }],
-  'Appointment Automation': [{ label: 'Dental Practices', href: '/industries/dental' }, { label: 'Home Services', href: '/industries/home-services' }, { label: 'Follow-Up Automation', href: '/solutions/follow-up-automation' }],
-  'Customer Support': [{ label: 'E-commerce', href: '/industries/ecommerce' }, { label: 'Property Management', href: '/industries/property-management' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }],
-  'Follow-Up Automation': [{ label: 'Real Estate', href: '/industries/real-estate' }, { label: 'Home Services', href: '/industries/home-services' }, { label: 'Lead Qualification', href: '/solutions/lead-qualification' }],
-  'CRM Automation': [{ label: 'Real Estate', href: '/industries/real-estate' }, { label: 'Property Management', href: '/industries/property-management' }, { label: 'Workflow Automation', href: '/solutions/workflow-automation' }],
-  'Workflow Automation': [{ label: 'Accounting', href: '/industries/accounting' }, { label: 'Automotive', href: '/industries/automotive' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }],
-  'AI Receptionist': [{ label: 'Home Services', href: '/industries/home-services' }, { label: 'Dental Practices', href: '/industries/dental' }, { label: 'Law Firms', href: '/industries/law-firms' }],
+  'Lead Qualification': [{ label: 'Home Services', href: '/industries/home-services' }, { label: 'Real Estate', href: '/industries/real-estate' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Example Workflows', href: '/resources/workflows' }],
+  'Appointment Automation': [{ label: 'Dental Practices', href: '/industries/dental' }, { label: 'Home Services', href: '/industries/home-services' }, { label: 'Follow-Up Automation', href: '/solutions/follow-up-automation' }, { label: 'Guided Demo', href: '/resources/demo' }],
+  'Customer Support': [{ label: 'E-commerce', href: '/industries/ecommerce' }, { label: 'Property Management', href: '/industries/property-management' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }, { label: 'Security & Control', href: '/resources/security' }],
+  'Follow-Up Automation': [{ label: 'Real Estate', href: '/industries/real-estate' }, { label: 'Home Services', href: '/industries/home-services' }, { label: 'Lead Qualification', href: '/solutions/lead-qualification' }, { label: 'Example Workflows', href: '/resources/workflows' }],
+  'CRM Automation': [{ label: 'Real Estate', href: '/industries/real-estate' }, { label: 'Property Management', href: '/industries/property-management' }, { label: 'Workflow Automation', href: '/solutions/workflow-automation' }, { label: 'Integration Guide', href: '/resources/integrations' }],
+  'Workflow Automation': [{ label: 'Accounting', href: '/industries/accounting' }, { label: 'Automotive', href: '/industries/automotive' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }, { label: 'Integration Guide', href: '/resources/integrations' }],
+  'AI Receptionist': [{ label: 'Home Services', href: '/industries/home-services' }, { label: 'Dental Practices', href: '/industries/dental' }, { label: 'Law Firms', href: '/industries/law-firms' }, { label: 'Guided Demo', href: '/resources/demo' }],
 }
 
 const industryRelated: Record<string, { label: string; href: string }[]> = {
-  'Home Services': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Lead Qualification', href: '/solutions/lead-qualification' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Follow-Up Automation', href: '/solutions/follow-up-automation' }],
-  'Dental Practices': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Follow-Up Automation', href: '/solutions/follow-up-automation' }],
-  'Law Firms': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Lead Qualification', href: '/solutions/lead-qualification' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }],
-  'Real Estate': [{ label: 'Lead Qualification', href: '/solutions/lead-qualification' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }],
-  'Property Management': [{ label: 'Customer Support', href: '/solutions/customer-support' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Workflow Automation', href: '/solutions/workflow-automation' }],
-  Accounting: [{ label: 'Workflow Automation', href: '/solutions/workflow-automation' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Customer Support', href: '/solutions/customer-support' }],
-  'Medical Practices': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Customer Support', href: '/solutions/customer-support' }],
-  Automotive: [{ label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Follow-Up Automation', href: '/solutions/follow-up-automation' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }],
-  'E-commerce': [{ label: 'Customer Support', href: '/solutions/customer-support' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }, { label: 'Workflow Automation', href: '/solutions/workflow-automation' }],
+  'Home Services': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Lead Qualification', href: '/solutions/lead-qualification' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Example Workflows', href: '/resources/workflows' }],
+  'Dental Practices': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Follow-Up Automation', href: '/solutions/follow-up-automation' }, { label: 'Security & Control', href: '/resources/security' }],
+  'Law Firms': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Lead Qualification', href: '/solutions/lead-qualification' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'AI Disclosure', href: '/ai-disclosure' }],
+  'Real Estate': [{ label: 'Lead Qualification', href: '/solutions/lead-qualification' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }, { label: 'Example Workflows', href: '/resources/workflows' }],
+  'Property Management': [{ label: 'Customer Support', href: '/solutions/customer-support' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Workflow Automation', href: '/solutions/workflow-automation' }, { label: 'Security & Control', href: '/resources/security' }],
+  Accounting: [{ label: 'Workflow Automation', href: '/solutions/workflow-automation' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Customer Support', href: '/solutions/customer-support' }, { label: 'Integration Guide', href: '/resources/integrations' }],
+  'Medical Practices': [{ label: 'AI Receptionist', href: '/solutions/ai-receptionist' }, { label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Customer Support', href: '/solutions/customer-support' }, { label: 'Security & Control', href: '/resources/security' }],
+  Automotive: [{ label: 'Appointment Automation', href: '/solutions/appointment-automation' }, { label: 'Follow-Up Automation', href: '/solutions/follow-up-automation' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }, { label: 'Integration Guide', href: '/resources/integrations' }],
+  'E-commerce': [{ label: 'Customer Support', href: '/solutions/customer-support' }, { label: 'CRM Automation', href: '/solutions/crm-automation' }, { label: 'Workflow Automation', href: '/solutions/workflow-automation' }, { label: 'Integration Guide', href: '/resources/integrations' }],
 }
 
 const solutionScopeCopy: Record<string, string> = {
@@ -145,11 +145,31 @@ function getDetailPath(parentHref: string, consultationPath: string) {
   return slug ? `${parentHref}/${slug}` : parentHref
 }
 
+function ServiceJsonLd({ name, description, path }: { name: string; description: string; path: string }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${absoluteUrl(path)}#service`,
+    name,
+    serviceType: name,
+    description,
+    url: absoluteUrl(path),
+    provider: { '@id': `${siteUrl}/#organization` },
+    areaServed: [
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'Country', name: 'Canada' },
+    ],
+  }
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
+}
+
 function TemplateHero({ eyebrow, title, description, label, parent, current, consultationPath, visual }: { eyebrow: string; title: string; description: string; label: string; parent: { label: string; href: string }; current: string; consultationPath: string; visual?: IndustryVisual }) {
   const currentPath = getDetailPath(parent.href, consultationPath)
 
   return (
     <section className="relative overflow-hidden border-b border-border-subtle bg-background-secondary">
+      {parent.href === '/solutions' ? <ServiceJsonLd name={current} description={description} path={currentPath} /> : null}
       <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-brand-primary/10 blur-3xl" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <Breadcrumbs parent={parent} current={current} currentPath={currentPath} />

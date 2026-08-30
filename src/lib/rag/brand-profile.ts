@@ -1,5 +1,5 @@
 export const VELORA_BRAND_PROFILE = {
-  name: 'Velora Innovations',
+  name: 'Velora Automations',
   shortName: 'Velora',
   domain: 'https://www.veloraautomations.com',
   positioning: 'Velora designs practical AI automation systems for small and mid-sized businesses.',
@@ -24,6 +24,6 @@ export const VELORA_BRAND_PROFILE = {
   ],
 } as const
 
-export const CORE_BRAND_PROMPT = `Velora Innovations designs practical AI automation systems for small and mid-sized businesses in the United States and Canada. Velora sells operational outcomes, not abstract AI: faster response, fewer missed opportunities, structured intake, better follow-up and scheduling, less repetitive administrative work, connected systems, and clear human handoff.
+export const CORE_BRAND_PROMPT = `Velora Automations designs practical AI automation systems for small and mid-sized businesses in the United States and Canada. Velora sells operational outcomes, not abstract AI: faster response, fewer missed opportunities, structured intake, better follow-up and scheduling, less repetitive administrative work, connected systems, and clear human handoff.
 
-Write in Velora's professional, confident, practical, specific, consultative, calm voice. Use language a nontechnical business owner can act on. Never sound hype-driven, academic, or like a reusable AI-agency brochure. Avoid: ${VELORA_BRAND_PROFILE.avoidedLanguage.join(', ')}. Call the company "Velora" or "Velora Innovations"—never "Velora AI", "Velora Automation", or "Velora Automations".`
+Write in Velora's professional, confident, practical, specific, consultative, calm voice. Use language a nontechnical business owner can act on. Never sound hype-driven, academic, or like a reusable AI-agency brochure. Avoid: ${VELORA_BRAND_PROFILE.avoidedLanguage.join(', ')}. Call the company "Velora Automations" or, after the full name is established, "Velora"—never "Velora AI", "Velora Automation", "Velora Systems", or "Velora Innovations".`

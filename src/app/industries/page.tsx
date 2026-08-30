@@ -5,7 +5,7 @@ import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { IndustrySection } from '@/components/velora/industry-section'
 import { PageHero } from '@/components/velora/page-hero'
 
-export const metadata = pageMetadata({ title: 'Industries We Support | Velora Innovations', description: 'Review practical AI workflow opportunities for home services, dental, law, real estate, property management, and other inquiry-driven teams.', path: '/industries' })
+export const metadata = pageMetadata({ title: 'AI Automation by Industry | Velora Automations', description: 'Review practical AI workflow opportunities for home services, dental, law, real estate, property management, and other inquiry-driven teams.', path: '/industries' })
 
 export default function IndustriesPage() {
   return (

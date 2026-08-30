@@ -9,7 +9,7 @@ import { Header } from "@/components/velora/header"
 import { Footer } from "@/components/velora/footer"
 import { ConsultationProvider } from "@/components/velora/consultation-provider"
 import { ChatLauncher } from "@/components/velora/chat/chat-launcher"
-import { contactEmail, isIndexingEnabled, linkedInUrl, siteName, siteUrl, xUrl } from "@/lib/site-config"
+import { companyDescription, contactEmail, isIndexingEnabled, linkedInUrl, siteName, siteUrl, xUrl } from "@/lib/site-config"
 
 const googleTagManagerId = "GTM-NVSPW7CJ"
 
@@ -27,40 +27,29 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Velora Innovations — AI Automation for Growing Businesses",
-  description:
-    "We design AI agents that answer customers, qualify leads, book appointments, send follow-ups and connect with the tools your business already uses. Serving businesses across the United States and Canada.",
-  keywords: [
-    "AI automation agency",
-    "AI receptionist",
-    "AI lead qualification",
-    "AI appointment booking",
-    "AI customer support",
-    "AI voice agent",
-    "business automation",
-    "workflow automation",
-    "AI agents for business",
-    "Velora Innovations",
-  ],
-  authors: [{ name: "Velora Innovations" }],
+  title: "Velora Automations | AI Automation for Growing Businesses",
+  description: companyDescription,
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "Velora Innovations — AI Automation for Growing Businesses",
-    description:
-      "Custom AI agents that help your business respond faster, follow up consistently and operate more efficiently.",
-    siteName: "Velora Innovations",
+    title: "Velora Automations | AI Automation for Growing Businesses",
+    description: companyDescription,
+    siteName,
     type: "website",
     locale: "en_US",
     url: siteUrl,
+    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: `${siteName} — practical AI automation` }],
   },
   twitter: {
     card: "summary_large_image",
     creator: "@Velora_Automate",
-    title: "Velora Innovations — AI Automation for Growing Businesses",
-    description:
-      "Custom AI agents that help your business respond faster, follow up consistently and operate more efficiently.",
+    title: "Velora Automations | AI Automation for Growing Businesses",
+    description: companyDescription,
+    images: [{ url: `${siteUrl}/opengraph-image`, alt: `${siteName} — practical AI automation` }],
   },
   robots: {
     index: isIndexingEnabled,
@@ -68,19 +57,30 @@ export const metadata: Metadata = {
   },
 }
 
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: siteName,
-    url: siteUrl,
-    email: contactEmail,
-    logo: `${siteUrl}/favicon.svg`,
-    description:
-      "AI automation agency designing custom AI agents for businesses across the United States and Canada.",
-    sameAs: [linkedInUrl, xUrl],
-  },
-]
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: siteName,
+      url: siteUrl,
+      email: contactEmail,
+      logo: `${siteUrl}/favicon.svg`,
+      description: companyDescription,
+      sameAs: [linkedInUrl, xUrl].filter(Boolean),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: siteName,
+      url: siteUrl,
+      description: companyDescription,
+      publisher: { "@id": `${siteUrl}/#organization` },
+      inLanguage: "en-US",
+    },
+  ],
+}
 
 export default function RootLayout({
   children,
@@ -90,9 +90,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

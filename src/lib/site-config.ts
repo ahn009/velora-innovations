@@ -1,22 +1,8 @@
 import siteManifest from '@/lib/site-manifest.json'
 
-const productionSiteUrl = siteManifest.siteUrl
-
-function normalizeSiteUrl(value: string | undefined) {
-  if (!value) return productionSiteUrl
-
-  try {
-    const url = new URL(value)
-    if (url.protocol !== 'https:' && process.env.NODE_ENV === 'production') return productionSiteUrl
-    if (url.hostname.endsWith('.vercel.app')) return productionSiteUrl
-    return url.toString().replace(/\/$/, '')
-  } catch {
-    return productionSiteUrl
-  }
-}
-
-export const siteUrl = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
-export const siteName = 'Velora Innovations'
+export const siteUrl = siteManifest.siteUrl
+export const siteName = 'Velora Automations'
+export const companyDescription = 'Velora Automations builds practical AI automation systems for customer response, lead qualification, appointment scheduling, follow-up, CRM, and connected workflows.'
 export const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim()
   || 'info@veloraautomations.com'
 export const linkedInUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim()
@@ -24,9 +10,12 @@ export const linkedInUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim()
 export const xUrl = process.env.NEXT_PUBLIC_X_URL?.trim()
   || 'https://x.com/Velora_Automate'
 
-const isProductionDomain = new URL(siteUrl).hostname === new URL(productionSiteUrl).hostname
 const isVercelPreview = process.env.VERCEL_ENV === 'preview'
 
-export const isIndexingEnabled = isProductionDomain
+export const isIndexingEnabled = process.env.NODE_ENV === 'production'
   && !isVercelPreview
-  && process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true'
+  && process.env.NEXT_PUBLIC_ALLOW_INDEXING !== 'false'
+
+export function absoluteUrl(path = '/') {
+  return new URL(path, `${siteUrl}/`).toString()
+}

@@ -2,14 +2,14 @@ import Link from 'next/link'
 import { InfoPage } from '@/components/velora/info-page'
 import { pageMetadata } from '@/lib/seo'
 
-export const metadata = pageMetadata({ title: 'Website Terms | Velora Innovations', description: 'Review the terms governing use of the Velora Innovations website, guided demo, and consultation request flow.', path: '/terms' })
+export const metadata = pageMetadata({ title: 'Website Terms | Velora Automations', description: 'Review the terms governing use of the Velora Automations website, guided demo, and consultation request flow.', path: '/terms' })
 
 export default function TermsPage() {
   return (
     <InfoPage
       eyebrow="Legal"
       title="Website Terms"
-      intro="Effective August 6, 2026. These terms govern use of the public Velora Innovations website, guided demo, and consultation request forms."
+      intro="Effective August 6, 2026. These terms govern use of the public Velora Automations website, guided demo, and consultation request forms."
     >
       <section>
         <h2>Informational website</h2>

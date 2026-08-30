@@ -4,6 +4,7 @@ import { Section, SectionHeading } from './section'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 export const defaultFaqs = [
+  ['What can Velora Automations automate?', 'Velora focuses on AI reception, lead qualification, appointment automation, routine customer support, follow-up, CRM updates, and connected workflows. The right scope depends on your business rules, system access, permissions, risk, and human ownership.'],
   ['What exactly is an AI agent?', 'An AI agent is a software system configured to handle a defined business task. It can understand a request, follow approved rules, collect information, trigger permitted actions, and escalate when a person should take over.'],
   ['Is this just a chatbot?', 'No. A chatbot is usually a conversation interface. An agent can sit behind voice, chat, SMS, or email and connect a conversation to approved workflow actions such as qualification, scheduling, notifications, or CRM updates.'],
   ['Can an AI agent answer phone calls?', 'It can when the chosen telephony provider, consent requirements, business rules, and escalation path support the use case. The agent should identify itself appropriately and remain within its approved scope.'],
@@ -16,6 +17,7 @@ export const defaultFaqs = [
   ['Can the AI make mistakes?', 'Yes. AI is not perfect. Testing, approved knowledge, restricted actions, monitoring, confidence boundaries, and human escalation reduce risk, but every deployment should have an owner and a safe fallback.'],
   ['Is our business data safe?', 'Data handling is reviewed workflow by workflow, including permissions, vendors, retention settings, access, and any additional security or compliance requirements. We do not make unsupported certification claims.'],
   ['Does AI replace our employees?', 'The usual goal is to automate repetitive work and support the team, not blindly remove human roles. People remain responsible for judgment, sensitive situations, exceptions, and the customer relationships that require context.'],
+  ['Can Velora work with regulated industries?', 'Administrative workflows may be possible, but regulated or high-risk use cases require separate legal, privacy, security, vendor, and professional review. AI should not independently make regulated or consequential decisions.'],
   ['Can you support multiple locations?', 'A multi-location architecture can be appropriate when each location has defined routing, availability, permissions, and ownership. The design depends on the systems and operating model.'],
   ['Do you guarantee more sales?', 'No. We do not guarantee revenue outcomes. Automation may improve response consistency, qualification, follow-up, and operational capacity, while results still depend on demand, offer, team execution, and other business factors.'],
 ] as const

@@ -54,6 +54,22 @@ export function ResourceHub() {
             </div>
           </div>
         ))}
+        <nav className="rounded-2xl border border-border bg-muted/35 p-6 sm:p-8" aria-label="Related planning pages">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">Apply the guidance to your business</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Compare the available systems and industry workflows, then review pricing or discuss one practical starting point.</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {[
+              ['Explore solutions', '/solutions'],
+              ['Browse industries', '/industries'],
+              ['Review pricing', '/pricing'],
+              ['Request a consultation', '/consultation'],
+            ].map(([label, href]) => (
+              <Link key={href} href={href} className="inline-flex min-h-10 items-center rounded-xl border border-border bg-background px-4 text-sm font-medium text-foreground hover:border-velora-emerald/30">
+                {label}
+              </Link>
+            ))}
+          </div>
+        </nav>
       </div>
     </section>
   )

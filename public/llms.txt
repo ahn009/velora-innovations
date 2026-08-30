@@ -1,0 +1,46 @@
+# Velora Automations
+
+> Velora Automations designs practical AI automation systems for small and mid-sized businesses in the United States and Canada. Services include AI receptionists, lead qualification, appointment automation, customer support, follow-up automation, CRM automation, and workflow automation.
+
+## Core Solutions
+
+- [AI Receptionist](https://www.veloraautomations.com/solutions/ai-receptionist): Handles approved routine inquiries, captures context, routes requests, and supports human handoff.
+- [Lead Qualification](https://www.veloraautomations.com/solutions/lead-qualification): Collects required information and routes qualified, incomplete, or uncertain inquiries using defined business rules.
+- [Appointment Automation](https://www.veloraautomations.com/solutions/appointment-automation): Coordinates eligibility, real calendar availability, booking, reminders, and exceptions.
+- [Customer Support](https://www.veloraautomations.com/solutions/customer-support): Answers from approved knowledge, categorizes requests, and escalates cases that need a person.
+- [Follow-Up Automation](https://www.veloraautomations.com/solutions/follow-up-automation): Supports consent-aware follow-up for missed calls, leads, quotes, reminders, and post-consultation actions.
+- [CRM Automation](https://www.veloraautomations.com/solutions/crm-automation): Maps approved details, statuses, notes, owners, and tasks into compatible CRM workflows.
+- [Workflow Automation](https://www.veloraautomations.com/solutions/workflow-automation): Connects validation, classification, system actions, notifications, approvals, and failure handling.
+
+## Industries
+
+- [Home Services](https://www.veloraautomations.com/industries/home-services)
+- [Dental Practices](https://www.veloraautomations.com/industries/dental)
+- [Law Firms](https://www.veloraautomations.com/industries/law-firms)
+- [Real Estate](https://www.veloraautomations.com/industries/real-estate)
+- [Property Management](https://www.veloraautomations.com/industries/property-management)
+- [Accounting Firms](https://www.veloraautomations.com/industries/accounting)
+- [Medical Practices](https://www.veloraautomations.com/industries/medical-practices)
+- [Automotive Businesses](https://www.veloraautomations.com/industries/automotive)
+- [E-commerce](https://www.veloraautomations.com/industries/ecommerce)
+
+## Resources
+
+- [Resource Hub](https://www.veloraautomations.com/resources): Practical evaluation tools and implementation information.
+- [Guided Demo](https://www.veloraautomations.com/resources/demo): A disclosed, scripted example of a scheduling workflow and human handoff.
+- [Example Workflows](https://www.veloraautomations.com/resources/workflows): Illustrative workflow structures, not customer case studies.
+- [Integrations](https://www.veloraautomations.com/resources/integrations): Requirements for connecting compatible business systems.
+- [Security and Control](https://www.veloraautomations.com/resources/security): Deployment-specific permissions, data handling, monitoring, and escalation considerations.
+- [Opportunity Calculator](https://www.veloraautomations.com/resources/calculator): A planning model based on visitor inputs, not a forecast.
+- [FAQ](https://www.veloraautomations.com/resources/faq): Direct answers about scope, pricing, timelines, integrations, and human control.
+
+## Company
+
+- [About](https://www.veloraautomations.com/about)
+- [How It Works](https://www.veloraautomations.com/how-it-works)
+- [Pricing](https://www.veloraautomations.com/pricing)
+- [AI Disclosure](https://www.veloraautomations.com/ai-disclosure)
+
+## Contact
+
+- [Consultation](https://www.veloraautomations.com/consultation)

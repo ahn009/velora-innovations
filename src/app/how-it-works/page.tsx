@@ -5,7 +5,7 @@ import { HowItWorksSection } from '@/components/velora/how-it-works-section'
 import { PageHero } from '@/components/velora/page-hero'
 import { pageMetadata } from '@/lib/seo'
 
-export const metadata = pageMetadata({ title: 'How AI Automation Implementation Works | Velora Innovations', description: 'Understand Velora Innovations’ workflow discovery, integration review, testing, controlled launch, and optimization process.', path: '/how-it-works' })
+export const metadata = pageMetadata({ title: 'How AI Automation Implementation Works | Velora Automations', description: 'Understand Velora Automations’ workflow discovery, integration review, testing, controlled launch, and optimization process.', path: '/how-it-works' })
 
 const supportingPages = [
   {

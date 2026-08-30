@@ -3,7 +3,7 @@ import { FaqSection } from '@/components/velora/faq-section'
 import { FinalCtaSection } from '@/components/velora/final-cta-section'
 import { PageHero } from '@/components/velora/page-hero'
 
-export const metadata = pageMetadata({ title: 'Frequently Asked Questions | Velora Innovations', description: 'Answers about AI agent scope, integrations, cost, timelines, data handling and human escalation.', path: '/resources/faq' })
+export const metadata = pageMetadata({ title: 'AI Automation FAQ | Velora Automations', description: 'Get direct answers about AI automation scope, integrations, cost, timelines, data handling, and human escalation.', path: '/resources/faq' })
 
 export default function FaqPage() {
   return (
@@ -13,6 +13,7 @@ export default function FaqPage() {
         title="Direct Answers About Scope, Cost and Delivery"
         description="Search the questions buyers commonly ask before deciding whether a focused AI workflow is appropriate."
         breadcrumbs={[{ label: 'Resources', href: '/resources' }]}
+        path="/resources/faq"
         secondaryLink={{ label: 'Review pricing', href: '/pricing' }}
       />
       <FaqSection />

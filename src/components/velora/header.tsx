@@ -20,13 +20,13 @@ const navigation = [
 
 function Brand() {
   return (
-    <Link href="/" className="group inline-flex items-center gap-2.5" aria-label="Velora Innovations home">
+    <Link href="/" className="group inline-flex items-center gap-2.5" aria-label="Velora Automations home">
       <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] bg-velora-navy text-white shadow-[var(--shadow-soft)] transition-transform duration-[var(--motion-fast)] group-active:scale-[0.97]">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </span>
-      <span className="text-[17px] font-semibold tracking-[-0.02em] text-foreground">Velora</span>
+      <span className="text-[17px] font-semibold tracking-[-0.02em] text-foreground">Velora Automations</span>
     </Link>
   )
 }

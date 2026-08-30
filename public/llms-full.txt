@@ -1,0 +1,115 @@
+# Velora Automations: Public Company and Service Overview
+
+Canonical website: https://www.veloraautomations.com
+
+## Brand and Company Description
+
+Velora Automations builds practical AI automation systems for customer response, lead qualification, appointment scheduling, follow-up, CRM updates, and connected business workflows. The company serves small and mid-sized businesses in the United States and Canada. Velora starts with a defined operational process, documents the system boundaries, tests normal and exceptional cases, and keeps a responsible person in control of sensitive or uncertain work.
+
+## Target Markets
+
+- Business size: small and mid-sized businesses.
+- Markets served: United States and Canada.
+- Common fit: customer-facing businesses with repeated inquiries or coordination tasks, documented operating rules, suitable system access, and a human owner for outcomes.
+- Industry guides: home services, dental practices, law firms, real estate, property management, accounting firms, medical practices, automotive businesses, and e-commerce.
+
+## Core Solutions
+
+1. AI Receptionist: answers approved routine inquiries, captures caller details and intent, applies configured service or eligibility rules, supports permitted scheduling or routing, and hands exceptions to a person.
+2. Lead Qualification: responds to new inquiries, asks defined questions, classifies completeness and intent using approved rules, and routes qualified, incomplete, or uncertain leads.
+3. Appointment Automation: identifies an eligible appointment type, checks permitted calendar availability, offers approved time slots, manages supported changes, and records the outcome.
+4. Customer Support: answers from approved knowledge, categorizes requests, retrieves permitted context where integrated, creates or updates support records, and escalates complex cases.
+5. Follow-Up Automation: triggers consent-aware messages from defined events, applies timing and stop rules, responds to customer activity, logs actions, and routes replies when a person should take over.
+6. CRM Automation: creates or updates approved records, fields, stages, notes, owners, and tasks after validating the information and handling failed writes visibly.
+7. Workflow Automation: combines validation, AI classification, business rules, system actions, notifications, approvals, and failure paths in one documented process.
+
+## Pricing Starting Points
+
+- Foundation starts from $2,500 USD as a one-time implementation for one focused workflow.
+- Growth starts from $5,000 USD as a one-time implementation for connected workflows.
+- Custom engagements are priced after requirements are confirmed.
+- Monthly management, model usage, telephony, third-party software, advanced integrations, monitoring, support, and reporting may be quoted separately.
+- Final scope and price are confirmed after Velora reviews the actual workflow and dependencies.
+
+Pricing details: https://www.veloraautomations.com/pricing
+
+## Implementation Process
+
+1. Discover: map goals, inquiry sources, current software, repetitive work, owners, and points where customers wait.
+2. Design: define permitted and restricted actions, business rules, integrations, acceptance criteria, and human handoff conditions.
+3. Build: configure approved knowledge, conversation paths, system connections, notifications, and reporting.
+4. Test: cover normal requests, missing information, edge cases, restricted topics, integration failures, and human handoffs.
+5. Launch: deploy in controlled scope with ownership, team context, escalation, and early monitoring.
+6. Optimize: review operational outcomes and refine knowledge, prompts, routing, and workflow rules before expanding.
+
+Implementation details: https://www.veloraautomations.com/how-it-works
+
+## Integration Caveat
+
+Velora can connect with compatible systems, but compatibility is verified rather than assumed. It depends on available APIs, webhooks or other supported access, authentication, account permissions, supported actions, data mapping, rate limits, security requirements, and failure behavior. A product or integration category appearing on the website is not a promise that every version, account, field, or action is supported.
+
+Integration details: https://www.veloraautomations.com/resources/integrations
+
+## Security, Reliability, and Human Control
+
+- Access should be limited to the knowledge, fields, and actions required for the documented workflow.
+- AI uncertainty, missing information, restricted topics, failed integrations, and sensitive conversations require a safe fallback or human handoff.
+- People remain responsible for judgment, customer relationships, exceptions, approvals, and regulated decisions.
+- Data handling, vendors, authentication, permissions, logging, retention, monitoring, and incident paths are reviewed for the actual deployment.
+- Additional legal, privacy, security, vendor, or compliance review may be required for sensitive workflows.
+- Velora does not claim unsupported certifications and does not guarantee revenue, bookings, sales, or customer outcomes.
+
+Security details: https://www.veloraautomations.com/resources/security
+
+## Regulated and High-Impact Restrictions
+
+Velora does not position AI as an autonomous decision-maker for emergency, legal, medical, credit, employment, tax, financial, safety-critical, or other high-impact judgments. Administrative intake, routing, scheduling, approved information, reminders, and record updates may be appropriate when the workflow has suitable controls. Professional advice, diagnosis, treatment, case strategy, financial judgment, safety decisions, and other consequential decisions remain with qualified people. Some proposed projects may not be accepted.
+
+AI disclosure: https://www.veloraautomations.com/ai-disclosure
+
+## Consultation Process
+
+A consultation starts with one real workflow, the systems involved, current bottlenecks, the actions that may be automated, and the people responsible for approvals or exceptions. Velora reviews fit, required integrations, boundaries, testing needs, and implementation scope before making a proposal. A consultation request does not claim live calendar availability and does not create a service agreement.
+
+Request a consultation: https://www.veloraautomations.com/consultation
+
+## Public FAQ
+
+### What can Velora Automations automate?
+
+Velora focuses on AI reception, lead qualification, appointment automation, routine customer support, follow-up, CRM updates, and connected workflows. The exact scope depends on business rules, system access, permissions, risk, and human ownership.
+
+### Does Velora replace employees?
+
+No. The usual goal is to handle defined repetitive work and support the team. People remain responsible for judgment, sensitive conversations, exceptions, regulated decisions, and relationships that require context.
+
+### Can Velora integrate with my CRM or calendar?
+
+Potentially. Compatibility must be confirmed against the actual product, account access, API or supported connection, authentication, permissions, field mapping, rate limits, and required actions.
+
+### How long does implementation take?
+
+Timing depends on workflow complexity, integrations, access, data readiness, testing, and review requirements. A delivery plan is confirmed after those dependencies are understood.
+
+### What happens when AI is unsure?
+
+The workflow should acknowledge the limitation, avoid unsupported actions, preserve relevant context, and pause or route the case to a responsible person.
+
+### Can Velora work with regulated industries?
+
+Administrative workflows may be possible, but regulated or high-risk use cases require separate legal, privacy, security, vendor, and professional review. AI should not independently make regulated or consequential decisions.
+
+### Does Velora guarantee results?
+
+No. Velora does not guarantee revenue, bookings, sales, or customer outcomes. Automation can improve controllable operational steps, while results also depend on demand, offers, staffing, system access, and team execution.
+
+Full FAQ: https://www.veloraautomations.com/resources/faq
+
+## Publisher and Contact
+
+Published by Velora Automations.
+
+- About: https://www.veloraautomations.com/about
+- Consultation: https://www.veloraautomations.com/consultation
+- Privacy: https://www.veloraautomations.com/privacy
+- AI disclosure: https://www.veloraautomations.com/ai-disclosure
